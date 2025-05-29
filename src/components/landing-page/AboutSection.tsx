@@ -17,7 +17,7 @@ export function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             <div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">About Corporate Ballers Football Academy</h2>
+              <h2 className="lg:text-4xl text-[30px] font-bold text-gray-900 mb-6">About Corporate Ballers Football Academy</h2>
               <p className="text-[16px] text-gray-600 leading-relaxed mb-6">
                 Corporate Ballers Football Academy (CBFA) is a rapidly growing football club situated in Ilorin, Kwara
                 State, Nigeria. We cater to individuals aged 12 years and above, creating a pathway for players to
@@ -52,7 +52,7 @@ export function AboutSection() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute -bottom-6 -right-6 bg-yellow-400 rounded-2xl p-6 shadow-lg">
+            <div className="absolute lg:-bottom-6 -bottom-8 lg:-right-6 -right-3 bg-yellow-400 rounded-2xl lg:p-6 p-4 shadow-lg">
               <div className="text-center">
                 <div className="text-2xl font-bold text-gray-900">RC: 7580099</div>
                 <div className="text-sm text-gray-700">Registered Company</div>

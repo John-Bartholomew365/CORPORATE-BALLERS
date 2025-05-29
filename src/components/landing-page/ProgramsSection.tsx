@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Users, Trophy, GraduationCap } from "lucide-react"
-import Link from "next/link"
+// import Link from "next/link"
 
 export function ProgramsSection() {
   const programs = [
@@ -35,7 +35,7 @@ export function ProgramsSection() {
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Training Programs</h2>
+          <h2 className="lg:text-4xl text-[30px] font-bold text-gray-900 mb-4">Our Training Programs</h2>
           <p className="text-[16px] text-gray-600 lg:w-[400px] w-auto mx-auto leading-tight">
             Comprehensive programs designed to develop players at every level, from beginners to elite athletes
           </p>
@@ -91,28 +91,7 @@ export function ProgramsSection() {
         </div> */}
 
         {/* CTA Section */}
-      <section className="py-16 lg:py-24 rounded-lg bg-[#047146] text-white">
-        <div className="container px-4 md:px-6 text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">Ready to Join CBFA?</h2>
-          <p className="text-[15px] mb-8 lg:w-[400px] w-auto mx-auto opacity-90">
-            Take the first step towards your professional football career. Register today and become part of our growing
-            family.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-white text-[#047146] hover:border hover:border-white hover:text-[#FFFFFF] hover:bg-transparent" size="lg" variant="secondary" asChild>
-              <Link href="/auth/register">Register Now</Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-[#FFFFFF] border bg-transparent text-white hover:bg-white hover:text-green-600"
-              asChild
-            >
-              <Link href="/programs">View Programs</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+     
       </div>
     </section>
   )

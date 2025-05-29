@@ -8,62 +8,18 @@ import Image from "next/image"
 export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-600">
-              <Trophy className="h-6 w-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-lg font-bold text-green-600">CBFA</h1>
-              <p className="text-xs text-muted-foreground">Football Academy</p>
-            </div>
-          </div>
-
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/" className="text-sm font-medium hover:text-green-600 transition-colors">
-              Home
-            </Link>
-            <Link href="/about" className="text-sm font-medium text-green-600">
-              About
-            </Link>
-            <Link href="/programs" className="text-sm font-medium hover:text-green-600 transition-colors">
-              Programs
-            </Link>
-            <Link href="/coaches" className="text-sm font-medium hover:text-green-600 transition-colors">
-              Coaches
-            </Link>
-            <Link href="/gallery" className="text-sm font-medium hover:text-green-600 transition-colors">
-              Gallery
-            </Link>
-            <Link href="/contact" className="text-sm font-medium hover:text-green-600 transition-colors">
-              Contact
-            </Link>
-          </nav>
-
-          <div className="flex items-center space-x-2">
-            <Button variant="outline" size="sm" asChild>
-              <Link href="/auth/login">Login</Link>
-            </Button>
-            <Button size="sm" className="bg-green-600 hover:bg-green-700" asChild>
-              <Link href="/auth/register">Register</Link>
-            </Button>
-          </div>
-        </div>
-      </header>
 
       {/* Hero Section */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-green-50 to-green-100">
+      <section className="py-20 lg:py-[150px] bg-gradient-to-br from-green-50 to-green-100">
         <div className="container px-4 md:px-6">
           <div className="text-center max-w-4xl mx-auto">
             <Badge className="bg-green-100 text-green-800 hover:bg-green-200 mb-4">About CBFA</Badge>
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl mb-6">
               Building Champions,
-              <span className="text-green-600"> Shaping Lives</span>
+              <span className="text-[#047146]"> Shaping Lives</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Corporate Ballers Football Academy is more than just a football club. We're a community dedicated to
+            <p className="lg:text-xl text-[16px] text-muted-foreground lg:w-[610px] mx-auto">
+              Corporate Ballers Football Academy is more than just a football club. We&apos;re a community dedicated to
               nurturing talent, building character, and creating pathways to success.
             </p>
           </div>
@@ -96,11 +52,11 @@ export default function AboutPage() {
             </div>
             <div className="flex justify-center">
               <Image
-                src="/placeholder.svg?height=400&width=500"
-                width="500"
-                height="400"
+                src="/our-about.jpg"
+                width="460"
+                height="300"
                 alt="CBFA Training Session"
-                className="rounded-lg object-cover"
+                className="rounded-lg object-cover h-[450px]"
               />
             </div>
           </div>
@@ -268,116 +224,28 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 lg:py-24 bg-green-600 text-white">
+      <section className="py-16 lg:py-24 rounded-lg bg-[#047146] text-white lg:mx-20 mx-4 mb-16">
         <div className="container px-4 md:px-6 text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-            Ready to Begin Your Journey?
-          </h2>
-          <p className="text-lg mb-8 max-w-2xl mx-auto opacity-90">
-            Join Corporate Ballers Football Academy and take the first step towards realizing your football dreams while
-            building character that lasts a lifetime.
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">Ready to Join CBFA?</h2>
+          <p className="text-[15px] mb-8 lg:w-[400px] w-auto mx-auto opacity-90">
+            Take the first step towards your professional football career. Register today and become part of our growing
+            family.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" asChild>
-              <Link href="/auth/register">Join Our Academy</Link>
+            <Button className="bg-white text-[#047146] hover:border hover:border-white hover:text-[#FFFFFF] hover:bg-transparent" size="lg" variant="secondary" asChild>
+              <Link href="/auth/register">Register Now</Link>
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-green-600"
+              className="border-[#FFFFFF] border bg-transparent text-white hover:bg-white hover:text-green-600"
               asChild
             >
-              <Link href="/contact">Contact Us</Link>
+              <Link href="/programs">View Programs</Link>
             </Button>
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="border-t py-12 bg-muted/50">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-600">
-                  <Trophy className="h-4 w-4 text-white" />
-                </div>
-                <span className="font-bold text-green-600">CBFA</span>
-              </div>
-              <p className="text-sm text-muted-foreground mb-4">
-                Corporate Ballers Football Academy - Nurturing talent, building character, creating champions.
-              </p>
-              <p className="text-xs text-muted-foreground">RC: 7580099</p>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/about" className="text-muted-foreground hover:text-green-600">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/programs" className="text-muted-foreground hover:text-green-600">
-                    Programs
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/coaches" className="text-muted-foreground hover:text-green-600">
-                    Coaches
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/gallery" className="text-muted-foreground hover:text-green-600">
-                    Gallery
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-4">Support</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/contact" className="text-muted-foreground hover:text-green-600">
-                    Contact
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/faq" className="text-muted-foreground hover:text-green-600">
-                    FAQ
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacy" className="text-muted-foreground hover:text-green-600">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/terms" className="text-muted-foreground hover:text-green-600">
-                    Terms of Service
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-4">Contact Info</h3>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <p>Stadium Complex, Ibrahim Taiwo Road</p>
-                <p>Ilorin, Kwara State, Nigeria</p>
-                <p>+234 8133178008</p>
-                <p>corporateballersfa418@gmail.com</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} Corporate Ballers Football Academy. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

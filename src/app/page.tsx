@@ -426,12 +426,10 @@ import { TestimonialsSection } from "@/components/landing-page/TestimonialsSecti
 import { NewsSection } from "@/components/landing-page/NewsSection"
 import { ContactSection } from "@/components/landing-page/ContactSection"
 import { Footer } from "@/components/landing-page/Footer"
-import Navbar from "@/components/landing-page/Navbar"
 
 export default function HomePage() {
   return (
     <main className="min-h-screen">
-      <Navbar/>
       <HeroSection />
       <StatsSection />
       <AboutSection />

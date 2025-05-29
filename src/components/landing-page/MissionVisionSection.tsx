@@ -5,7 +5,7 @@ export function MissionVisionSection() {
     <section className="py-20 bg-gradient-to-br from-green-50 to-emerald-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Mission & Vision</h2>
+          <h2 className="lg:text-4xl text-[30px] font-bold text-gray-900 mb-4">Our Mission & Vision</h2>
           <p className="text-[16px] text-gray-600 lg:w-[340px] w-auto mx-auto leading-tight">
             Driving excellence in football development while building character and contributing to society
           </p>

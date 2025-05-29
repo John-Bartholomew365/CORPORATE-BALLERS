@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Calendar, ArrowRight } from "lucide-react"
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Calendar } from "lucide-react"
 import Link from "next/link"
 
 export function NewsSection() {
@@ -14,17 +14,17 @@ export function NewsSection() {
       category: "Achievement",
     },
     {
-      title: "New Training Facility Opening",
+      title: "Team Huddle",
       description:
-        "We're excited to announce the opening of our new state-of-the-art training facility with modern equipment and expanded fields.",
+        "Pre-match team talk and motivation",
       date: "December 10, 2024",
       image: "/training.jpg",
-      category: "Facility",
+      category: "Team",
     },
     {
-      title: "Youth Development Program Launch",
+      title: "Training section",
       description:
-        "Introducing our enhanced youth development program focusing on holistic player growth and academic excellence.",
+        "Our team's pre-match training ahead of the tournament's match",
       date: "December 5, 2024",
       image: "/youth.jpg",
       category: "Program",
@@ -35,8 +35,8 @@ export function NewsSection() {
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Latest News & Updates</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <h2 className="lg:text-4xl text-[30px] font-bold text-gray-900 mb-4">Latest News & Updates</h2>
+          <p className="lg:text-xl text-[16px] text-gray-600 max-w-3xl mx-auto">
             Stay updated with the latest happenings at Corporate Ballers Football Academy
           </p>
         </div>
@@ -64,11 +64,11 @@ export function NewsSection() {
                 <CardTitle className="text-lg hover:text-green-600 transition-colors">{article.title}</CardTitle>
                 <CardDescription>{article.description}</CardDescription>
               </CardHeader>
-              <CardContent>
+              {/* <CardContent>
                 <Button variant="ghost" className="p-0 h-auto text-green-600 hover:text-green-700">
                   Read More <ArrowRight className="ml-1 h-4 w-4" />
                 </Button>
-              </CardContent>
+              </CardContent> */}
             </Card>
           ))}
         </div>
@@ -78,7 +78,7 @@ export function NewsSection() {
             asChild
             size="lg"
             variant="outline"
-            className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+            className="border-green-600 text-green-600 bg-transparent hover:bg-green-600 hover:text-white"
           >
             <Link href="/news">View All News</Link>
           </Button>

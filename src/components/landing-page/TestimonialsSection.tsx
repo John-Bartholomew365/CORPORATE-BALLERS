@@ -36,8 +36,8 @@ export function TestimonialsSection() {
         <section className="py-20 bg-gray-50">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl font-bold text-gray-900 mb-4">What People Say About Us</h2>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                    <h2 className="lg:text-4xl text-[32px] font-bold text-gray-900 mb-4 leading-tight">What People Say <br className="lg:hidden block" /> About Us</h2>
+                    <p className="lg:text-xl text-[16px] text-gray-600 max-w-3xl mx-auto leading-tight">
                         Hear from our players, parents, and partners about their experience with CBFA
                     </p>
                 </div>
