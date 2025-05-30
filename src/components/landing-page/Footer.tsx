@@ -80,7 +80,7 @@ export function Footer() {
   ]
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-gray-900 text-white lg:pt-24 lg:pb-12">
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
@@ -88,8 +88,8 @@ export function Footer() {
           <div className="lg:col-span-2 space-y-6">
             <div>
               <Link href="/" className="flex items-center space-x-3 mb-4">
-                <div className="w-12 h-12 flex items-center justify-center">
-                  <Image src={"/corporate-ballers.svg"} alt="Logo" width={40} height={40} />
+                <div className="w-16 h-16 flex items-center justify-center">
+                  <Image src={"/corporate-ballers.svg"} alt="Logo" width={70} height={70} />
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-[#EBC228]">CBFA</h3>
@@ -116,11 +116,11 @@ export function Footer() {
             {/* Quick Stats */}
             <div className="grid grid-cols-2 gap-4">
               <div className="text-center p-3 bg-gray-800 rounded-lg">
-                <div className="text-2xl font-bold text-[#047146]">200+</div>
+                <div className="text-2xl font-bold text-green-600">200+</div>
                 <div className="text-xs text-gray-400">Active Players</div>
               </div>
               <div className="text-center p-3 bg-gray-800 rounded-lg">
-                <div className="text-2xl font-bold text-[#EBC228]">15+</div>
+                <div className="text-2xl font-bold text-green-600">15+</div>
                 <div className="text-xs text-gray-400">Tournaments Won</div>
               </div>
             </div>
@@ -181,7 +181,7 @@ export function Footer() {
             <div className="pt-2">
               <Link
                 href="/auth/login"
-                className="inline-flex items-center text-sm text-blue-400 hover:text-blue-300 font-medium"
+                className="inline-flex items-center text-sm text-green-600 font-medium"
               >
                 Player Login <ArrowRight className="ml-1 h-3 w-3" />
               </Link>
@@ -249,8 +249,8 @@ export function Footer() {
               </Link>
             ))}
           </div>
-          <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6 text-sm text-gray-400">
-            <p>© {new Date().getFullYear()} Corporate Ballers Football Academy. All rights reserved.</p>
+          <div className="flex flex-col sm:flex-row items-center lg:text-end text-center space-y-2 sm:space-y-0 sm:space-x-6 text-sm text-gray-400">
+            <p>© {new Date().getFullYear()} Corporate Ballers Football Academy. <br className="lg:hidden block" /> All rights reserved.</p>
 
           </div>
         </div>

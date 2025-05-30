@@ -5,9 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Trophy, Eye, EyeOff } from "lucide-react"
+import { Eye, EyeOff } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
+import Image from "next/image"
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
@@ -16,10 +17,16 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100 p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-600">
-              <Trophy className="h-8 w-8 text-white" />
-            </div>
+          <div className="flex items-center justify-center space-x-2 mb-4 mt-6">
+                      <div className="flex items-center justify-center">
+                        <Image
+                          src="/corporate-ballers.svg"
+                          alt="CBFA Logo"
+                          width={50}
+                          height={50}
+                          className="h-16 w-16 object-cover"
+                        />
+                      </div>
             <div>
               <h1 className="text-2xl font-bold text-green-600">CBFA</h1>
               <p className="text-sm text-muted-foreground">Football Academy</p>

@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Mail, ArrowLeft, CheckCircle } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
@@ -58,10 +59,16 @@ export default function ForgotPasswordPage() {
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 mt-6">
           <Link href="/" className="inline-flex items-center space-x-2 mb-6">
-            <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xl">CB</span>
+            <div className="flex items-center justify-center">
+              <Image
+                src="/corporate-ballers.svg"
+                alt="CBFA Logo"
+                width={50}
+                height={50}
+                className="h-16 w-16 object-cover"
+              />
             </div>
             <div>
               <div className="font-bold text-gray-900 text-xl">CBFA</div>

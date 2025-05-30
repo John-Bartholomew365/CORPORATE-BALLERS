@@ -99,14 +99,14 @@ export function ContactSection() {
                         <Button className="bg-white text-[#047146] hover:border hover:border-white hover:text-[#FFFFFF] hover:bg-transparent" size="lg" variant="secondary" asChild>
                             <Link href="/auth/register">Register Now</Link>
                         </Button>
-                        <Button
+                        {/* <Button
                             size="lg"
                             variant="outline"
                             className="border-[#FFFFFF] border bg-transparent text-white hover:bg-white hover:text-green-600"
                             asChild
                         >
                             <Link href="/programs">View Programs</Link>
-                        </Button>
+                        </Button> */}
                     </div>
                 </div>
             </section>

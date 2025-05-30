@@ -420,12 +420,11 @@
 import { HeroSection } from "@/components/landing-page/HeroSection"
 import { StatsSection } from "@/components/landing-page/StatsSection"
 import { AboutSection } from "@/components/landing-page/AboutSection"
-import { MissionVisionSection } from "@/components/landing-page/MissionVisionSection"
+// import { MissionVisionSection } from "@/components/landing-page/MissionVisionSection"
 import { ProgramsSection } from "@/components/landing-page/ProgramsSection"
 import { TestimonialsSection } from "@/components/landing-page/TestimonialsSection"
 import { NewsSection } from "@/components/landing-page/NewsSection"
 import { ContactSection } from "@/components/landing-page/ContactSection"
-import { Footer } from "@/components/landing-page/Footer"
 
 export default function HomePage() {
   return (
@@ -433,12 +432,11 @@ export default function HomePage() {
       <HeroSection />
       <StatsSection />
       <AboutSection />
-      <MissionVisionSection />
+      {/* <MissionVisionSection /> */}
       <ProgramsSection />
       <TestimonialsSection />
       <NewsSection />
       <ContactSection />
-      <Footer />
     </main>
   )
 }

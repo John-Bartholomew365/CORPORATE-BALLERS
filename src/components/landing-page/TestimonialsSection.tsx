@@ -37,7 +37,7 @@ export function TestimonialsSection() {
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="lg:text-4xl text-[32px] font-bold text-gray-900 mb-4 leading-tight">What People Say <br className="lg:hidden block" /> About Us</h2>
-                    <p className="lg:text-xl text-[16px] text-gray-600 max-w-3xl mx-auto leading-tight">
+                    <p className="lg:text-xl text-[16px] text-gray-600 lg:w-[400px] w-auto mx-auto leading-tight">
                         Hear from our players, parents, and partners about their experience with CBFA
                     </p>
                 </div>

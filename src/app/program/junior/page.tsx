@@ -127,7 +127,7 @@ export default function JuniorCategoryPage() {
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
                         <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Training Schedule</h2>
-                        <p className="lg:text-xl text-[16px] text-gray-600 max-w-3xl mx-auto leading-tight">
+                        <p className="lg:text-xl text-[16px] lg:w-[420px] w-auto text-gray-600 max-w-3xl mx-auto leading-tight">
                             Our carefully structured schedule ensures optimal development while maintaining academic balance
                         </p>
                     </div>
