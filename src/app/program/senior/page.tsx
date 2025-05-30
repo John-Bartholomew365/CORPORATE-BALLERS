@@ -59,8 +59,8 @@ export default function SeniorCategoryPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <Badge className="mb-4 bg-green-100 text-green-800">Ages 18+</Badge>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Senior Category</h1>
-            <p className="text-xl md:text-2xl text-green-100 leading-relaxed mb-8">
+            <h1 className="lg:text-5xl text-3xl font-bold mb-6">Senior Category</h1>
+            <p className="lg:text-[18px] text-[15px] lg:w-[520px] w-auto text-green-100 leading-tight mb-8 mx-auto">
               Advanced training for serious players aiming for professional football careers and competitive excellence
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -71,7 +71,7 @@ export default function SeniorCategoryPage() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-green-900"
+                className="border-white text-white bg-transparent"
               >
                 <Link href="/contact">Book Assessment</Link>
               </Button>
@@ -85,13 +85,13 @@ export default function SeniorCategoryPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <h2 className="text-4xl font-bold text-gray-900">Program Overview</h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <h2 className="lg:text-4xl text-3xl font-bold text-gray-900">Program Overview</h2>
+              <p className="lg:text-[16px] text-[14px] text-gray-600 leading-tight">
                 Our Senior Category program is designed for players aged 18 and above who are serious about pursuing
                 football at a competitive or professional level. This intensive program combines advanced technical
                 training, tactical sophistication, and professional preparation.
               </p>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="lg:text-[16px] text-[14px] text-gray-600 leading-tight">
                 Players in this category receive individualized attention, participate in competitive matches, and have
                 opportunities for professional trials and career advancement. Our experienced coaching staff provides
                 mentorship both on and off the field.
@@ -126,11 +126,11 @@ export default function SeniorCategoryPage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Recent Achievements</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Recent Achievements</h2>
+            <p className="lg:text-[16px] text-[14px] text-gray-600 lg:w-[400px] w-auto mx-auto">
               Our senior category continues to excel in competitions and player development
             </p>
-          </div>
+          </div>  
 
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -156,7 +156,7 @@ export default function SeniorCategoryPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Training Schedule</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="lg:text-[16px] text-[14px] lg:w-[381px] w-auto text-gray-600 max-w-3xl mx-auto">
               Intensive training schedule designed for serious players committed to excellence
             </p>
           </div>
@@ -179,7 +179,7 @@ export default function SeniorCategoryPage() {
               ))}
             </div>
 
-            <div className="mt-8 p-6 bg-green-50 rounded-lg">
+            <div className="mt-8 p-6 bg-green-50 rounded-lg lg:mx-10 mx-4">
               <div className="flex items-center justify-center mb-4">
                 <MapPin className="h-5 w-5 text-green-600 mr-2" />
                 <span className="font-semibold text-green-900">Training Location</span>
@@ -194,8 +194,8 @@ export default function SeniorCategoryPage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Training Curriculum</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Training Curriculum</h2>
+            <p className="lg:text-[16px] leading-tight text-[14px] text-gray-600 lg:w-[470px] w-auto mx-auto">
               A comprehensive 12-month program covering all aspects of professional football development
             </p>
           </div>
@@ -206,8 +206,8 @@ export default function SeniorCategoryPage() {
                 <Card key={index} className="hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-xl">{phase.title}</CardTitle>
-                      <Badge variant="outline">{phase.month}</Badge>
+                      <CardTitle className="lg:text-xl text-[15px]">{phase.title}</CardTitle>
+                      <Badge variant="outline" className="text-[#B0B3B8]">{phase.month}</Badge>
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -231,8 +231,8 @@ export default function SeniorCategoryPage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Program Benefits</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">What you&apos;ll gain from our Senior Category program</p>
+            <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Program Benefits</h2>
+            <p className="lg:text-xl text-[15px] text-gray-600 max-w-3xl mx-auto">What you&apos;ll gain from our Senior Category program</p>
           </div>
 
           <div className="max-w-4xl mx-auto">
@@ -309,11 +309,11 @@ export default function SeniorCategoryPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-r from-green-600 to-green-800 text-white">
+      <section className="py-20 bg-gradient-to-r from-green-600 to-green-800 text-white lg:mx-24 mx-4 rounded-lg mb-10">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold mb-6">Take Your Game to the Next Level</h2>
-            <p className="text-xl text-green-100 mb-8">
+            <h2 className="text-4xl font-bold mb-6 lg:w-[470px] w-auto mx-auto">Take Your Game to the Next Level</h2>
+            <p className="lg:text-[16px] text-[14px] text-green-100 mb-8 lg:w-[470px] w-auto mx-auto">
               Join our senior category and take the next step towards achieving your professional football dreams.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -324,7 +324,7 @@ export default function SeniorCategoryPage() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-green-800"
+                className="border-white text-white bg-transparent"
               >
                 <Link href="/contact">Book Assessment</Link>
               </Button>

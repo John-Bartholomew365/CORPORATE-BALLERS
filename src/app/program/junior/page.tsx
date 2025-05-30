@@ -57,7 +57,7 @@ export default function JuniorCategoryPage() {
                 <div className="container mx-auto px-4">
                     <div className="mx-auto text-center">
                         <Badge className="mb-4 bg-[#F5F5B5] text-[#0F0F0F]">Ages 12-17</Badge>
-                        <h1 className="text-5xl md:text-6xl font-bold mb-6">Junior Category</h1>
+                        <h1 className="lg:text-5xl text-[35px] font-bold mb-6">Junior Category</h1>
                         <p className="text-[18px] leading-tight text-[#B0B3B8] lg:w-[480px] w-auto mb-8 m-auto">
                             Building the foundation for future football stars through comprehensive skill development and character
                             building
@@ -70,7 +70,7 @@ export default function JuniorCategoryPage() {
                                 asChild
                                 size="lg"
                                 variant="outline"
-                                className="border-white text-white hover:bg-white hover:text-blue-900"
+                                className="border-white text-white"
                             >
                                 <Link href="/contact">Ask Questions</Link>
                             </Button>
@@ -84,14 +84,14 @@ export default function JuniorCategoryPage() {
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div className="space-y-6">
-                            <h2 className="text-4xl font-bold text-gray-900">Program Overview</h2>
-                            <p className="text-lg text-gray-600 leading-relaxed">
+                            <h2 className="lg:text-4xl text-3xl font-bold text-gray-900">Program Overview</h2>
+                            <p className="text-[16px] text-gray-600 leading-relaxed">
                                 Our Junior Category program is specifically designed for young players aged 12-17 who are beginning
                                 their football journey or looking to improve their foundational skills. We focus on creating a positive,
                                 supportive environment where young athletes can develop both their football abilities and personal
                                 character.
                             </p>
-                            <p className="text-lg text-gray-600 leading-relaxed">
+                            <p className="text-[16px] text-gray-600 leading-relaxed">
                                 The program emphasizes fun, learning, and personal growth while introducing players to the fundamentals
                                 of football. Our experienced coaches use age-appropriate training methods to ensure each player develops
                                 at their own pace.
@@ -126,8 +126,8 @@ export default function JuniorCategoryPage() {
             <section className="py-20 bg-gray-50">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-gray-900 mb-4">Training Schedule</h2>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                        <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Training Schedule</h2>
+                        <p className="lg:text-xl text-[16px] text-gray-600 max-w-3xl mx-auto leading-tight">
                             Our carefully structured schedule ensures optimal development while maintaining academic balance
                         </p>
                     </div>
@@ -165,8 +165,8 @@ export default function JuniorCategoryPage() {
             <section className="py-20">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-gray-900 mb-4">Training Curriculum</h2>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                        <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Training Curriculum</h2>
+                        <p className="lg:text-xl text-[16px] text-gray-600 max-w-3xl mx-auto">
                             A progressive 16-week curriculum designed to build skills systematically
                         </p>
                     </div>
@@ -178,7 +178,7 @@ export default function JuniorCategoryPage() {
                                     <CardHeader>
                                         <div className="flex items-center justify-between">
                                             <CardTitle className="text-xl">{phase.title}</CardTitle>
-                                            <Badge variant="outline">{phase.week}</Badge>
+                                            <Badge variant="outline" className="text-[#B0B3B8]">{phase.week}</Badge>
                                         </div>
                                     </CardHeader>
                                     <CardContent>
@@ -202,8 +202,8 @@ export default function JuniorCategoryPage() {
             <section className="py-20 bg-gray-50">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-gray-900 mb-4">Program Benefits</h2>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                        <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Program Benefits</h2>
+                        <p className="lg:text-xl text-[16px] text-gray-600 max-w-3xl mx-auto leading-tight">
                             What your child will gain from our Junior Category program
                         </p>
                     </div>
@@ -282,10 +282,10 @@ export default function JuniorCategoryPage() {
             </section>
 
             {/* Call to Action */}
-            <section className="py-20 rounded-md bg-gradient-to-r from-[#FFFFCC] to-[#FFFFE0] border-[#F5F5B5] text-black lg:mx-20 mx-4">
+            <section className="py-20 rounded-md bg-gradient-to-r from-[#FFFFCC] to-[#FFFFE0] border-[#F5F5B5] text-black lg:mx-24 mx-4 mb-10">
                 <div className="container mx-auto px-4 text-center">
                     <div className="max-w-3xl mx-auto">
-                        <h2 className="text-4xl font-bold mb-6">Start Your Football Journey Today</h2>
+                        <h2 className="lg:text-4xl text-3xl font-bold mb-6">Start Your Football Journey Today</h2>
                         <p className="text-[16px] text-[#B0B3B8] mb-8 lg:w-[440px] w-auto mx-auto">
                             Give your child the opportunity to develop their football skills while building character and making
                             lifelong friendships.
@@ -298,7 +298,7 @@ export default function JuniorCategoryPage() {
                                 asChild
                                 size="lg"
                                 variant="outline"
-                                className="border-white text-white hover:bg-white hover:text-blue-800"
+                                className="border-white text-white"
                             >
                                 <Link href="/contact">Schedule a Visit</Link>
                             </Button>

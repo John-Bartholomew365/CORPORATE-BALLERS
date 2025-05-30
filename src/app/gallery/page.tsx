@@ -313,8 +313,8 @@ export default function GalleryPage() {
       <section className="py-20 bg-gradient-to-br from-green-900 to-emerald-800 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Gallery</h1>
-            <p className="text-xl md:text-2xl text-green-100 leading-relaxed">
+            <h1 className="text-[36px] lg:text-[60px] font-bold mb-2">Gallery</h1>
+            <p className="lg:text-xl text-[16px] lg:w-[540px] w-auto text-green-100 leading-tight mx-auto">
               Capturing moments of excellence, growth, and achievement at Corporate Ballers Football Academy
             </p>
           </div>
@@ -413,10 +413,10 @@ export default function GalleryPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-r from-green-600 to-emerald-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-green-600 to-emerald-600 text-white lg:mx-24 mx-4 mb-10 rounded-lg">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold mb-6">Be Part of Our Story</h2>
+            <h2 className="lg:text-4xl text-3xl font-bold mb-6">Be Part of Our Story</h2>
             <p className="text-xl text-green-100 mb-8">
               Join CBFA and create your own memorable moments. Your journey to football excellence starts here.
             </p>
@@ -428,7 +428,7 @@ export default function GalleryPage() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-green-600"
+                className="border-white text-white bg-transparent"
               >
                 <Link href="/contact">Visit Our Facility</Link>
               </Button>

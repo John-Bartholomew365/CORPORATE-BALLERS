@@ -61,8 +61,8 @@ export default function EliteDevelopmentPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <Badge className="mb-4 bg-yellow-100 text-yellow-800">By Invitation Only</Badge>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Elite Development</h1>
-            <p className="text-xl md:text-2xl text-yellow-100 leading-relaxed mb-8">
+            <h1 className="lg:text-6xl text-[36px] font-bold mb-6">Elite Development</h1>
+            <p className="lg:text-xl text-[16px] lg:w-[550px] w-auto text-yellow-100 leading-tight mb-8 mx-auto">
               Specialized program for exceptional talents with professional potential and international exposure
               opportunities
             </p>
@@ -74,7 +74,7 @@ export default function EliteDevelopmentPage() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-yellow-800"
+                className="border-white text-white bg-transparent"
               >
                 <Link href="/contact">Learn More</Link>
               </Button>
@@ -88,13 +88,13 @@ export default function EliteDevelopmentPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <h2 className="text-4xl font-bold text-gray-900">Program Overview</h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <h2 className="lg:text-4xl text-3xl font-bold text-gray-900">Program Overview</h2>
+              <p className="lg:text-lg text-[16px] text-gray-600 leading-relaxed">
                 Our Elite Development program is an exclusive, invitation-only program designed for players who
                 demonstrate exceptional talent and potential for professional football careers. This program provides
                 the highest level of training, mentorship, and opportunities available at CBFA.
               </p>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="lg:text-lg text-[16px] text-gray-600 leading-relaxed">
                 Elite players receive personalized attention, access to international opportunities, and direct pathways
                 to professional clubs and university scholarships. Our elite coaching staff includes former professional
                 players and internationally certified coaches.
@@ -129,8 +129,8 @@ export default function EliteDevelopmentPage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Success Stories</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Success Stories</h2>
+            <p className="lg:text-xl text-[15px] text-gray-600 lg:w-[550px] w-auto mx-auto leading-tight">
               Our elite program graduates continue to achieve remarkable success in professional football and academics
             </p>
           </div>
@@ -158,8 +158,8 @@ export default function EliteDevelopmentPage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Elite Training Schedule</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Elite Training Schedule</h2>
+            <p className="lg:text-xl text-[16px] text-gray-600 max-w-3xl mx-auto lg:px-0 px-4 leading-tight">
               Intensive, personalized training schedule designed for elite-level development
             </p>
           </div>
@@ -199,8 +199,8 @@ export default function EliteDevelopmentPage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Development Phases</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Development Phases</h2>
+            <p className="lg:text-xl text-[16px] text-gray-600 lg:w-[485px] w-auto mx-auto leading-tight">
               A comprehensive development journey tailored to each elite player&apos;s goals and potential
             </p>
           </div>
@@ -212,7 +212,7 @@ export default function EliteDevelopmentPage() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-xl">{phase.title}</CardTitle>
-                      <Badge variant="outline">{phase.phase}</Badge>
+                      <Badge variant="outline" className="text-[#B0B3B8]">{phase.phase}</Badge>
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -236,8 +236,8 @@ export default function EliteDevelopmentPage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Elite Program Benefits</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Elite Program Benefits</h2>
+            <p className="lg:text-xl text-[16px] text-gray-600 max-w-3xl mx-auto leading-tight">
               Exclusive opportunities and resources available only to our elite development players
             </p>
           </div>
@@ -318,11 +318,11 @@ export default function EliteDevelopmentPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-r from-yellow-600 to-orange-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-yellow-600 to-orange-600 text-white lg:mx-24 mx-4 mb-10 rounded-md">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold mb-6">Ready for Elite Development?</h2>
-            <p className="text-xl text-yellow-100 mb-8">
+            <h2 className="lg:text-4xl text-3xl font-bold mb-6">Ready for Elite Development?</h2>
+            <p className="lg:text-[16px] text-[14px] text-yellow-100 mb-8 lg:w-[550px] w-auto mx-auto">
               If you believe you have what it takes to join our elite program, we want to hear from you. Contact us to
               discuss assessment opportunities.
             </p>
@@ -334,7 +334,7 @@ export default function EliteDevelopmentPage() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-yellow-600"
+                className="border-white text-white bg-transparent"
               >
                 <Link href="/contact">Schedule Meeting</Link>
               </Button>

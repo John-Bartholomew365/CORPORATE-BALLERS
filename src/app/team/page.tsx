@@ -153,8 +153,8 @@ export default function TeamPage() {
       <section className="py-20 bg-gradient-to-br from-green-900 to-emerald-800 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Our Team</h1>
-            <p className="text-[17px] text-green-100 leading-tight lg:w-[520px] w-auto mx-auto">
+            <h1 className="lg:text-6xl text-4xl font-bold mb-6">Our Team</h1>
+            <p className="lg:text-[17px] text-green-100 leading-tight lg:w-[490px] w-auto mx-auto">
               Meet the dedicated coaches and talented players who make CBFA a center of excellence in football
               development
             </p>
@@ -165,7 +165,7 @@ export default function TeamPage() {
       {/* Team Stats */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="text-center">
               <div className="bg-green-100 rounded-full p-6 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
                 <Users className="h-8 w-8 text-green-600" />
@@ -187,13 +187,6 @@ export default function TeamPage() {
               <div className="text-3xl font-bold text-gray-900">15+</div>
               <div className="text-gray-600">Tournaments Won</div>
             </div>
-            <div className="text-center">
-              <div className="bg-red-100 rounded-full p-6 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-                <Users className="h-8 w-8 text-red-600" />
-              </div>
-              <div className="text-3xl font-bold text-gray-900">50+</div>
-              <div className="text-gray-600">Alumni in Pro Clubs</div>
-            </div>
           </div>
         </div>
       </section>
@@ -211,8 +204,8 @@ export default function TeamPage() {
             {/* Coaches Tab */}
             <TabsContent value="coaches" className="space-y-8">
               <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Coaching Staff</h2>
-                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Our Coaching Staff</h2>
+                <p className="lg:text-xl text-[16px] lg:w-[470px] w-auto text-gray-600 max-w-3xl mx-auto">
                   Meet our experienced and qualified coaching team dedicated to developing the next generation of
                   football stars
                 </p>
@@ -257,8 +250,8 @@ export default function TeamPage() {
             {/* Senior Players Tab */}
             <TabsContent value="senior" className="space-y-8">
               <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-gray-900 mb-4">Senior Category Players</h2>
-                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Senior Category Players</h2>
+                <p className="lg:text-xl text-[16px] lg:w-[470px] w-auto text-gray-600 max-w-3xl mx-auto">
                   Our senior players represent the pinnacle of talent and dedication at CBFA
                 </p>
               </div>
@@ -308,7 +301,7 @@ export default function TeamPage() {
                         <h4 className="font-medium text-gray-700 mb-2">Achievements</h4>
                         <div className="space-y-1">
                           {player.achievements.map((achievement, achIndex) => (
-                            <Badge key={achIndex} variant="outline" className="text-xs">
+                            <Badge key={achIndex} variant="outline" className="text-xs text-[#B0B3B8]">
                               {achievement}
                             </Badge>
                           ))}
@@ -323,8 +316,8 @@ export default function TeamPage() {
             {/* Junior Players Tab */}
             <TabsContent value="junior" className="space-y-8">
               <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-gray-900 mb-4">Junior Category Players</h2>
-                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Junior Category Players</h2>
+                <p className="lg:text-xl text-[16px] lg:w-[470px] w-auto text-gray-600 max-w-3xl mx-auto">
                   Our promising young talents who represent the future of CBFA and Nigerian football
                 </p>
               </div>
@@ -390,11 +383,11 @@ export default function TeamPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-r from-green-600 to-emerald-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-green-600 to-emerald-600 text-white lg:mx-24 mx-4 rounded-md mb-10">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold mb-6">Join Our Team</h2>
-            <p className="text-xl text-green-100 mb-8">
+            <h2 className="lg:text-4xl text-3xl font-bold mb-6">Join Our Team</h2>
+            <p className="lg:text-[16px] text-[14px] lg:w-[450px] w-auto text-green-100 mb-8 mx-auto leading-tight">
               Ready to be part of the CBFA family? Whether you&apos;re a player looking to develop your skills or a coach
               wanting to make a difference, we&apos;d love to hear from you.
             </p>
@@ -406,7 +399,7 @@ export default function TeamPage() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-green-600"
+                className="border-white text-white bg-transparent"
               >
                 <Link href="/contact">Contact Us</Link>
               </Button>
