@@ -414,32 +414,48 @@ export default function ProgramsPage() {
         </div>
       </section>
 
-      {/* Training Schedule */}
-      <section className="py-16 lg:py-24">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-              Weekly Training Schedule
-            </h2>
-            <p className="text-muted-foreground md:text-lg max-w-2xl mx-auto">
-              Our structured training schedule ensures comprehensive development across all skill areas
-            </p>
+            {/* Training Schedule */}
+            <section className="py-16 lg:py-24">
+              <div className="container px-4 md:px-6">
+                <div className="text-center mb-12">
+                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+                    Weekly Training Schedule
+                  </h2>
+                  <p className="text-muted-foreground md:text-lg max-w-2xl mx-auto">
+                    Our structured training schedule ensures comprehensive development across all skill areas
+                  </p>
+                </div>
+      
+                <div className="grid gap-6 md:grid-cols-2">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center space-x-2">
+                        <Users className="h-5 w-5 text-green-600" />
+                        <span>Junior Category Schedule</span>
+                      </CardTitle>
+                      <CardDescription>Ages 12-17 years</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        {[
+                          { day: "Monday", time: "4:00 PM - 6:00 PM", focus: "Technical Skills" },
+                          { day: "Tuesday", time: "4:00 PM - 6:00 PM", focus: "Physical Training" },
+                          { day: "Wednesday", time: "4:00 PM - 6:00 PM", focus: "Tactical Training" },
+                          { day: "Thursday", time: "4:00 PM - 6:00 PM", focus: "Match Preparation" },
+                          // ...rest of your schedule and component code
+                        ].map((item, idx) => (
+                          <div key={idx} className="flex justify-between items-center border-b py-2">
+                            <span className="font-medium">{item.day}</span>
+                            <span className="text-muted-foreground">{item.time}</span>
+                            <span className="text-green-600">{item.focus}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </section>
           </div>
-
-          <div className="grid gap-6 md:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Users className="h-5 w-5 text-green-600" />
-                  <span>Junior Category Schedule</span>
-                </CardTitle>
-                <CardDescription>Ages 12-17 years</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {[
-                    { day: "Monday", time: "4:00 PM - 6:00 PM", focus: "Technical Skills" },
-                    { day: "Tuesday", time: "4:00 PM - 6:00 PM", focus: "Physical Training" },
-                    { day: "Wednesday", time: "4:00 PM - 6:00 PM", focus: "Tactical Training" },
-                    { day: "Thursday", time: "4:00 PM - 6:00 PM", focus: "Match Preparation" },
-                    { day:\
+        )
+      }

@@ -166,7 +166,7 @@ export default function AdminDashboard() {
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">This Week's Sessions</CardTitle>
+                <CardTitle className="text-sm font-medium">This Week&apos;s Sessions</CardTitle>
                 <Calendar className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -242,7 +242,7 @@ export default function AdminDashboard() {
                 {/* Upcoming Sessions */}
                 <Card>
                   <CardHeader>
-                    <CardTitle>Today's Sessions</CardTitle>
+                    <CardTitle>Today&apos;s Sessions</CardTitle>
                     <CardDescription>Training sessions scheduled for today</CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -387,7 +387,7 @@ export default function AdminDashboard() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>This Week's Schedule</CardTitle>
+                  <CardTitle>This Week&apos;s Schedule</CardTitle>
                   <CardDescription>Manage and monitor all training sessions</CardDescription>
                 </CardHeader>
                 <CardContent>

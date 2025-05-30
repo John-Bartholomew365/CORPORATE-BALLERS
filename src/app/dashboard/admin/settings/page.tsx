@@ -1,7 +1,3 @@
-
-
-
-
 "use client"
 
 import { useState } from "react"
@@ -15,113 +11,36 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { Settings, Shield, Users, Globe, DollarSign } from "lucide-react"
+import { Settings, Users, Globe, DollarSign } from "lucide-react"
 
-interface NotificationSettingsProps {
-  checked: boolean
-  onCheckedChange: (checked: boolean) => void
-}
 
-interface EmailNotificationSettingProps {
-  checked: boolean
-  onCheckedChange: (checked: boolean) => void
-}
-
-const PushNotificationSetting: React.FC<NotificationSettingsProps> = ({
-  checked,
-  onCheckedChange,
-}) => (
-  <div className="flex items-center justify-between">
-    <div className="space-y-0.5">
-      <Label>Push Notifications</Label>
-      <p className="text-sm text-muted-foreground">Receive push notifications in browser</p>
-    </div>
-    <Switch
-      checked={checked}
-      onCheckedChange={onCheckedChange}
-    />
-  </div>
-)
-
-const EmailNotificationSetting: React.FC<EmailNotificationSettingProps> = ({
-  checked,
-  onCheckedChange,
-}) => (
-  <div className="flex items-center justify-between">
-    <div className="space-y-0.5">
-      <Label>Email Notifications</Label>
-      <p className="text-sm text-muted-foreground">Receive notifications via email</p>
-    </div>
-    <Switch
-      checked={checked}
-      onCheckedChange={onCheckedChange}
-    />
-  </div>
-)
 
 interface RegistrationOpenSettingProps {
-    checked: boolean
-    onCheckedChange: (checked: boolean) => void
+  checked: boolean
+  onCheckedChange: (checked: boolean) => void
 }
 
-interface SmsNotificationSettingProps {
-    checked: boolean
-    onCheckedChange: (checked: boolean) => void
-}
+
+
+
+
 
 const RegistrationOpenSetting: React.FC<RegistrationOpenSettingProps> = ({
-    checked,
-    onCheckedChange,
+  checked,
+  onCheckedChange,
 }) => (
-    <div className="flex items-center justify-between">
-        <div className="space-y-0.5">
-            <Label>Registration Open</Label>
-            <p className="text-sm text-muted-foreground">Allow new player registrations</p>
-        </div>
-        <Switch
-            checked={checked}
-            onCheckedChange={onCheckedChange}
-        />
+  <div className="flex items-center justify-between">
+    <div className="space-y-0.5">
+      <Label>Registration Open</Label>
+      <p className="text-sm text-muted-foreground">Allow new player registrations</p>
     </div>
+    <Switch
+      checked={checked}
+      onCheckedChange={onCheckedChange}
+    />
+  </div>
 )
 
-const SmsNotificationSetting: React.FC<SmsNotificationSettingProps> = ({
-    checked,
-    onCheckedChange,
-}) => (
-    <div className="flex items-center justify-between">
-        <div className="space-y-0.5">
-            <Label>SMS Notifications</Label>
-            <p className="text-sm text-muted-foreground">Receive notifications via SMS</p>
-        </div>
-        <Switch
-            checked={checked}
-            onCheckedChange={onCheckedChange}
-        />
-    </div>
-)
-
-// TwoFactorAuthSetting component moved here
-interface TwoFactorAuthSettingProps {
-    checked: boolean
-    onCheckedChange: (checked: boolean) => void
-}
-
-const TwoFactorAuthSetting: React.FC<TwoFactorAuthSettingProps> = ({
-    checked,
-    onCheckedChange,
-}) => (
-    <div className="flex items-center justify-between">
-        <div className="space-y-0.5">
-            <Label>Two-Factor Authentication</Label>
-            <p className="text-sm text-muted-foreground">Add an extra layer of security to your account</p>
-        </div>
-        <Switch
-            checked={checked}
-            onCheckedChange={onCheckedChange}
-        />
-    </div>
-)
 
 export default function AdminSettingsPage() {
   const [settings, setSettings] = useState({
@@ -217,42 +136,41 @@ export default function AdminSettingsPage() {
                 />
               </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="contactPhone">Contact Phone</Label>
-                <Input
-                  id="contactPhone"
-                  value={settings.contactPhone}
-                  onChange={(e) => setSettings({ ...settings, contactPhone: e.target.value })}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="address">Address</Label>
-                <Input
-                  id="address"
-                  value={settings.address}
-                  onChange={(e) => setSettings({ ...settings, address: e.target.value })}
-                />
-              </div>
-            </div>
-
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="passwordExpiry">Password Expiry (days)</Label>
-                  <Select
-                    value={settings.passwordExpiry}
-                    onValueChange={(value) => setSettings({ ...settings, passwordExpiry: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="30">30 days</SelectItem>
-                      <SelectItem value="60">60 days</SelectItem>
-                      <SelectItem value="90">90 days</SelectItem>
-                      <SelectItem value="never">Never</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Label htmlFor="contactPhone">Contact Phone</Label>
+                  <Input
+                    id="contactPhone"
+                    value={settings.contactPhone}
+                    onChange={(e) => setSettings({ ...settings, contactPhone: e.target.value })}
+                  />
                 </div>
+                <div className="space-y-2">
+                  <Label htmlFor="address">Address</Label>
+                  <Input
+                    id="address"
+                    value={settings.address}
+                    onChange={(e) => setSettings({ ...settings, address: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="passwordExpiry">Password Expiry (days)</Label>
+                <Select
+                  value={settings.passwordExpiry}
+                  onValueChange={(value) => setSettings({ ...settings, passwordExpiry: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="30">30 days</SelectItem>
+                    <SelectItem value="60">60 days</SelectItem>
+                    <SelectItem value="90">90 days</SelectItem>
+                    <SelectItem value="never">Never</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </CardContent>
           </Card>
