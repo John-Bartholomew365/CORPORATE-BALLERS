@@ -38,7 +38,7 @@ export function AboutSection() {
               ))}
             </div> */}
 
-            <Button asChild size="lg" className="bg-green-600 text-white hover:bg-green-700">
+            <Button asChild size="lg" className="bg-[#047146] text-white">
               <Link href="/about">Learn More About Us</Link>
             </Button>
           </div>

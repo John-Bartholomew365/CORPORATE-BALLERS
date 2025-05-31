@@ -78,7 +78,7 @@ export function NewsSection() {
             asChild
             size="lg"
             variant="outline"
-            className="border-green-600 text-green-600 bg-transparent hover:bg-green-600 hover:text-white"
+            className="border-[#047146] text-[#047146] bg-transparent hover:bg-[#047146] hover:text-white"
           >
             <Link href="/news">View All News</Link>
           </Button>

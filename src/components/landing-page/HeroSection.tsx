@@ -10,8 +10,8 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-black/40" />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center ">
-        <div className="max-w-4xl mx-auto space-y-8">
+      <div className="relative z-10 container mx-auto px-4 text-center">
+        <div className="max-w-4xl mx-auto space-y-8 lg:mt-0 mt-7">
           <div className="space-y-4">
             <h1 className="lg:text-[54px] text-[35px] font-bold leading-tight">
               CORPORATE BALLERS
