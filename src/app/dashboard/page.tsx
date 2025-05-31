@@ -22,6 +22,7 @@ import {
   BookOpen,
 } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function DashboardPage() {
   return (
@@ -31,8 +32,8 @@ export default function DashboardPage() {
         <div className="flex flex-col flex-grow bg-white border-r">
           <div className="flex items-center flex-shrink-0 px-4 py-6">
             <div className="flex items-center space-x-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-600">
-                <Trophy className="h-6 w-6 text-white" />
+              <div className="w-10 h-10 flex items-center justify-center">
+                <Image src={"/corporate-ballers.svg"} alt="Logo" width={45} height={45} />
               </div>
               <div>
                 <h1 className="text-lg font-bold text-green-600">CBFA</h1>
@@ -110,19 +111,19 @@ export default function DashboardPage() {
       {/* Main Content */}
       <div className="lg:pl-64 flex flex-col flex-1">
         {/* Top Header */}
-        <div className="sticky top-0 z-40 flex h-16 flex-shrink-0 items-center gap-x-4 border-b bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+        <div className="sticky top-0 z-40 flex h-16 flex-shrink-0 items-center gap-x-4 border-b bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-10">
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
             <div className="flex flex-1 items-center">
-              <h1 className="text-xl font-semibold text-foreground">Dashboard</h1>
+              <h1 className="text-xl text-[#0F0F0F] font-semibold">Dashboard</h1>
             </div>
             <div className="flex items-center gap-x-4 lg:gap-x-6">
               <Button variant="ghost" size="sm">
                 <Bell className="h-5 w-5" />
               </Button>
               <div className="flex items-center space-x-2">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-8 w-8 border border-[#047146]">
                   <AvatarImage src="/placeholder.svg" />
-                  <AvatarFallback>JD</AvatarFallback>
+                  <AvatarFallback className="text-[14px]">JD</AvatarFallback>
                 </Avatar>
                 <div className="hidden md:block">
                   <p className="text-sm font-medium">John Doe</p>
@@ -137,7 +138,7 @@ export default function DashboardPage() {
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
           {/* Welcome Section */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-foreground mb-2">Welcome back, John!</h2>
+            <h2 className="text-2xl font-bold text-[#0F0F0F] mb-2">Welcome back, <strong>John!</strong> </h2>
             <p className="text-muted-foreground">Here&apos;s what&apos;s happening with your training today.</p>
           </div>
 
@@ -311,12 +312,12 @@ export default function DashboardPage() {
                         <div>
                           <h3 className="font-medium">Physical Conditioning</h3>
                           <p className="text-sm text-muted-foreground">6:00 AM - 8:00 AM</p>
-                          <Badge variant="outline" className="mt-1">
+                          <Badge variant="outline" className="mt-1 text-[#B0B3B8]">
                             Optional
                           </Badge>
                         </div>
                       </div>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="bg-transparent">
                         View Details
                       </Button>
                     </div>

@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Search, } from 'lucide-react'
 import Link from "next/link"
+import { Navbar } from "@/components/landing-page/Navbar"
+import { Footer } from "@/components/landing-page/Footer"
 
 export default function NewsPage() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -95,6 +97,7 @@ export default function NewsPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Navbar/>
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-green-900 to-emerald-800 text-white">
         <div className="container mx-auto px-4">
@@ -281,6 +284,7 @@ export default function NewsPage() {
           </div>
         </div>
       </section>
+      <Footer/>
     </div>
   )
 }

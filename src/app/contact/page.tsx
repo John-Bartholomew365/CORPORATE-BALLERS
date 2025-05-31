@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+// import { Input } from "@/components/ui/input"
+// import { Label } from "@/components/ui/label"
+// import { Textarea } from "@/components/ui/textarea"
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -18,28 +18,38 @@ import {
   Calendar,
   HelpCircle,
 } from "lucide-react"
+import Link from "next/link"
+import { Navbar } from "@/components/landing-page/Navbar"
+import { Footer } from "@/components/landing-page/Footer"
+// import Image from "next/image"
 
 export default function ContactPage() {
   const contactMethods = [
     {
       icon: Phone,
       title: "Phone Numbers",
+      // items: [
+      //   { label: "Main Office", value: "+234 8133178008" },
+      //   { label: "Admissions", value: "+234 8065943751" },
+      //   { label: "Coaching Staff", value: "+234 8033907248" },
+      //   { label: "Emergency", value: "+234 8120380080" },
+      // ],
       items: [
-        { label: "Main Office", value: "+234 8133178008" },
-        { label: "Admissions", value: "+234 8065943751" },
-        { label: "Coaching Staff", value: "+234 8033907248" },
-        { label: "Emergency", value: "+234 8120380080" },
+        { label: "", value: "+234 8133178008" },
+        { label: "", value: "+234 8065943751" },
+        { label: "", value: "+234 8033907248" },
+        { label: "", value: "+234 8120380080" },
       ],
       color: "bg-green-50 border-green-200",
     },
     {
       icon: Mail,
-      title: "Email Addresses",
+      title: "Email Address",
       items: [
         { label: "General Inquiries", value: "corporateballersfa418@gmail.com" },
-        { label: "Admissions", value: "admissions@cbfa.com" },
-        { label: "Coaching", value: "coaching@cbfa.com" },
-        { label: "Finance", value: "finance@cbfa.com" },
+        // { label: "Admissions", value: "admissions@cbfa.com" },
+        // { label: "Coaching", value: "coaching@cbfa.com" },
+        // { label: "Finance", value: "finance@cbfa.com" },
       ],
       color: "bg-blue-50 border-blue-200",
     },
@@ -79,21 +89,21 @@ export default function ContactPage() {
       icon: GraduationCap,
       title: "Admissions & Registration",
       description: "Player registration, program enrollment, and admission requirements",
-      contact: "admissions@cbfa.com",
+      contact: "corporateballersfa418@gmail.com",
       phone: "+234 8065943751",
     },
     {
       icon: MessageSquare,
       title: "Coaching & Training",
       description: "Training schedules, coaching inquiries, and player development",
-      contact: "coaching@cbfa.com",
+      contact: "corporateballersfa418@gmail.com",
       phone: "+234 8033907248",
     },
     {
       icon: DollarSign,
       title: "Finance & Payments",
       description: "Fee payments, financial assistance, and billing inquiries",
-      contact: "finance@cbfa.com",
+      contact: "corporateballersfa418@gmail.com",
       phone: "+234 8120380080",
     },
   ]
@@ -104,8 +114,8 @@ export default function ContactPage() {
       answer: "We accept players from age 12 and above, with junior (12-17) and senior (18+) categories.",
     },
     {
-      question: "How much are the training fees?",
-      answer: "Junior category: ₦12,000/month, Senior category: ₦18,000/month. Elite program is by invitation only.",
+      question: "How much is the registration fees?",
+      answer: "Junior and Senior Categories: Form Price: ₦5,000 (per person) while Elite program is by invitation only.",
     },
     {
       question: "What documents are required for registration?",
@@ -123,6 +133,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Navbar/>
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-green-900 to-emerald-800 text-white">
         <div className="container mx-auto px-4">
@@ -174,128 +185,59 @@ export default function ContactPage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <Card className="shadow-lg">
+            {/* Map & Location Info */}
+            <Card>
               <CardHeader>
-                <CardTitle className="text-2xl">Send us a Message</CardTitle>
-                <CardDescription>Fill out the form below and we&apos;ll get back to you as soon as possible</CardDescription>
+                <CardTitle className="flex items-center gap-2">
+                  <MapPin className="h-5 w-5" />
+                  Find Us
+                </CardTitle>
+                <CardDescription>Stadium Complex, Ibrahim Taiwo Road, Ilorin</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="firstName">First Name *</Label>
-                    <Input id="firstName" placeholder="Enter your first name" required />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="lastName">Last Name *</Label>
-                    <Input id="lastName" placeholder="Enter your last name" required />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email Address *</Label>
-                    <Input id="email" type="email" placeholder="Enter your email" required />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" type="tel" placeholder="Enter your phone number" />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="subject">Subject *</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select inquiry type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="general">General Inquiry</SelectItem>
-                      <SelectItem value="admission">Admission & Registration</SelectItem>
-                      <SelectItem value="coaching">Coaching & Training</SelectItem>
-                      <SelectItem value="finance">Finance & Payments</SelectItem>
-                      <SelectItem value="visit">Schedule a Visit</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message *</Label>
-                  <Textarea
-                    id="message"
-                    placeholder="Tell us more about your inquiry..."
-                    className="min-h-[120px]"
-                    required
+              <CardContent>
+                <div className="aspect-square bg-gradient-to-br from-green-100 to-green-200 rounded-3xl overflow-hidden h-[350px] w-full">
+                  <img
+                    src="/map.jpg"
+                    alt="CBFA Training Session"
+                    className="w-full h-full object-cover"
                   />
                 </div>
-
-                <Button className="w-full bg-green-600 hover:bg-green-700" size="lg">
-                  Send Message
-                </Button>
-
-                <p className="text-xs text-gray-500 text-center">
-                  * Required fields. We typically respond within 24 hours.
-                </p>
+                <div className="space-y-2 text-sm mt-2">
+                  <p>
+                    <span className="font-medium">Landmarks:</span> Near Kwara State Stadium
+                  </p>
+                  <p>
+                    <span className="font-medium">Public Transport:</span> Accessible by local buses and taxis
+                  </p>
+                  <p>
+                    <span className="font-medium">Parking:</span> Free parking available on-site
+                  </p>
+                </div>
               </CardContent>
             </Card>
 
-            {/* Map & Location Info */}
-            <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <MapPin className="h-5 w-5" />
-                    Find Us
-                  </CardTitle>
-                  <CardDescription>Stadium Complex, Ibrahim Taiwo Road, Ilorin</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center mb-4">
-                    <div className="text-center text-gray-500">
-                      <MapPin className="h-12 w-12 mx-auto mb-2" />
-                      <p className="font-medium">Interactive Map</p>
-                      <p className="text-sm">Stadium Complex, Ibrahim Taiwo Road</p>
-                      <p className="text-sm">Ilorin, Kwara State, Nigeria</p>
-                    </div>
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    <p>
-                      <span className="font-medium">Landmarks:</span> Near Kwara State Stadium
-                    </p>
-                    <p>
-                      <span className="font-medium">Public Transport:</span> Accessible by local buses and taxis
-                    </p>
-                    <p>
-                      <span className="font-medium">Parking:</span> Free parking available on-site
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Calendar className="h-5 w-5" />
-                    Schedule a Visit
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-gray-600">
-                    We encourage prospective players and parents to visit our facilities. See our training methods, meet
-                    our coaches, and experience the CBFA environment firsthand.
-                  </p>
-                  <div className="space-y-2">
-                    <Badge variant="outline">Free facility tours</Badge>
-                    <Badge variant="outline">Meet with coaches</Badge>
-                    <Badge variant="outline">Watch training sessions</Badge>
-                  </div>
-                  <Button className="w-full" variant="outline">
-                    Schedule Your Visit
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Calendar className="h-5 w-5" />
+                  Schedule a Visit
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-gray-600">
+                  We encourage prospective players and parents to visit our facilities. See our training methods, meet
+                  our coaches, and experience the CBFA environment firsthand.
+                </p>
+                <div className="space-y-2 space-x-1">
+                  <Badge variant="outline" className="text-[#B0B3B8]">Free facility tours</Badge>
+                  <Badge variant="outline" className="text-[#B0B3B8]">Meet with coaches</Badge>
+                  <Badge variant="outline" className="text-[#B0B3B8]">Watch training sessions</Badge>
+                </div>
+                <Button className="w-full bg-transparent border border-[#047146]" variant="outline">
+                  Schedule Your Visit
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -304,8 +246,8 @@ export default function ContactPage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Contact by Department</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 lg:mb-4 mb-2.5">Contact by Department</h2>
+            <p className="lg:text-xl text-[16px] text-gray-600 lg:w-[360px] w-auto mx-auto">
               Reach out to the right department for faster assistance
             </p>
           </div>
@@ -346,7 +288,7 @@ export default function ContactPage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+            <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">Quick answers to common questions about CBFA</p>
           </div>
 
@@ -369,17 +311,19 @@ export default function ContactPage() {
 
             <div className="text-center mt-12">
               <p className="text-gray-600 mb-4">Can&apos;t find what you&apos;re looking for?</p>
-              <Button variant="outline" size="lg">
-                <MessageSquare className="h-4 w-4 mr-2" />
-                Ask a Question
-              </Button>
+              <Link href={"/faq"}>
+                <Button variant="outline" className="bg-transparent cursor-pointer" size="lg">
+                  {/* <MessageSquare className="h-4 w-4 mr-2" /> */}
+                  See More
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* Emergency Contact */}
-      <section className="py-12 bg-red-50 border-t border-red-200">
+      <section className="py-12 bg-red-50 border-t border-red-200 mb-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h3 className="text-2xl font-bold text-red-800 mb-4">Emergency Contact</h3>
@@ -398,6 +342,7 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+      <Footer/>
     </div>
   )
 }

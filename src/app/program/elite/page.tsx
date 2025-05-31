@@ -3,6 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle, Star, Clock, MapPin } from "lucide-react"
 import Link from "next/link"
+import { Navbar } from "@/components/landing-page/Navbar"
+import { Footer } from "@/components/landing-page/Footer"
 
 export default function EliteDevelopmentPage() {
   const curriculum = [
@@ -56,6 +58,8 @@ export default function EliteDevelopmentPage() {
 
   return (
     <div className="min-h-screen bg-white">
+
+      <Navbar />
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-yellow-900 via-yellow-800 to-orange-800 text-white">
         <div className="container mx-auto px-4">
@@ -159,7 +163,7 @@ export default function EliteDevelopmentPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Elite Training Schedule</h2>
-            <p className="lg:text-xl text-[16px] text-gray-600 max-w-3xl mx-auto lg:px-0 px-4 leading-tight">
+            <p className="lg:text-xl text-[16px] text-gray-600 lg:w-[420px] w-auto mx-auto lg:px-0 px-4 leading-tight">
               Intensive, personalized training schedule designed for elite-level development
             </p>
           </div>
@@ -342,6 +346,7 @@ export default function EliteDevelopmentPage() {
           </div>
         </div>
       </section>
+      <Footer/>
     </div>
   )
 }

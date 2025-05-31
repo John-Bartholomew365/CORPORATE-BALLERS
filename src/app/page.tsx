@@ -425,10 +425,13 @@ import { ProgramsSection } from "@/components/landing-page/ProgramsSection"
 import { TestimonialsSection } from "@/components/landing-page/TestimonialsSection"
 import { NewsSection } from "@/components/landing-page/NewsSection"
 import { ContactSection } from "@/components/landing-page/ContactSection"
+import { Navbar } from "@/components/landing-page/Navbar"
+import { Footer } from "@/components/landing-page/Footer"
 
 export default function HomePage() {
   return (
     <main className="min-h-screen">
+      <Navbar/>
       <HeroSection />
       <StatsSection />
       <AboutSection />
@@ -437,6 +440,7 @@ export default function HomePage() {
       <TestimonialsSection />
       <NewsSection />
       <ContactSection />
+      <Footer/>
     </main>
   )
 }

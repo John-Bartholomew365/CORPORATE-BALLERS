@@ -10,14 +10,23 @@ import { Eye, EyeOff } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const router = useRouter()
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Here you would typically validate the form and submit to an API
+    // For this example, we'll assume validation is successful
+    router.push('/auth/verify-account')
+  }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100 lg:py-12 py-14 px-4">
-      <div className="w-full max-w-2xl">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100 px-4 ">
+      <div className="w-full max-w-2xl py-8">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <div className="flex items-center justify-center">
@@ -42,7 +51,7 @@ export default function RegisterPage() {
             <CardDescription>Create your account to start your football journey with CBFA</CardDescription>
           </CardHeader>
           <CardContent>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               {/* Personal Information */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold">Personal Information</h3>
@@ -75,7 +84,7 @@ export default function RegisterPage() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="gender">Gender</Label>
-                    <Select>
+                    <Select required>
                       <SelectTrigger>
                         <SelectValue placeholder="Select gender" />
                       </SelectTrigger>
@@ -99,7 +108,7 @@ export default function RegisterPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="category">Category</Label>
-                    <Select>
+                    <Select required>
                       <SelectTrigger>
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
@@ -111,7 +120,7 @@ export default function RegisterPage() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="position">Preferred Position</Label>
-                    <Select>
+                    <Select required>
                       <SelectTrigger>
                         <SelectValue placeholder="Select position" />
                       </SelectTrigger>
@@ -128,7 +137,7 @@ export default function RegisterPage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="experience">Previous Football Experience</Label>
-                  <Select>
+                  <Select required>
                     <SelectTrigger>
                       <SelectValue placeholder="Select experience level" />
                     </SelectTrigger>
@@ -211,27 +220,21 @@ export default function RegisterPage() {
               {/* Terms and Conditions */}
               <div className="space-y-4">
                 <div className="flex items-start space-x-2">
-                  <Checkbox id="terms" className="mt-1" />
+                  <Checkbox id="terms" className="mt-1 text-[#047146]" required />
                   <Label htmlFor="terms" className="text-sm leading-relaxed">
                     I agree to the{" "}
-                    <Link href="/terms" className="text-green-600 hover:underline">
+                    <Link href="/terms" className="text-[#047146] hover:underline">
                       Terms of Service
                     </Link>{" "}
                     and{" "}
-                    <Link href="/privacy" className="text-green-600 hover:underline">
+                    <Link href="/privacy" className="text-[#047146] hover:underline">
                       Privacy Policy
                     </Link>
                   </Label>
                 </div>
-                <div className="flex items-start space-x-2">
-                  <Checkbox id="newsletter" className="mt-1" />
-                  <Label htmlFor="newsletter" className="text-sm">
-                    I would like to receive updates and news from CBFA
-                  </Label>
-                </div>
               </div>
 
-              <Button type="submit" className="w-full bg-green-600 hover:bg-green-700">
+              <Button type="submit" className="w-full text-white bg-[#047146] cursor-pointer">
                 Create Account
               </Button>
             </form>
@@ -239,8 +242,8 @@ export default function RegisterPage() {
             <div className="mt-6 text-center">
               <p className="text-sm text-muted-foreground">
                 Already have an account?{" "}
-                <Link href="/auth/login" className="text-green-600 hover:underline">
-                  Sign in
+                <Link href="/auth/login" className="text-[#047146] hover:underline">
+                  Login
                 </Link>
               </p>
             </div>
@@ -248,7 +251,7 @@ export default function RegisterPage() {
         </Card>
 
         <div className="mt-6 text-center">
-          <Link href="/" className="text-sm text-muted-foreground hover:text-green-600">
+          <Link href="/" className="text-sm text-muted-foreground hover:text-[#047146]">
             ← Back to homepage
           </Link>
         </div>

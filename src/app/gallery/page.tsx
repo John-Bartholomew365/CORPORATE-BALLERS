@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { ChevronLeft, ChevronRight, X, Calendar } from "lucide-react"
+import { Navbar } from "@/components/landing-page/Navbar"
+import { Footer } from "@/components/landing-page/Footer"
 
 type Image = {
   id: number
@@ -309,6 +311,7 @@ export default function GalleryPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Navbar/>
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-green-900 to-emerald-800 text-white">
         <div className="container mx-auto px-4">
@@ -436,6 +439,7 @@ export default function GalleryPage() {
           </div>
         </div>
       </section>
+      <Footer/>
     </div>
   )
 }

@@ -1,3 +1,5 @@
+import { Footer } from "@/components/landing-page/Footer"
+import { Navbar } from "@/components/landing-page/Navbar"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Shield, Eye, Lock, Users, Mail, Phone } from 'lucide-react'
 
@@ -57,17 +59,18 @@ export default function PrivacyPage() {
 
     return (
         <div className="min-h-screen bg-white">
+            <Navbar />
             {/* Hero Section */}
             <section className="py-20 bg-gradient-to-br from-green-900 to-emerald-800 text-white">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto text-center">
                         <Shield className="h-16 w-16 mx-auto mb-6 text-green-200" />
-                        <h1 className="text-5xl md:text-6xl font-bold mb-6">Privacy Policy</h1>
-                        <p className="text-xl md:text-2xl text-green-100 leading-relaxed">
+                        <h1 className="lg:text-6xl text-[40px] font-bold mb-3 lg:mb-6">Privacy Policy</h1>
+                        <p className="lg:text-xl text-[16px] text-green-100 leading-tight lg:w-[420px] w-auto mx-auto">
                             Your privacy is important to us. Learn how we collect, use, and protect your personal information.
                         </p>
                         <p className="text-lg text-green-200 mt-4">
-                            Last updated: December 2024
+                            Last updated: 31st May, 2025
                         </p>
                     </div>
                 </div>
@@ -200,21 +203,23 @@ export default function PrivacyPage() {
                             </CardHeader>
                             <CardContent>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="space-y-4">
+                                    <div className="space-y-6">
                                         <div className="flex items-center">
                                             <Mail className="h-5 w-5 text-green-600 mr-3" />
-                                            <div>
-                                                <p className="font-medium text-gray-900">Email</p>
-                                                <p className="text-gray-600">privacy@cbfa.ng</p>
-                                            </div>
+                                            <p className="font-medium text-gray-900">Email</p>
                                         </div>
+                                        <div className="ml-8">
+                                            <p className="text-gray-600 -mt-5">corporateballersfa418@gmail.com</p>
+                                        </div>
+
                                         <div className="flex items-center">
                                             <Phone className="h-5 w-5 text-green-600 mr-3" />
-                                            <div>
-                                                <p className="font-medium text-gray-900">Phone</p>
-                                                <p className="text-gray-600">+234 8133178008</p>
-                                            </div>
+                                            <p className="font-medium text-gray-900">Phone</p>
                                         </div>
+                                        <div className="ml-8 ">
+                                            <p className="text-gray-600 -mt-5">+234 8133178008</p>
+                                        </div>
+
                                     </div>
                                     <div>
                                         <p className="font-medium text-gray-900 mb-2">Mailing Address</p>
@@ -245,6 +250,7 @@ export default function PrivacyPage() {
                     </div>
                 </div>
             </section>
+            <Footer />
         </div>
     )
 }

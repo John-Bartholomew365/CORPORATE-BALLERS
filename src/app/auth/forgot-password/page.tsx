@@ -1,66 +1,96 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Mail, ArrowLeft, CheckCircle } from "lucide-react"
-import Link from "next/link"
+import { Mail, ArrowLeft } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function ForgotPasswordPage() {
-  const [email, setEmail] = useState("")
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [verificationCode, setVerificationCode] = useState(["", "", "", "", "", ""])
+  const [timeLeft, setTimeLeft] = useState(59)
+  const [showResend, setShowResend] = useState(false)
+  const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  useEffect(() => {
+    // Start the countdown when component mounts
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer)
+          setShowResend(true)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
+
+  const handleCodeChange = (index: number, value: string) => {
+    if (/^[0-9]*$/.test(value) && value.length <= 1) {
+      const newCode = [...verificationCode]
+      newCode[index] = value
+      setVerificationCode(newCode)
+      setError("")
+
+      // Auto-focus next input if a digit was entered
+      if (value && index < 5) {
+        const nextInput = document.getElementById(`code-${index + 1}`)
+        nextInput?.focus()
+      }
+    }
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setError(null)
-
-    // Basic email validation
-    if (!email || !email.includes("@") || !email.includes(".")) {
-      setError("Please enter a valid email address")
+    setIsLoading(true)
+    
+    // Check if all 6 digits are filled
+    if (verificationCode.some(digit => digit === "")) {
+      setError("Please enter all 6 digits of the verification code")
+      setIsLoading(false)
       return
     }
 
-    setIsLoading(true)
-
-    // Simulate API call with timeout
+    // Simulate API verification
     setTimeout(() => {
-      setIsLoading(false)
-      setIsSubmitted(true)
+      router.push('/auth/reset-password')
     }, 1500)
+  }
 
-    // In a real implementation, you would make an API call here
-    // try {
-    //   const response = await fetch('/api/auth/forgot-password', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ email })
-    //   })
-    //
-    //   if (!response.ok) {
-    //     throw new Error('Failed to send reset email')
-    //   }
-    //
-    //   setIsSubmitted(true)
-    // } catch (err) {
-    //   setError('An error occurred. Please try again.')
-    // } finally {
-    //   setIsLoading(false)
-    // }
+  const handleResend = () => {
+    // Reset the timer and hide the resend button
+    setTimeLeft(59)
+    setShowResend(false)
+    setVerificationCode(["", "", "", "", "", ""])
+    setError("")
+
+    // Start the countdown again
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer)
+          setShowResend(true)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100 p-4">
       <div className="w-full max-w-md">
-        {/* Header */}
-        <div className="text-center mb-8 mt-6">
-          <Link href="/" className="inline-flex items-center space-x-2 mb-6">
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center space-x-2 mb-4 mt-16 lg:mt-6">
             <div className="flex items-center justify-center">
               <Image
                 src="/corporate-ballers.svg"
@@ -71,90 +101,78 @@ export default function ForgotPasswordPage() {
               />
             </div>
             <div>
-              <div className="font-bold text-gray-900 text-xl">CBFA</div>
-              <div className="text-sm text-gray-600">Football Academy</div>
+              <h1 className="text-2xl font-bold text-green-600">CBFA</h1>
+              <p className="text-sm text-muted-foreground">Football Academy</p>
             </div>
-          </Link>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Reset Password</h1>
-          <p className="text-gray-600">Enter your email to receive password reset instructions</p>
+          </div>
         </div>
 
-        {/* Form Card */}
-        <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle>Forgot Password</CardTitle>
-            <CardDescription>We&apos;ll send you a link to reset your password</CardDescription>
+        <Card>
+          <CardHeader className="text-center">
+            <div className="flex justify-center mb-4">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                <Mail className="h-10 w-10 text-green-600" />
+              </div>
+            </div>
+            <CardTitle className="text-2xl">Reset Password</CardTitle>
+            <CardDescription>
+              We&apos;ve sent a 6-digit verification code to your email. Enter it below to reset your password.
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            {!isSubmitted ? (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Email */}
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <Label className="text-center block">Verification Code</Label>
+                <div className="flex justify-center space-x-2">
+                  {verificationCode.map((digit, index) => (
                     <Input
-                      id="email"
-                      type="email"
-                      placeholder="Enter your email"
-                      className="pl-10"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
+                      key={index}
+                      id={`code-${index}`}
+                      type="text"
+                      inputMode="numeric"
+                      maxLength={1}
+                      value={digit}
+                      onChange={(e) => handleCodeChange(index, e.target.value)}
+                      className="w-12 h-12 text-center text-lg font-semibold"
                     />
-                  </div>
-                  {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
+                  ))}
                 </div>
-
-                {/* Submit Button */}
-                <Button type="submit" className="w-full bg-green-600 hover:bg-green-700" size="lg" disabled={isLoading}>
-                  {isLoading ? "Sending..." : "Reset Password"}
-                </Button>
-
-                {/* Back to Login */}
-                <div className="text-center">
-                  <Link
-                    href="/auth/login"
-                    className="inline-flex items-center text-sm text-green-600 hover:text-green-700 hover:underline"
-                  >
-                    <ArrowLeft className="h-4 w-4 mr-1" />
-                    Back to Login
-                  </Link>
-                </div>
-              </form>
-            ) : (
-              <div className="py-6 text-center space-y-4">
-                <div className="flex justify-center">
-                  <CheckCircle className="h-16 w-16 text-green-500" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-lg font-medium text-gray-900">Check your email</h3>
-                  <p className="text-gray-600">
-                    We&apos;ve sent a password reset link to <span className="font-medium">{email}</span>
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    If you don&apos;t see it in your inbox, please check your spam folder
-                  </p>
-                </div>
-                <div className="pt-4">
-                  <Button asChild variant="outline" className="mt-4">
-                    <Link href="/auth/login">Return to Login</Link>
-                  </Button>
-                </div>
+                {error && <p className="text-sm text-red-500 text-center">{error}</p>}
               </div>
-            )}
+
+              <Button 
+                type="submit" 
+                className="w-full bg-[#047146] text-white cursor-pointer"
+                disabled={verificationCode.some(digit => digit === "") || isLoading}
+              >
+                {isLoading ? "Verifying..." : "Verify Code"}
+              </Button>
+            </form>
+
+            <div className="mt-6 text-center space-y-2">
+              <p className="text-sm text-muted-foreground">Didn&apos;t receive the code?</p>
+              {!showResend ? (
+                <p className="text-sm text-muted-foreground">
+                  Resend code in <span className="text-[#047146]">{timeLeft} second{timeLeft !== 1 ? 's' : ''}</span>
+                </p>
+              ) : (
+                <Button variant="link" className="text-[#047146] p-0 h-auto cursor-pointer" onClick={handleResend}>
+                  Resend verification code
+                </Button>
+              )}
+            </div>
+
+            <div className="mt-6 text-center">
+              <Link
+                href="/auth/login"
+                className="inline-flex items-center text-sm text-[#047146] hover:underline"
+              >
+                <ArrowLeft className="h-4 w-4 mr-1" />
+                Back to Login
+              </Link>
+            </div>
           </CardContent>
         </Card>
-
-        {/* Footer */}
-        <div className="text-center mt-8 text-sm text-gray-600">
-          <p>
-            Need help?{" "}
-            <Link href="/contact" className="text-green-600 hover:underline">
-              Contact Support
-            </Link>
-          </p>
-        </div>
       </div>
     </div>
   )

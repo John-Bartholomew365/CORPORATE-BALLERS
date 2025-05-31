@@ -1,3 +1,5 @@
+import { Footer } from "@/components/landing-page/Footer"
+import { Navbar } from "@/components/landing-page/Navbar"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { FileText, Scale, AlertTriangle, Users, Mail, Phone } from 'lucide-react'
 
@@ -52,17 +54,18 @@ export default function TermsPage() {
 
     return (
         <div className="min-h-screen bg-white">
+            <Navbar/>
             {/* Hero Section */}
             <section className="py-20 bg-gradient-to-br from-green-900 to-emerald-800 text-white">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto text-center">
                         <Scale className="h-16 w-16 mx-auto mb-6 text-green-200" />
-                        <h1 className="text-5xl md:text-6xl font-bold mb-6">Terms of Service</h1>
-                        <p className="text-xl md:text-2xl text-green-100 leading-relaxed">
+                        <h1 className="lg:text-6xl text-[40px] font-bold mb-3 lg:mb-6">Terms of Service</h1>
+                        <p className="lg:text-xl text-[16px] text-green-100 leading-tight lg:w-[420px] w-auto mx-auto">
                             Please read these terms carefully before using our services or participating in our programs.
                         </p>
                         <p className="text-lg text-green-200 mt-4">
-                            Last updated: December 2024
+                            Last updated: 31st May, 2025
                         </p>
                     </div>
                 </div>
@@ -248,7 +251,7 @@ export default function TermsPage() {
                         {/* Contact Information */}
                         <Card className="mt-12 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
                             <CardHeader>
-                                <CardTitle className="text-2xl text-green-800">Questions About These Terms?</CardTitle>
+                                <CardTitle className="lg:text-2xl text-[20px] text-green-800">Questions About These Terms?</CardTitle>
                                 <CardDescription>
                                     If you have any questions about these Terms of Service, please contact us:
                                 </CardDescription>
@@ -258,17 +261,19 @@ export default function TermsPage() {
                                     <div className="space-y-4">
                                         <div className="flex items-center">
                                             <Mail className="h-5 w-5 text-green-600 mr-3" />
-                                            <div>
-                                                <p className="font-medium text-gray-900">Email</p>
-                                                <p className="text-gray-600">legal@cbfa.ng</p>
-                                            </div>
+                                            <p className="font-medium text-gray-900">Email</p>
                                         </div>
+                                        <div className="ml-8">
+                                            <p className="text-gray-600 -mt-5">corporateballersfa418@gmail.com</p>
+                                        </div>
+
                                         <div className="flex items-center">
                                             <Phone className="h-5 w-5 text-green-600 mr-3" />
-                                            <div>
-                                                <p className="font-medium text-gray-900">Phone</p>
-                                                <p className="text-gray-600">+234 8133178008</p>
-                                            </div>
+                                            <p className="font-medium text-gray-900">Phone</p>
+                                        </div>
+
+                                        <div className="ml-8">
+                                            <p className="text-gray-600 -mt-5">+234 8133178008</p>
                                         </div>
                                     </div>
                                     <div>
@@ -286,6 +291,7 @@ export default function TermsPage() {
                     </div>
                 </div>
             </section>
+            <Footer/>
         </div>
     )
 }

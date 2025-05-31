@@ -7,6 +7,8 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { ChevronDown, Search, MessageCircle } from 'lucide-react'
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
+import { Navbar } from "@/components/landing-page/Navbar"
+import { Footer } from "@/components/landing-page/Footer"
 
 export default function FAQPage() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -163,12 +165,13 @@ export default function FAQPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Navbar/>
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-green-900 to-emerald-800 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Frequently Asked Questions</h1>
-            <p className="text-xl md:text-2xl text-green-100 leading-relaxed">
+            <h1 className="lg:text-6xl text-[40px] font-bold mb-6 lg:w-[520px] w-auto leading-tight mx-auto">Frequently Asked Questions</h1>
+            <p className="lg:text-xl text-[16px] text-green-100 lg:w-[450px] w-auto mx-auto mb-8 leading-tight">
               Find answers to common questions about Corporate Ballers Football Academy
             </p>
           </div>
@@ -255,10 +258,10 @@ export default function FAQPage() {
       {/* Contact Section */}
       <section className="py-20 bg-gradient-to-r from-green-600 to-emerald-600 text-white">
         <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto">
+          <div className="">
             <MessageCircle className="h-16 w-16 mx-auto mb-6 text-green-200" />
             <h2 className="text-3xl font-bold mb-4">Still Have Questions?</h2>
-            <p className="text-xl text-green-100 mb-8">
+            <p className="text-xl text-green-100 mb-8 lg:w-[385px] w-auto mx-auto ">
               Can&apos;t find the answer you&apos;re looking for? Our team is here to help you with any questions about CBFA.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -269,7 +272,7 @@ export default function FAQPage() {
                 asChild 
                 size="lg" 
                 variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-green-600"
+                className="border-white text-white bg-transparent "
               >
                 <Link href="mailto:corporateballersfa418@gmail.com">Email Us</Link>
               </Button>
@@ -277,6 +280,7 @@ export default function FAQPage() {
           </div>
         </div>
       </section>
+      <Footer/>
     </div>
   )
 }

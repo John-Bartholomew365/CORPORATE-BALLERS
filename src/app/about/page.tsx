@@ -4,10 +4,13 @@ import { Badge } from "@/components/ui/badge"
 import { Target, Eye, Users, Award, Heart, Globe, Trophy, Star } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { Navbar } from "@/components/landing-page/Navbar"
+import { Footer } from "@/components/landing-page/Footer"
 
 export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen">
+      <Navbar/>
 
       {/* Hero Section */}
       <section className="py-20 lg:py-[150px] bg-gradient-to-br from-green-50 to-green-100">
@@ -235,17 +238,19 @@ export default function AboutPage() {
             <Button className="bg-white text-[#047146] hover:border hover:border-white hover:text-[#FFFFFF] hover:bg-transparent" size="lg" variant="secondary" asChild>
               <Link href="/auth/register">Register Now</Link>
             </Button>
-            <Button
+            {/* <Button
               size="lg"
               variant="outline"
               className="border-[#FFFFFF] border bg-transparent text-white hover:bg-white hover:text-green-600"
               asChild
             >
               <Link href="/programs">View Programs</Link>
-            </Button>
+            </Button> */}
           </div>
         </div>
       </section>
+
+      <Footer/>
     </div>
   )
 }

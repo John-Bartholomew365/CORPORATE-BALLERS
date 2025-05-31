@@ -3,6 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle, Trophy, Clock, MapPin } from "lucide-react"
 import Link from "next/link"
+import { Navbar } from "@/components/landing-page/Navbar"
+import { Footer } from "@/components/landing-page/Footer"
 
 export default function SeniorCategoryPage() {
   const curriculum = [
@@ -54,6 +56,7 @@ export default function SeniorCategoryPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Navbar/>
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-green-900 to-green-700 text-white">
         <div className="container mx-auto px-4">
@@ -332,6 +335,7 @@ export default function SeniorCategoryPage() {
           </div>
         </div>
       </section>
+      <Footer/>
     </div>
   )
 }

@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Users, Award, Target } from "lucide-react"
 import Link from "next/link"
+import { Navbar } from "@/components/landing-page/Navbar"
+import { Footer } from "@/components/landing-page/Footer"
 
 export default function TeamPage() {
   const coaches = [
@@ -149,6 +151,7 @@ export default function TeamPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Navbar/>
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-green-900 to-emerald-800 text-white">
         <div className="container mx-auto px-4">
@@ -407,6 +410,7 @@ export default function TeamPage() {
           </div>
         </div>
       </section>
+      <Footer/>
     </div>
   )
 }

@@ -9,9 +9,9 @@ import {
   Phone,
   MapPin,
   Clock,
-  Trophy,
-  Users,
-  Star,
+  // Trophy,
+  // Users,
+  // Star,
   ArrowRight,
 } from "lucide-react"
 import Link from "next/link"
@@ -19,9 +19,9 @@ import Image from "next/image"
 
 export function Footer() {
   const programLinks = [
-    { name: "Junior Category (12-17)", href: "/program/junior", icon: Users },
-    { name: "Senior Category (18+)", href: "/program/senior", icon: Trophy },
-    { name: "Elite Development", href: "/program/elite", icon: Star },
+    { name: "Junior Category (12-17)", href: "/program/junior" },
+    { name: "Senior Category (18+)", href: "/program/senior"},
+    { name: "Elite Development", href: "/program/elite"},
   ]
 
   const quickLinks = [
@@ -30,6 +30,7 @@ export function Footer() {
     { name: "Gallery", href: "/gallery" },
     { name: "News & Updates", href: "/news" },
     { name: "Contact Us", href: "/contact" },
+    { name: "FAQ", href: "/faq" },
   ]
 
   const playerLinks = [
@@ -136,7 +137,7 @@ export function Footer() {
                     href={link.href}
                     className="flex items-center text-gray-300 hover:text-yellow-400 transition-colors group"
                   >
-                    <link.icon className="h-4 w-4 mr-2 group-hover:text-yellow-400" />
+                    {/* <link.icon className="h-4 w-4 mr-2 group-hover:text-yellow-400" /> */}
                     <span className="text-sm">{link.name}</span>
                   </Link>
                 </li>

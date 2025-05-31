@@ -8,7 +8,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import {
-  Trophy,
   Users,
   Calendar,
   Settings,
@@ -27,6 +26,7 @@ import {
   MessageSquare,
 } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function AdminDashboard() {
   return (
@@ -36,8 +36,8 @@ export default function AdminDashboard() {
         <div className="flex flex-col flex-grow bg-white border-r">
           <div className="flex items-center flex-shrink-0 px-4 py-6">
             <div className="flex items-center space-x-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-600">
-                <Trophy className="h-6 w-6 text-white" />
+              <div className="w-10 h-10 flex items-center justify-center">
+                <Image src={"/corporate-ballers.svg"} alt="Logo" width={45} height={45} />
               </div>
               <div>
                 <h1 className="text-lg font-bold text-green-600">CBFA</h1>
@@ -118,7 +118,7 @@ export default function AdminDashboard() {
         <div className="sticky top-0 z-40 flex h-16 flex-shrink-0 items-center gap-x-4 border-b bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
             <div className="flex flex-1 items-center">
-              <h1 className="text-xl font-semibold text-foreground">Admin Dashboard</h1>
+              <h1 className="text-xl font-semibold text-[#0F0F0F]">Admin Dashboard</h1>
             </div>
             <div className="flex items-center gap-x-4 lg:gap-x-6">
               <Button variant="ghost" size="sm">
@@ -358,7 +358,7 @@ export default function AdminDashboard() {
                           </div>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <Badge variant={player.status === "Active" ? "default" : "secondary"}>{player.status}</Badge>
+                          <Badge variant={player.status === "Active" ? "default" : "secondary"} className="text-[#B0B3B8]">{player.status}</Badge>
                           <Button variant="ghost" size="sm">
                             <Eye className="h-4 w-4" />
                           </Button>
