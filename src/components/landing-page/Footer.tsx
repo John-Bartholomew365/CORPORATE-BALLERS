@@ -98,8 +98,7 @@ export function Footer() {
                 </div>
               </Link>
               <p className="text-gray-300 leading-relaxed mb-4">
-                Corporate Ballers Football Academy - Nurturing raw talent into professional excellence. Building
-                champions on and off the field since our establishment in Ilorin, Kwara State.
+                Corporate Ballers Football Academy <br /> Nurturing raw talent into professional excellence.
               </p>
               <div className="flex flex-wrap gap-2">
                 <Badge variant="secondary" className="bg-green-600 text-white">

@@ -136,6 +136,19 @@ export default function RegisterPage() {
                 </div>
 
                 <div className="space-y-2">
+                  <Label htmlFor="experience">Preferred foot</Label>
+                  <Select required>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select preferred foot" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="right">Right</SelectItem>
+                      <SelectItem value="left">Left</SelectItem>
+                      <SelectItem value="both">Both</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
                   <Label htmlFor="experience">Previous Football Experience</Label>
                   <Select required>
                     <SelectTrigger>

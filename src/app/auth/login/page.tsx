@@ -19,7 +19,7 @@ export default function LoginPage() {
     e.preventDefault()
     // Here you would typically validate credentials and/or call an API
     // For now, we'll just redirect to dashboard
-    router.push("/dashboard")
+    router.push("/player/dashboard")
   }
 
   return (
