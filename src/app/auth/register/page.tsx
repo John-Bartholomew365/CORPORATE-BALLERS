@@ -11,21 +11,157 @@ import Link from "next/link"
 import { useState } from "react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import axios from 'axios'
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  dateOfBirth: string;
+  gender: string;
+  address: string;
+  category: string;
+  preferredPosition: string;
+  preferredFoot: string;
+  footballExperience: string;
+  emergencyContact: {
+    contactName: string;
+    contactPhone: string;
+    relationship: string;
+  };
+  terms: boolean;
+  password: string;
+  confirmPassword: string;
+}
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Here you would typically validate the form and submit to an API
-    // For this example, we'll assume validation is successful
-    router.push('/auth/verify-account')
+  const [formData, setFormData] = useState<FormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    dateOfBirth: '',
+    gender: '',
+    address: '',
+    category: '',
+    preferredPosition: '',
+    preferredFoot: '',
+    footballExperience: '',
+    emergencyContact: {
+      contactName: '',
+      contactPhone: '',
+      relationship: ''
+    },
+    terms: false,
+    password: '',
+    confirmPassword: ''
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value, type } = e.target
+    const checked = type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined
+
+    if (id in formData) {
+      setFormData(prev => ({
+        ...prev,
+        [id]: type === 'checkbox' ? checked : value
+      }))
+    } else if (id.startsWith('emergency')) {
+      const emergencyField = id.replace('emergency', '').toLowerCase()
+      setFormData(prev => ({
+        ...prev,
+        emergencyContact: {
+          ...prev.emergencyContact,
+          [emergencyField]: value
+        }
+      }))
+    }
   }
+
+  const handleSelectChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Enhanced validation
+      if (formData.password !== formData.confirmPassword) {
+        toast.error("Passwords do not match");
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!formData.terms) {
+        toast.error("You must accept the terms and conditions");
+        setIsSubmitting(false);
+        return;
+      }
+
+      const response = await axios.post('/api/signup', formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+
+      if (response.data.statusCode === "00") {
+        toast.success("Registration successful! Redirecting...");
+        setTimeout(() => {
+          router.push('/auth/verify-account');
+        }, 2000);
+      } else {
+        toast.error(response.data.message || 'Registration failed');
+      }
+    } catch (error: unknown) {
+
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          // Server responded with error status
+          toast.error(error.response.data?.message || 'Registration failed');
+        } else if (error.request) {
+          // No response received
+          toast.error("No response from server. Please try again later.");
+        } else {
+          // Request setup error
+          toast.error(error.message || 'An error occurred during registration');
+        }
+      } else {
+        // Unknown error
+        toast.error('An unexpected error occurred');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100 px-4 ">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="w-full max-w-2xl py-8">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
@@ -58,33 +194,69 @@ export default function RegisterPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="firstName">First Name</Label>
-                    <Input id="firstName" placeholder="Enter your first name" required />
+                    <Input
+                      id="firstName"
+                      placeholder="Enter your first name"
+                      required
+                      value={formData.firstName}
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="lastName">Last Name</Label>
-                    <Input id="lastName" placeholder="Enter your last name" required />
+                    <Input
+                      id="lastName"
+                      placeholder="Enter your last name"
+                      required
+                      value={formData.lastName}
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="Enter your email" required />
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="Enter your email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" type="tel" placeholder="+234 8XX XXX XXXX" required />
+                    <Label htmlFor="phoneNumber">Phone Number</Label>
+                    <Input
+                      id="phoneNumber"
+                      type="tel"
+                      placeholder="+234 8XX XXX XXXX"
+                      required
+                      value={formData.phoneNumber}
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="dateOfBirth">Date of Birth</Label>
-                    <Input id="dateOfBirth" type="date" required />
+                    <Input
+                      id="dateOfBirth"
+                      type="date"
+                      required
+                      value={formData.dateOfBirth}
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="gender">Gender</Label>
-                    <Select required>
+                    <Select
+                      required
+                      onValueChange={(value) => handleSelectChange('gender', value)}
+                      value={formData.gender}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Select gender" />
                       </SelectTrigger>
@@ -98,7 +270,13 @@ export default function RegisterPage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="address">Address</Label>
-                  <Input id="address" placeholder="Enter your full address" required />
+                  <Input
+                    id="address"
+                    placeholder="Enter your full address"
+                    required
+                    value={formData.address}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
 
@@ -108,7 +286,11 @@ export default function RegisterPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="category">Category</Label>
-                    <Select required>
+                    <Select
+                      required
+                      onValueChange={(value) => handleSelectChange('category', value)}
+                      value={formData.category}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
@@ -119,8 +301,12 @@ export default function RegisterPage() {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="position">Preferred Position</Label>
-                    <Select required>
+                    <Label htmlFor="preferredPosition">Preferred Position</Label>
+                    <Select
+                      required
+                      onValueChange={(value) => handleSelectChange('preferredPosition', value)}
+                      value={formData.preferredPosition}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Select position" />
                       </SelectTrigger>
@@ -136,8 +322,12 @@ export default function RegisterPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="experience">Preferred foot</Label>
-                  <Select required>
+                  <Label htmlFor="preferredFoot">Preferred foot</Label>
+                  <Select
+                    required
+                    onValueChange={(value) => handleSelectChange('preferredFoot', value)}
+                    value={formData.preferredFoot}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select preferred foot" />
                     </SelectTrigger>
@@ -149,16 +339,21 @@ export default function RegisterPage() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="experience">Previous Football Experience</Label>
-                  <Select required>
+                  <Label htmlFor="footballExperience">Previous Football Experience</Label>
+                  <Select
+                    required
+                    onValueChange={(value) => handleSelectChange('footballExperience', value)}
+                    value={formData.footballExperience}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select experience level" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="beginner">Beginner</SelectItem>
-                      <SelectItem value="amateur">Amateur</SelectItem>
-                      <SelectItem value="semi-professional">Semi-Professional</SelectItem>
-                      <SelectItem value="professional">Professional</SelectItem>
+                      <div>
+                        <Select value="amateur"> Amateur</Select>
+                      </div>
+                      <SelectItem value="semi-professional">Professional</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -169,23 +364,60 @@ export default function RegisterPage() {
                 <h3 className="text-lg font-semibold">Emergency Contact</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="emergencyName">Contact Name</Label>
-                    <Input id="emergencyName" placeholder="Emergency contact name" required />
+                    <Label htmlFor="emergencyContactName">Contact Name</Label>
+                    <Input
+                      id="emergencyContactName"
+                      placeholder="Emergency contact name"
+                      required
+                      value={formData.emergencyContact.contactName}
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
+                        emergencyContact: {
+                          ...prev.emergencyContact,
+                          contactName: e.target.value
+                        }
+                      }))}
+                    />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="emergencyPhone">Contact Phone</Label>
-                    <Input id="emergencyPhone" type="tel" placeholder="+234 8XX XXX XXXX" required />
+                    <Label htmlFor="emergencyContactPhone">Contact Phone</Label>
+                    <Input
+                      id="emergencyContactPhone"
+                      type="tel"
+                      placeholder="e.g. +234 8XX XXX XXXX"
+                      required
+                      value={formData.emergencyContact.contactPhone}
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
+                        emergencyContact: {
+                          ...prev.emergencyContact,
+                          contactPhone: e.target.value
+                        }
+                      }))}
+                    />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="relationship">Relationship</Label>
-                  <Input id="relationship" placeholder="e.g., Parent, Guardian, Spouse" required />
+                  <Label htmlFor="emergencyRelationship">Relationship</Label>
+                  <Input
+                    id="emergencyRelationship"
+                    placeholder="e.g., Parent, Guardian, Spouse"
+                    required
+                    value={formData.emergencyContact.relationship}
+                    onChange={(e) => setFormData(prev => ({
+                      ...prev,
+                      emergencyContact: {
+                        ...prev.emergencyContact,
+                        relationship: e.target.value
+                      }
+                    }))}
+                  />
                 </div>
               </div>
 
               {/* Account Security */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Account Security</h3>
+                <div className="h3 text-lg font-semibold">Account Security</div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="password">Password</Label>
@@ -195,6 +427,8 @@ export default function RegisterPage() {
                         type={showPassword ? "text" : "password"}
                         placeholder="Create a password"
                         required
+                        value={formData.password}
+                        onChange={handleChange}
                       />
                       <Button
                         type="button"
@@ -215,6 +449,8 @@ export default function RegisterPage() {
                         type={showConfirmPassword ? "text" : "password"}
                         placeholder="Confirm your password"
                         required
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
                       />
                       <Button
                         type="button"
@@ -228,34 +464,47 @@ export default function RegisterPage() {
                     </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Terms and Conditions */}
-              <div className="space-y-4">
-                <div className="flex items-start space-x-2">
-                  <Checkbox id="terms" className="mt-1 text-[#047146]" required />
-                  <Label htmlFor="terms" className="text-sm leading-relaxed">
-                    I agree to the{" "}
-                    <Link href="/terms" className="text-[#047146] hover:underline">
-                      Terms of Service
-                    </Link>{" "}
-                    and{" "}
-                    <Link href="/privacy" className="text-[#047146] hover:underline">
-                      Privacy Policy
-                    </Link>
-                  </Label>
+                {/* Terms and Conditions */}
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-2">
+                    <Checkbox
+                      id="terms"
+                      className="mt-1 text-[#047146]"
+                      required
+                      checked={formData.terms}
+                      onCheckedChange={(checked) => setFormData(prev => ({
+                        ...prev,
+                        terms: Boolean(checked)
+                      }))}
+                    />
+                    <Label htmlFor="terms" className="text-sm leading-relaxed">
+                      I agree to the{" "}
+                      <Link href="/terms" className="text-[#047146] hover:underline">
+                        Terms of Service
+                      </Link>{" "}
+                      and{" "}
+                      <Link href="/privacy" className="text-[#047146] hover:underline">
+                        Privacy Policy
+                      </Link>
+                    </Label>
+                  </div>
                 </div>
-              </div>
 
-              <Button type="submit" className="w-full text-white bg-[#047146] cursor-pointer">
-                Create Account
-              </Button>
+                <Button
+                  type="submit"
+                  className="w-full text-white bg-[#047146] cursor-pointer"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Creating Account..." : "Create Account"}
+                </Button>
+              </div>
             </form>
 
             <div className="mt-6 text-center">
               <p className="text-sm text-muted-foreground">
                 Already have an account?{" "}
-                <Link href="/auth/login" className="text-[#047146] hover:underline">
+                <Link href="/auth/login"
+                  className="text-[#047146] hover:underline">
                   Login
                 </Link>
               </p>
@@ -264,7 +513,8 @@ export default function RegisterPage() {
         </Card>
 
         <div className="mt-6 text-center">
-          <Link href="/" className="text-sm text-muted-foreground hover:text-[#047146]">
+          <Link href="/"
+            className="text-sm text-muted-foreground hover:text-[#047146]">
             ← Back to homepage
           </Link>
         </div>
