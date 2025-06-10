@@ -1,147 +1,266 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
-import { UserPlus, ChevronLeft, ChevronRight, Search, MoreVertical } from "lucide-react"
-import { AdminLayout } from "@/components/dashboard/AdminLayout"
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { UserPlus, ChevronLeft, ChevronRight, Search, MoreVertical } from "lucide-react";
+import { AdminLayout } from "@/components/dashboard/AdminLayout";
 import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
-import { Pagination, PaginationContent, PaginationItem } from "@/components/ui/pagination"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Textarea } from "@/components/ui/textarea"
+} from "@/components/ui/dialog";
+import { Pagination, PaginationContent, PaginationItem } from "@/components/ui/pagination";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Textarea } from "@/components/ui/textarea";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { getToken } from "@/app/reuseables/authToken";
+import { useRouter } from "next/navigation";
 
 type Registration = {
-    id: string
-    name: string
-    age: number
-    category: string
-    date: string
-    status: "Approved" | "Pending" | "Rejected"
-    position: string
-    parentName: string
-}
-
-// List of realistic player names
-const PLAYER_NAMES = [
-    "James Rodriguez",
-    "Lionel Messi",
-    "Cristiano Ronaldo",
-    "Neymar Jr",
-    "Kylian Mbappé",
-    "Mohamed Salah",
-    "Kevin De Bruyne",
-    "Virgil van Dijk",
-    "Robert Lewandowski",
-    "Harry Kane",
-    "Erling Haaland",
-    "Karim Benzema",
-    "Luka Modric",
-    "Toni Kroos",
-    "Sergio Ramos",
-    "Manuel Neuer",
-    "Joshua Kimmich",
-    "Sadio Mané",
-    "Raheem Sterling",
-    "Bruno Fernandes",
-    "Paul Pogba",
-    "Antoine Griezmann",
-    "Eden Hazard",
-    "Thibaut Courtois",
-    "Jan Oblak",
-    "Marc-André ter Stegen",
-    "Alisson Becker",
-    "Ederson Moraes",
-    "Riyad Mahrez",
-    "Bernardo Silva",
-    "João Cancelo",
-    "Ruben Dias",
-    "Aymeric Laporte",
-    "Phil Foden",
-    "Jack Grealish",
-    "Bukayo Saka",
-    "Gabriel Martinelli",
-    "Martin Ødegaard",
-    "Thomas Partey",
-    "Declan Rice",
-    "Jude Bellingham",
-    "Jamal Musiala",
-    "Pedri González",
-    "Gavi",
-    "Ansu Fati"
-]
+    id: string;
+    name: string;
+    age?: number;
+    category: string;
+    date: string;
+    status: "Approved" | "Pending" | "Rejected";
+    position: string;
+    parentName: string;
+};
 
 export default function RegistrationPage() {
-    const [searchQuery, setSearchQuery] = useState("")
-    const [currentPage, setCurrentPage] = useState(1)
-    const registrationsPerPage = 10
+    const [searchQuery, setSearchQuery] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [allRegistrations, setAllRegistrations] = useState<Registration[]>([]);
+    const [loading, setLoading] = useState(true);
+    const registrationsPerPage = 10;
+    const router = useRouter();
 
-    // State for registrations with realistic names
-    const [allRegistrations, setAllRegistrations] = useState<Registration[]>(
-        Array.from({ length: 45 }, (_, i) => ({
-            id: `CBFA${200 + i}`,
-            name: PLAYER_NAMES[i % PLAYER_NAMES.length],
-            age: Math.floor(Math.random() * 10) + 12,
-            category: Math.random() > 0.5 ? "Junior" : "Senior",
-            date: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-            status: ["Approved", "Pending", "Rejected"][Math.floor(Math.random() * 3)] as "Approved" | "Pending" | "Rejected",
-            position: ["Goalkeeper", "Defender", "Midfielder", "Winger", "Forward"][Math.floor(Math.random() * 5)],
-            parentName: `Parent ${i + 1}`
-        }))
-    )
+    useEffect(() => {
+        const fetchRegistrations = async () => {
+            try {
+                const token = getToken();
+                console.log("RegistrationPage: Token for API call:", token); // Debug: Log token
+
+                if (!token) {
+                    toast.error("Please log in to view registrations.");
+                    setTimeout(() => {
+                        router.push("/auth/login");
+                    }, 2000);
+                    return;
+                }
+
+                const response = await axios.get("/api/all-players", {
+                    headers: {
+                        Authorization: token,
+                    },
+                });
+
+                const data = response.data;
+                console.log("RegistrationPage: API response:", data); // Debug: Log response
+
+                if (data.statusCode === "00") {
+                    type PlayerApiResponse = {
+                        id: string;
+                        fullName: string;
+                        category: string;
+                        status: string;
+                        position: string;
+                    };
+                    const mappedRegistrations: Registration[] = data.players.map((player: PlayerApiResponse) => ({
+                        id: player.id,
+                        name: player.fullName,
+                        age: undefined, // Not in API response
+                        category: player.category,
+                        date: new Date().toISOString().split("T")[0], // Default to today
+                        status: player.status === "Active" ? "Approved" : (player.status as "Approved" | "Pending" | "Rejected"),
+                        position: player.position,
+                        parentName: "", // Not in API response
+                    }));
+
+                    setAllRegistrations(mappedRegistrations);
+                    toast.success("Registrations retrieved successfully!");
+                } else {
+                    toast.error(data.message || "Failed to fetch registrations");
+                }
+            } catch (error) {
+                console.error("RegistrationPage: Fetch registrations error:", error);
+                if (axios.isAxiosError(error)) {
+                    if (error.response) {
+                        if (error.response.status === 401) {
+                            toast.error("Session expired. Please log in again.");
+                            setTimeout(() => {
+                                router.push("/auth/login");
+                            }, 2000);
+                        } else {
+                            toast.error(error.response.data?.message || "Failed to fetch registrations");
+                        }
+                    } else if (error.request) {
+                        toast.error("No response from server. Please try again later.");
+                    } else {
+                        toast.error(error.message || "An error occurred while fetching registrations");
+                    }
+                } else {
+                    toast.error("An unexpected error occurred");
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchRegistrations();
+    }, [router]);
 
     // Filter registrations based on search query
-    const filteredRegistrations = allRegistrations.filter(reg =>
-        reg.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        reg.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        reg.parentName.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+    const filteredRegistrations = allRegistrations.filter(
+        (reg) =>
+            reg.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            reg.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            reg.parentName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     // Pagination logic
-    const indexOfLastRegistration = currentPage * registrationsPerPage
-    const indexOfFirstRegistration = indexOfLastRegistration - registrationsPerPage
-    const currentRegistrations = filteredRegistrations.slice(indexOfFirstRegistration, indexOfLastRegistration)
-    const totalPages = Math.ceil(filteredRegistrations.length / registrationsPerPage)
+    const indexOfLastRegistration = currentPage * registrationsPerPage;
+    const indexOfFirstRegistration = indexOfLastRegistration - registrationsPerPage;
+    const currentRegistrations = filteredRegistrations.slice(indexOfFirstRegistration, indexOfLastRegistration);
+    const totalPages = Math.ceil(filteredRegistrations.length / registrationsPerPage);
 
     // Registration stats
     const registrationStats = {
         total: allRegistrations.length,
-        approved: allRegistrations.filter(r => r.status === "Approved").length,
-        pending: allRegistrations.filter(r => r.status === "Pending").length,
-        rejected: allRegistrations.filter(r => r.status === "Rejected").length,
-        thisMonth: allRegistrations.filter(r => {
-            const regDate = new Date(r.date)
-            const now = new Date()
-            return regDate.getMonth() === now.getMonth() && regDate.getFullYear() === now.getFullYear()
-        }).length
-    }
+        approved: allRegistrations.filter((r) => r.status === "Approved").length,
+        pending: allRegistrations.filter((r) => r.status === "Pending").length,
+        rejected: allRegistrations.filter((r) => r.status === "Rejected").length,
+        thisMonth: allRegistrations.filter((r) => {
+            const regDate = new Date(r.date);
+            const now = new Date();
+            return regDate.getMonth() === now.getMonth() && regDate.getFullYear() === now.getFullYear();
+        }).length,
+    };
 
-    // Status change handler
-    const handleStatusChange = (id: string, newStatus: "Approved" | "Pending" | "Rejected") => {
-        setAllRegistrations(prevRegistrations =>
-            prevRegistrations.map(reg =>
-                reg.id === id ? { ...reg, status: newStatus } : reg
-            )
-        )
-    }
+    // Status change handler (Verify/Reject)
+    const handleStatusChange = async (id: string, newStatus: "Approved" | "Pending" | "Rejected") => {
+        try {
+            const token = getToken();
+            console.log("RegistrationPage: Token for status change:", token); // Debug: Log token
+
+            if (!token) {
+                toast.error("Please log in to perform this action.");
+                setTimeout(() => {
+                    router.push("/auth/login");
+                }, 2000);
+                return;
+            }
+
+            if (newStatus === "Pending") {
+                // No API call for Pending; just update locally
+                setAllRegistrations((prev) =>
+                    prev.map((reg) => (reg.id === id ? { ...reg, status: newStatus } : reg))
+                );
+                toast.success("Registration status set to Pending");
+                return;
+            }
+
+            const endpoint = newStatus === "Approved"
+                ? `/api/verify-player?id=${id}`
+                : `/api/reject-player?id=${id}`;
+
+            const response = await axios({
+                method: newStatus === "Approved" ? "PATCH" : "DELETE",
+                url: endpoint,
+                headers: {
+                    Authorization: token,
+                },
+            });
+
+            const data = response.data;
+            console.log("RegistrationPage: Status change response:", data); // Debug: Log response
+
+            if (data.statusCode === "00") {
+                // Refresh registrations after status change
+                const refreshResponse = await axios.get("/api/all-players", {
+                    headers: {
+                        Authorization: token,
+                    },
+                });
+
+                if (refreshResponse.data.statusCode === "00") {
+                    type PlayerApiResponse = {
+                        id: string;
+                        fullName: string;
+                        category: string;
+                        status: string;
+                        position: string;
+                    };
+                    const updatedRegistrations: Registration[] = refreshResponse.data.players.map((player: PlayerApiResponse) => ({
+                        id: player.id,
+                        name: player.fullName,
+                        age: undefined,
+                        category: player.category,
+                        date: new Date().toISOString().split("T")[0],
+                        status: player.status === "Active" ? "Approved" : (player.status as "Approved" | "Pending" | "Rejected"),
+                        position: player.position,
+                        parentName: "",
+                    }));
+                    setAllRegistrations(updatedRegistrations);
+                    toast.success(`Registration ${newStatus.toLowerCase()} successfully!`);
+                } else {
+                    toast.error(refreshResponse.data.message || "Failed to refresh registrations");
+                }
+            } else {
+                toast.error(data.message || `Failed to ${newStatus.toLowerCase()} registration`);
+            }
+        } catch (error) {
+            console.error("RegistrationPage: Status change error:", error);
+            if (axios.isAxiosError(error)) {
+                if (error.response) {
+                    if (error.response.status === 401) {
+                        toast.error("Session expired. Please log in again.");
+                        setTimeout(() => {
+                            router.push("/auth/login");
+                        }, 2000);
+                    } else {
+                        toast.error(error.response.data?.message || `Failed to ${newStatus.toLowerCase()} registration`);
+                    }
+                } else if (error.request) {
+                    toast.error("No response from server. Please try again later.");
+                } else {
+                    toast.error(error.message || "An error occurred during status change");
+                }
+            } else {
+                toast.error("An unexpected error occurred");
+            }
+        }
+    };
 
     return (
         <AdminLayout>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className="space-y-6">
                 <div className="flex items-center justify-between">
                     <div>
@@ -150,7 +269,7 @@ export default function RegistrationPage() {
                     </div>
                     <RegistrationModal
                         onNewRegistration={(newReg) => {
-                            setAllRegistrations([newReg, ...allRegistrations])
+                            setAllRegistrations([newReg, ...allRegistrations]);
                         }}
                     />
                 </div>
@@ -198,8 +317,8 @@ export default function RegistrationPage() {
                                     className="pl-10"
                                     value={searchQuery}
                                     onChange={(e) => {
-                                        setSearchQuery(e.target.value)
-                                        setCurrentPage(1)
+                                        setSearchQuery(e.target.value);
+                                        setCurrentPage(1);
                                     }}
                                 />
                             </div>
@@ -222,26 +341,34 @@ export default function RegistrationPage() {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {currentRegistrations.length > 0 ? (
+                                    {loading ? (
+                                        <TableRow>
+                                            <TableCell colSpan={9} className="text-center py-8">
+                                                Loading registrations...
+                                            </TableCell>
+                                        </TableRow>
+                                    ) : currentRegistrations.length > 0 ? (
                                         currentRegistrations.map((registration) => (
                                             <TableRow key={registration.id}>
                                                 <TableCell className="font-medium">{registration.name}</TableCell>
                                                 <TableCell>{registration.id}</TableCell>
-                                                <TableCell>{registration.age}</TableCell>
+                                                <TableCell>{registration.age || "N/A"}</TableCell>
                                                 <TableCell>
                                                     <Badge variant={registration.category === "Senior" ? "default" : "secondary"}>
                                                         {registration.category}
                                                     </Badge>
                                                 </TableCell>
                                                 <TableCell>{registration.position}</TableCell>
-                                                <TableCell>{registration.parentName}</TableCell>
+                                                <TableCell>{registration.parentName || "N/A"}</TableCell>
                                                 <TableCell>{new Date(registration.date).toLocaleDateString()}</TableCell>
                                                 <TableCell>
                                                     <Badge
                                                         className={
-                                                            registration.status === "Approved" ? "bg-green-100 text-green-800 hover:bg-green-200" :
-                                                                registration.status === "Pending" ? "bg-yellow-100 text-yellow-800 hover:bg-yellow-200" :
-                                                                    "bg-red-100 text-red-800 hover:bg-red-200"
+                                                            registration.status === "Approved"
+                                                                ? "bg-green-100 text-green-800 hover:bg-green-200"
+                                                                : registration.status === "Pending"
+                                                                    ? "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
+                                                                    : "bg-red-100 text-red-800 hover:bg-red-200"
                                                         }
                                                     >
                                                         {registration.status}
@@ -296,7 +423,9 @@ export default function RegistrationPage() {
                         {filteredRegistrations.length > registrationsPerPage && (
                             <div className="mt-4 flex justify-between items-center">
                                 <div className="text-sm text-gray-500">
-                                    Showing {indexOfFirstRegistration + 1}-{Math.min(indexOfLastRegistration, filteredRegistrations.length)} of {filteredRegistrations.length} registrations
+                                    Showing {indexOfFirstRegistration + 1}-
+                                    {Math.min(indexOfLastRegistration, filteredRegistrations.length)} of{" "}
+                                    {filteredRegistrations.length} registrations
                                 </div>
                                 <Pagination>
                                     <PaginationContent>
@@ -333,11 +462,11 @@ export default function RegistrationPage() {
                 </Card>
             </div>
         </AdminLayout>
-    )
+    );
 }
 
 function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Registration) => void }) {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -348,40 +477,101 @@ function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Reg
         parentPhone: "",
         address: "",
         medicalInfo: "",
-    })
+    });
+    const [submitting, setSubmitting] = useState(false);
+    const router = useRouter();
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubmitting(true);
 
-        // Generate a new registration
-        const newRegistration: Registration = {
-            id: `CBFA${Math.floor(Math.random() * 900 + 100)}`,
-            name: `${formData.firstName} ${formData.lastName}`,
-            age: parseInt(formData.age),
-            category: formData.category === "junior" ? "Junior" : "Senior",
-            date: new Date().toISOString().split('T')[0],
-            status: "Pending",
-            position: formData.position,
-            parentName: formData.parentName
+        try {
+            const token = getToken();
+            console.log("RegistrationModal: Token for API call:", token); // Debug: Log token
+
+            if (!token) {
+                toast.error("Please log in to register a player.");
+                setTimeout(() => {
+                    router.push("/auth/login");
+                }, 2000);
+                return;
+            }
+
+            const response = await axios.post(
+                "/api/add-player",
+                {
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    age: parseInt(formData.age),
+                    category: formData.category === "junior" ? "Junior" : "Senior",
+                    position: formData.position,
+                    parentName: formData.parentName,
+                    parentPhone: formData.parentPhone,
+                    address: formData.address,
+                    medicalInfo: formData.medicalInfo,
+                },
+                {
+                    headers: {
+                        Authorization: token,
+                    },
+                }
+            );
+
+            const data = response.data;
+            console.log("RegistrationModal: API response:", data); // Debug: Log response
+
+            if (data.statusCode === "00") {
+                const newRegistration: Registration = {
+                    id: data.player.id, // Assuming backend returns player object with id
+                    name: `${formData.firstName} ${formData.lastName}`,
+                    age: parseInt(formData.age),
+                    category: formData.category === "junior" ? "Junior" : "Senior",
+                    date: new Date().toISOString().split("T")[0],
+                    status: "Pending",
+                    position: formData.position,
+                    parentName: formData.parentName,
+                };
+                onNewRegistration(newRegistration);
+                toast.success("Player registered successfully!");
+                setFormData({
+                    firstName: "",
+                    lastName: "",
+                    age: "",
+                    category: "",
+                    position: "",
+                    parentName: "",
+                    parentPhone: "",
+                    address: "",
+                    medicalInfo: "",
+                });
+                setOpen(false);
+            } else {
+                toast.error(data.message || "Failed to register player");
+            }
+        } catch (error) {
+            console.error("RegistrationModal: Submit error:", error);
+            if (axios.isAxiosError(error)) {
+                if (error.response) {
+                    if (error.response.status === 401) {
+                        toast.error("Session expired. Please log in again.");
+                        setTimeout(() => {
+                            router.push("/auth/login");
+                        }, 2000);
+                    } else {
+                        toast.error(error.response.data?.message || "Failed to register player");
+                    }
+                } else if (error.request) {
+                    toast.error("No response from server. Please try again later.");
+                } else {
+                    toast.error(error.message || "An error occurred during registration");
+                }
+            } else {
+                toast.error("An unexpected error occurred");
+            }
+        } finally {
+            setSubmitting(false);
         }
-
-        // Call the callback
-        onNewRegistration(newRegistration)
-
-        // Reset form and close modal
-        setFormData({
-            firstName: "",
-            lastName: "",
-            age: "",
-            category: "",
-            position: "",
-            parentName: "",
-            parentPhone: "",
-            address: "",
-            medicalInfo: "",
-        })
-        setOpen(false)
-    }
+    };
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -393,7 +583,7 @@ function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Reg
             </DialogTrigger>
             <DialogContent className="sm:max-w-[600px] bg-[#FAFAFA]">
                 <DialogHeader>
-                    <DialogTitle className="flex items-center gap-2">
+                    <DialogTitle className="flex flex-row items-center gap-2">
                         <UserPlus className="w-5 h-5" />
                         New Player Registration
                     </DialogTitle>
@@ -501,7 +691,9 @@ function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Reg
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="medicalInfo" className="outline-none">Medical Information (Optional)</Label>
+                        <Label htmlFor="medicalInfo" className="outline-none">
+                            Medical Information (Optional)
+                        </Label>
                         <Textarea
                             id="medicalInfo"
                             placeholder="Any medical conditions, allergies, or special requirements..."
@@ -510,11 +702,15 @@ function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Reg
                         />
                     </div>
 
-                    <Button type="submit" className="w-full mt-4 bg-[#0F0F0F] cursor-pointer text-white hover:bg-[#1A1A1A]">
-                        Register Player
+                    <Button
+                        type="submit"
+                        className="w-full mt-4 bg-[#0F0F0F] cursor-pointer text-white hover:bg-[#1A1A1A]"
+                        disabled={submitting}
+                    >
+                        {submitting ? "Registering..." : "Register Player"}
                     </Button>
                 </form>
             </DialogContent>
         </Dialog>
-    )
+    );
 }
