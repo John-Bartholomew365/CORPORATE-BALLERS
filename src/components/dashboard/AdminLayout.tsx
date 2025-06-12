@@ -18,10 +18,10 @@ export function AdminLayout({ children }: AdminLayoutProps) {
 
     const navigation = [
         { name: "Dashboard", href: "/admin/dashboard", icon: Home },
+        { name: "Registration", href: "/admin/registration", icon: UserPlus },
         { name: "Players", href: "/admin/players", icon: Users },
         { name: "Training", href: "/admin/training", icon: Calendar },
         { name: "Attendance", href: "/admin/attendance", icon: ClipboardList },
-        { name: "Registration", href: "/admin/registration", icon: UserPlus },
         { name: "Tournaments", href: "/admin/tournaments", icon: Trophy },
         // { name: "Reports", href: "/admin/reports", icon: BarChart3 },
         { name: "Settings", href: "/admin/settings", icon: Settings },

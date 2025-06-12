@@ -3,8 +3,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, Clock, Users, Plus, Edit, Trash2 } from "lucide-react"
+import { Calendar, Clock, Users, Edit, Trash2 } from "lucide-react"
 import { AdminLayout } from "@/components/dashboard/AdminLayout"
+import { AddTrainingModal } from "./AddTrainingModal"
 
 export default function TrainingPage() {
   const trainingSchedule = [
@@ -97,10 +98,7 @@ export default function TrainingPage() {
             <h1 className="text-3xl font-bold text-gray-900">Training Management</h1>
             <p className="text-gray-600">Manage training schedules and sessions</p>
           </div>
-          <Button className="bg-[#0F0F0F] text-white cursor-pointer">
-            <Plus className="w-4 h-4 mr-2" />
-            Add Training Session
-          </Button>
+          <AddTrainingModal />
         </div>
 
         {/* Training Schedule */}

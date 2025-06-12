@@ -231,10 +231,12 @@ export default function AdminDashboard() {
                 <CardTitle>Training Schedule</CardTitle>
                 <CardDescription>Upcoming training sessions</CardDescription>
               </div>
-              <Button size="sm">
-                <Plus className="w-4 h-4 mr-2" />
-                Add Session
-              </Button>
+              <Link href="/admin/training">
+                <Button size="sm" className="cursor-pointer items-center flex justify-center">
+                  <Plus className="w-4 h-4 mb-1" />
+                  Add Session
+                </Button>
+              </Link>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
