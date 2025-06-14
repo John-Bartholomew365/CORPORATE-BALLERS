@@ -281,7 +281,7 @@ export async function POST(req: Request): Promise<NextResponse> {
             headers: {
                 "Content-Type": "application/json",
             },
-            timeout: 8000, // 8 second timeout
+            // timeout: 8000, // 8 second timeout
         });
 
         if (!response.data) {
