@@ -10,8 +10,6 @@ export async function PATCH(request: Request) {
         const { searchParams } = new URL(request.url);
         const id = searchParams.get("id");
 
-        console.log("Verify Route: Received Authorization header:", token); // Debug: Log token
-        console.log("Verify Route: Player ID:", id); // Debug: Log player ID
 
         if (!token) {
             return NextResponse.json(
@@ -36,11 +34,8 @@ export async function PATCH(request: Request) {
         });
 
         const result = response.data;
-        console.log("Verify Route: Backend response:", result); // Debug: Log backend response
-
         return NextResponse.json(result);
     } catch (error: unknown) {
-        console.error("Verify Route: Error:", error);
         if (axios.isAxiosError(error)) {
             return NextResponse.json(
                 {

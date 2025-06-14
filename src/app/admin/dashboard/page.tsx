@@ -111,11 +111,16 @@ export default function AdminDashboard() {
   }, [router]);
 
   const handleLogout = () => {
-    removeToken();
-    toast.success("Logged out successfully!");
-    setTimeout(() => {
-      router.push("/auth/login");
-    }, 2000);
+    try {
+      removeToken();
+      toast.success("Logged out successfully!");
+      setTimeout(() => {
+        router.push("/auth/login");
+      }, 1500);
+    } catch (error) {
+      console.error("AdminDashboard: Logout error:", error); // Debug: Log error
+      toast.error("Failed to log out. Please try again.");
+    }
   };
 
   const recentActivities = [
@@ -160,7 +165,12 @@ export default function AdminDashboard() {
                 Settings
               </Button>
             </Link>
-            <Button variant="outline" size="sm" onClick={handleLogout}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="cursor-pointer"
+              onClick={handleLogout}
+            >
               <LogOut className="w-4 h-4 mr-2" />
               Logout
             </Button>

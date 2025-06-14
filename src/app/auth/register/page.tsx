@@ -111,36 +111,26 @@ export default function RegisterPage() {
         return;
       }
 
-      const response = await axios.post('/api/signup', formData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
+      const response = await axios.post('/api/register', formData);
 
       if (response.data.statusCode === "00") {
-        toast.success("Registration successful! Redirecting...");
+        toast.success("Registration successful! The admin will review your application shortly and notify you via email.");
         setTimeout(() => {
-          router.push('/auth/verify-account');
+          router.push('/auth/login');
         }, 2000);
       } else {
         toast.error(response.data.message || 'Registration failed');
       }
     } catch (error: unknown) {
-
       if (axios.isAxiosError(error)) {
         if (error.response) {
-          // Server responded with error status
           toast.error(error.response.data?.message || 'Registration failed');
         } else if (error.request) {
-          // No response received
           toast.error("No response from server. Please try again later.");
         } else {
-          // Request setup error
           toast.error(error.message || 'An error occurred during registration');
         }
       } else {
-        // Unknown error
         toast.error('An unexpected error occurred');
       }
     } finally {
@@ -350,9 +340,6 @@ export default function RegisterPage() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="beginner">Beginner</SelectItem>
-                      <div>
-                        <Select value="amateur"> Amateur</Select>
-                      </div>
                       <SelectItem value="semi-professional">Professional</SelectItem>
                     </SelectContent>
                   </Select>

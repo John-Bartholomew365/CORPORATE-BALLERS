@@ -8,8 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, Plus, MoreHorizontal, Edit, Trash2 } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Search, Plus } from "lucide-react";
 import { AdminLayout } from "@/components/dashboard/AdminLayout";
 import Link from "next/link";
 import axios from "axios";
@@ -27,7 +26,7 @@ interface Player {
   joinDate?: string;
   attendance: number;
   phone?: string;
-  status: string;
+  verificationStatus: string;
   playerId: string;
 }
 
@@ -72,7 +71,7 @@ export default function PlayersPage() {
             category: string;
             position: string;
             attendance: number;
-            status: string;
+            verificationStatus: string;
             playerId: string;
           }) => ({
             id: player.id,
@@ -80,7 +79,7 @@ export default function PlayersPage() {
             category: player.category,
             position: player.position,
             attendance: player.attendance,
-            status: player.status,
+            verificationStatus: player.verificationStatus,
             playerId: player.playerId,
             age: undefined,
             joinDate: undefined,
@@ -226,7 +225,7 @@ export default function PlayersPage() {
                     <TableHead>Position</TableHead>
                     <TableHead>Attendance</TableHead>
                     <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                    {/* <TableHead className="text-right">Actions</TableHead> */}
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -261,65 +260,74 @@ export default function PlayersPage() {
                               {player.age && <p className="text-sm text-gray-600">Age: {player.age}</p>}
                             </div>
                           </div>
-                          </TableCell>
-                          <TableCell className="font-mono">{player.playerId}</TableCell>
-                          <TableCell>
-                            <Badge
-                              variant={player.category === "Senior" ? "default" : "secondary"}
-                              className={
-                                player.category === "Senior"
-                                  ? "bg-[#0F0F0F] text-white"
-                                  : "bg-[#FFFFFF] text-[#0F0F0F] border border-[#E5E5E5]"
-                              }
-                            >
-                              {player.category}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>{player.position}</TableCell>
-                          <TableCell>
-                            <div className="flex items-center gap-2">
-                              <div className="w-16 bg-gray-200 rounded-full h-2">
-                                <div
-                                  className="bg-green-600 h-2 rounded-full"
-                                  style={{ width: `${player.attendance}%` }}
-                                />
-                              </div>
-                              <span className="text-sm">{player.attendance}%</span>
+                        </TableCell>
+                        <TableCell className="font-mono">{player.playerId}</TableCell>
+                        <TableCell>
+                          <Badge
+                            variant={player.category === "Senior" ? "default" : "secondary"}
+                            className={
+                              player.category === "Senior"
+                                ? "bg-[#0F0F0F] text-white"
+                                : "bg-[#FFFFFF] text-[#0F0F0F] border border-[#E5E5E5]"
+                            }
+                          >
+                            {player.category}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>{player.position}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <div className="w-16 bg-gray-200 rounded-full h-2">
+                              <div
+                                className="bg-green-600 h-2 rounded-full"
+                                style={{ width: `${player.attendance}%` }}
+                              />
                             </div>
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant={player.status === "Active" ? "default" : "secondary"}>
-                              {player.status}
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="sm">
-                                  <MoreHorizontal className="w-4 h-4" />
-                                </Button>
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end">
-                                <DropdownMenuItem>
-                                  <Edit className="w-4 h-4 mr-2" />
-                                  Edit Player
-                                </DropdownMenuItem>
-                                <DropdownMenuItem className="text-red-600">
-                                  <Trash2 className="w-4 h-4 mr-2" />
-                                  Remove Player
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          </TableCell>
-                        </TableRow>
-                      ))
-                    )}
-                  </TableBody>
-                </Table>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </AdminLayout>
-    );
+                            <span className="text-sm">{player.attendance}%</span>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Badge
+                            variant="outline"
+                            className={
+                              player.verificationStatus === "Approved"
+                                ? "bg-green-100 text-green-800 border-green-200"
+                                : player.verificationStatus === "Rejected"
+                                  ? "bg-red-100 text-red-800 border-red-200"
+                                  : "bg-yellow-100 text-yellow-800 border-yellow-200"
+                            }
+                          >
+                            {player.verificationStatus || "Pending"}
+                          </Badge>
+                        </TableCell>
+                        {/* <TableCell className="text-right">
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="sm">
+                                <MoreHorizontal className="w-4 h-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuItem>
+                                <Edit className="w-4 h-4 mr-2" />
+                                Edit Player
+                              </DropdownMenuItem>
+                              <DropdownMenuItem className="text-red-600">
+                                <Trash2 className="w-4 h-4 mr-2" />
+                                Remove Player
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell> */}
+                      </TableRow>
+                    ))
+                  )}
+                </TableBody>
+              </Table>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </AdminLayout>
+  );
 }
