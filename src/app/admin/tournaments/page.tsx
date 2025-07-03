@@ -215,7 +215,7 @@ export default function TournamentsPage() {
         );
       } else {
         toast.error(response.data.message || "Failed to update tournament status", {
-          toastId: "status-update-error",
+          toastId: "status-update-error", 
           position: "top-right",
           autoClose: 3000,
         });

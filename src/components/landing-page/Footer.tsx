@@ -20,8 +20,8 @@ import Image from "next/image"
 export function Footer() {
   const programLinks = [
     { name: "Junior Category (12-17)", href: "/program/junior" },
-    { name: "Senior Category (18+)", href: "/program/senior"},
-    { name: "Elite Development", href: "/program/elite"},
+    { name: "Senior Category (18+)", href: "/program/senior" },
+    { name: "Elite Development", href: "/program/elite" },
   ]
 
   const quickLinks = [
@@ -34,9 +34,9 @@ export function Footer() {
   ]
 
   const playerLinks = [
-    { name: "Player Dashboard", href: "/dashboard/user" },
-    { name: "Training Schedule", href: "/dashboard/user/training" },
-    { name: "Performance Stats", href: "/dashboard/user/performance" },
+    { name: "Player Dashboard", href: "/player/dashboard" },
+    { name: "Training Schedule", href: "/player/training" },
+    { name: "Performance Stats", href: "/player/performance" },
     { name: "Payment Portal", href: "/dashboard/user/payments" },
     { name: "Resources", href: "/dashboard/user/resources" },
   ]

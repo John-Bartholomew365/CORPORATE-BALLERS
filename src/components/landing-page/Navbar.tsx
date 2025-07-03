@@ -31,8 +31,8 @@ export function Navbar() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
-      <div className="container mx-auto px-4">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 w-full">
+      <div className="mx-auto px-4 lg:px-20 py-2">
         <div className="flex items-center justify-between lg:h-10 h-[20px] py-4 lg:py-0">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
