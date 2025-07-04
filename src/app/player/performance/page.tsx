@@ -2,7 +2,6 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-// import { Progress } from "@/components/ui/progress"
 import { Target, TrendingUp, Award, Star } from "lucide-react"
 import { PlayerLayout } from "@/components/dashboard/PlayerLayout"
 
@@ -76,46 +75,47 @@ export default function PlayerPerformancePage() {
 
     return (
         <PlayerLayout>
-            <div className="space-y-6">
-                <div className="flex items-center justify-between">
+            <div className="space-y-4 md:space-y-6">
+                {/* Header Section */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-900">Performance Dashboard</h1>
+                        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 lg:mt-0 mt-2">Performance Dashboard</h1>
                         <p className="text-gray-600">Track your progress and development</p>
                     </div>
-                    <Badge variant="default" className="text-lg px-4 py-2 bg-[#0F0F0F] text-white">
+                    <Badge variant="default" className="text-base md:text-lg px-3 md:px-4 py-1 md:py-2 bg-[#0F0F0F] text-white w-fit">
                         Overall Rating: 4.3/5
                     </Badge>
                 </div>
 
                 {/* Performance Overview */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <Card>
-                        <CardContent className="p-6">
-                            <div className="text-2xl font-bold">4.3</div>
-                            <p className="text-sm text-muted-foreground">Current Rating</p>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
+                    <Card className="min-w-0">
+                        <CardContent className="p-4 sm:p-6">
+                            <div className="text-xl sm:text-2xl font-bold">4.3</div>
+                            <p className="text-xs sm:text-sm text-muted-foreground">Current Rating</p>
                         </CardContent>
                     </Card>
-                    <Card>
-                        <CardContent className="p-6">
-                            <div className="text-2xl font-bold">92%</div>
-                            <p className="text-sm text-muted-foreground">Attendance Rate</p>
+                    <Card className="min-w-0">
+                        <CardContent className="p-4 sm:p-6">
+                            <div className="text-xl sm:text-2xl font-bold">92%</div>
+                            <p className="text-xs sm:text-sm text-muted-foreground">Attendance Rate</p>
                         </CardContent>
                     </Card>
-                    <Card>
-                        <CardContent className="p-6">
-                            <div className="text-2xl font-bold">14</div>
-                            <p className="text-sm text-muted-foreground">Goals This Season</p>
+                    <Card className="min-w-0">
+                        <CardContent className="p-4 sm:p-6">
+                            <div className="text-xl sm:text-2xl font-bold">14</div>
+                            <p className="text-xs sm:text-sm text-muted-foreground">Goals This Season</p>
                         </CardContent>
                     </Card>
-                    <Card>
-                        <CardContent className="p-6">
-                            <div className="text-2xl font-bold">14</div>
-                            <p className="text-sm text-muted-foreground">Assists This Season</p>
+                    <Card className="min-w-0">
+                        <CardContent className="p-4 sm:p-6">
+                            <div className="text-xl sm:text-2xl font-bold">14</div>
+                            <p className="text-xs sm:text-sm text-muted-foreground">Assists This Season</p>
                         </CardContent>
                     </Card>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
                     {/* Skills Development */}
                     <Card>
                         <CardHeader>
@@ -126,7 +126,7 @@ export default function PlayerPerformancePage() {
                             <CardDescription>Your progress in different skill areas</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <div className="space-y-6">
+                            <div className="space-y-4 sm:space-y-6">
                                 {skillsData.map((skill, index) => (
                                     <div key={index} className="space-y-2">
                                         <div className="flex justify-between text-sm">
@@ -159,17 +159,17 @@ export default function PlayerPerformancePage() {
                             <CardDescription>Your performance trends over time</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <div className="space-y-4">
+                            <div className="space-y-3 sm:space-y-4">
                                 {monthlyPerformance.map((month, index) => (
                                     <div key={index} className="p-3 bg-gray-50 rounded-lg">
                                         <div className="flex justify-between items-center mb-2">
-                                            <h4 className="font-medium">{month.month}</h4>
+                                            <h4 className="font-medium text-sm sm:text-base">{month.month}</h4>
                                             <div className="flex items-center gap-1">
                                                 <Star className="w-4 h-4 text-yellow-500" />
-                                                <span className="font-medium">{month.rating}</span>
+                                                <span className="font-medium text-sm sm:text-base">{month.rating}</span>
                                             </div>
                                         </div>
-                                        <div className="grid grid-cols-3 gap-4 text-sm">
+                                        <div className="grid grid-cols-3 gap-2 sm:gap-4 text-xs sm:text-sm">
                                             <div>
                                                 <p className="text-gray-600">Attendance</p>
                                                 <p className="font-medium">{month.attendance}%</p>
@@ -200,16 +200,16 @@ export default function PlayerPerformancePage() {
                         <CardDescription>Your accomplishments and recognitions</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                             {achievements.map((achievement, index) => (
-                                <div key={index} className="p-4 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-lg border">
+                                <div key={index} className="p-3 sm:p-4 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-lg border">
                                     <div className="flex items-center gap-2 mb-2">
-                                        <Award className="w-5 h-5 text-yellow-600" />
-                                        <h4 className="font-medium">{achievement.title}</h4>
+                                        <Award className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-600" />
+                                        <h4 className="font-medium text-sm sm:text-base">{achievement.title}</h4>
                                     </div>
-                                    <p className="text-sm text-gray-600 mb-2">{achievement.description}</p>
+                                    <p className="text-xs sm:text-sm text-gray-600 mb-2">{achievement.description}</p>
                                     <div className="flex justify-between items-center">
-                                        <Badge variant="secondary">{achievement.type}</Badge>
+                                        <Badge variant="secondary" className="text-xs">{achievement.type}</Badge>
                                         <p className="text-xs text-gray-500">{achievement.date}</p>
                                     </div>
                                 </div>
@@ -225,22 +225,22 @@ export default function PlayerPerformancePage() {
                         <CardDescription>Recent feedback from your coaches</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="space-y-4">
+                        <div className="space-y-3 sm:space-y-4">
                             {coachFeedback.map((feedback, index) => (
-                                <div key={index} className="p-4 border rounded-lg">
-                                    <div className="flex justify-between items-start mb-2">
+                                <div key={index} className="p-3 sm:p-4 border rounded-lg">
+                                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
                                         <div>
-                                            <h4 className="font-medium">{feedback.session}</h4>
-                                            <p className="text-sm text-gray-600">
+                                            <h4 className="font-medium text-sm sm:text-base">{feedback.session}</h4>
+                                            <p className="text-xs sm:text-sm text-gray-600">
                                                 {feedback.coach} • {feedback.date}
                                             </p>
                                         </div>
-                                        {/* <div className="flex items-center gap-1">
+                                        <div className="flex items-center gap-1">
                                             <Star className="w-4 h-4 text-yellow-500" />
-                                            <span className="font-medium">{feedback.rating}</span>
-                                        </div> */}
+                                            <span className="font-medium text-sm sm:text-base">{feedback.rating}</span>
+                                        </div>
                                     </div>
-                                    <p className="text-sm text-gray-700">{feedback.feedback}</p>
+                                    <p className="text-xs sm:text-sm text-gray-700">{feedback.feedback}</p>
                                 </div>
                             ))}
                         </div>

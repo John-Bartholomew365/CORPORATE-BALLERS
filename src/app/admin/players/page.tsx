@@ -146,43 +146,45 @@ export default function PlayersPage() {
         pauseOnHover
         theme="light"
       />
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Player Management</h1>
-            <p className="text-gray-600">Manage all academy players and their information</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 lg:mt-0 mt-2">Player Management</h1>
+            <p className="text-gray-600 lg:mt-0 mt-2">Manage all academy players and their information</p>
           </div>
           <Link href={"/admin/registration"}>
-            <Button className="bg-[#0F0F0F] text-white cursor-pointer">
-              <Plus className="w-4 h-4 mr-2" />
-              Add New Player
+            <Button className="bg-[#0F0F0F] text-white cursor-pointer w-full sm:w-auto">
+              <Plus className="w-4 h-4 mr-0 sm:mr-2" />
+              <span className="hidden sm:inline">Add New Player</span>
+              <span className="sm:hidden">Add Player</span>
             </Button>
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold">{stats.total}</div>
-              <p className="text-sm text-muted-foreground">Total Players</p>
+        {/* Stats Cards - 2 columns on mobile, 4 on desktop */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
+          <Card className="col-span-1">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold">{stats.total}</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Total Players</p>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold">{stats.senior}</div>
-              <p className="text-sm text-muted-foreground">Senior Category</p>
+          <Card className="col-span-1">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold">{stats.senior}</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Senior</p>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold">{stats.junior}</div>
-              <p className="text-sm text-muted-foreground">Junior Category</p>
+          <Card className="col-span-1">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold">{stats.junior}</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Junior</p>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold">{stats.active}</div>
-              <p className="text-sm text-muted-foreground">Active Players</p>
+          <Card className="col-span-1">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold">{stats.active}</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Active</p>
             </CardContent>
           </Card>
         </div>
@@ -193,11 +195,11 @@ export default function PlayersPage() {
             <CardDescription>View and manage all registered players</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row gap-3 mb-4 sm:mb-6">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
-                  placeholder="Search players by name or ID..."
+                  placeholder="Search players..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10 outline-none"
@@ -205,7 +207,7 @@ export default function PlayersPage() {
               </div>
               <Select value={categoryFilter} onValueChange={setCategoryFilter}>
                 <SelectTrigger className="w-full sm:w-48">
-                  <SelectValue placeholder="Filter by category" />
+                  <SelectValue placeholder="Filter category" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Categories</SelectItem>
@@ -215,30 +217,32 @@ export default function PlayersPage() {
               </Select>
             </div>
 
-            <div className="rounded-md border">
-              <Table>
+            <div className="rounded-md border overflow-x-auto">
+              <Table className="min-w-[600px] sm:min-w-full">
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Player</TableHead>
-                    <TableHead>ID</TableHead>
-                    <TableHead>Category</TableHead>
-                    <TableHead>Position</TableHead>
-                    <TableHead>Attendance</TableHead>
-                    <TableHead>Status</TableHead>
-                    {/* <TableHead className="text-right">Actions</TableHead> */}
+                    <TableHead className="whitespace-nowrap">Player</TableHead>
+                    <TableHead className="whitespace-nowrap hidden sm:table-cell">ID</TableHead>
+                    <TableHead className="whitespace-nowrap">Category</TableHead>
+                    <TableHead className="whitespace-nowrap hidden sm:table-cell">Position</TableHead>
+                    <TableHead className="whitespace-nowrap">Attendance</TableHead>
+                    <TableHead className="whitespace-nowrap">Status</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {loading ? (
                     <TableRow>
-                      <TableCell colSpan={7} className="text-center">
+                      <TableCell colSpan={6} className="text-center py-8">
                         Loading players...
                       </TableCell>
                     </TableRow>
                   ) : filteredPlayers.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={7} className="text-center">
-                        No players found
+                      <TableCell colSpan={6} className="text-center py-8">
+                        <div className="flex flex-col items-center justify-center space-y-2">
+                          <Search className="w-8 h-8 text-gray-400" />
+                          <p className="text-gray-500">No players found</p>
+                        </div>
                       </TableCell>
                     </TableRow>
                   ) : (
@@ -246,7 +250,7 @@ export default function PlayersPage() {
                       <TableRow key={player.id}>
                         <TableCell>
                           <div className="flex items-center gap-3">
-                            <Avatar className="border">
+                            <Avatar className="border h-8 w-8 sm:h-10 sm:w-10">
                               <AvatarImage src="/placeholder.svg?height=32&width=32" />
                               <AvatarFallback>
                                 {player.name
@@ -256,69 +260,55 @@ export default function PlayersPage() {
                               </AvatarFallback>
                             </Avatar>
                             <div>
-                              <p className="font-medium">{player.name}</p>
-                              {player.age && <p className="text-sm text-gray-600">Age: {player.age}</p>}
+                              <p className="font-medium text-sm sm:text-base">{player.name}</p>
+                              {player.age && (
+                                <p className="text-xs sm:text-sm text-gray-600">Age: {player.age}</p>
+                              )}
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell className="font-mono">{player.playerId}</TableCell>
+                        <TableCell className="font-mono text-sm hidden sm:table-cell">
+                          {player.playerId}
+                        </TableCell>
                         <TableCell>
                           <Badge
                             variant={player.category === "Senior" ? "default" : "secondary"}
                             className={
                               player.category === "Senior"
-                                ? "bg-[#0F0F0F] text-white"
-                                : "bg-[#FFFFFF] text-[#0F0F0F] border border-[#E5E5E5]"
+                                ? "bg-[#0F0F0F] text-white text-xs sm:text-sm font-[500]"
+                                : "bg-[#FFFFFF] text-[#0F0F0F] border border-[#E5E5E5] text-xs sm:text-sm font-[500]"
                             }
                           >
                             {player.category}
                           </Badge>
                         </TableCell>
-                        <TableCell>{player.position}</TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          {player.position}
+                        </TableCell>
                         <TableCell>
                           <div className="flex items-center gap-2">
-                            <div className="w-16 bg-gray-200 rounded-full h-2">
+                            <div className="w-12 sm:w-16 bg-gray-200 rounded-full h-2">
                               <div
                                 className="bg-green-600 h-2 rounded-full"
                                 style={{ width: `${player.attendance}%` }}
                               />
                             </div>
-                            <span className="text-sm">{player.attendance}%</span>
+                            <span className="text-xs sm:text-sm">{player.attendance}%</span>
                           </div>
                         </TableCell>
                         <TableCell>
                           <Badge
                             variant="outline"
-                            className={
-                              player.verificationStatus === "Approved"
-                                ? "bg-green-100 text-green-800 border-green-200"
-                                : player.verificationStatus === "Rejected"
-                                  ? "bg-red-100 text-red-800 border-red-200"
-                                  : "bg-yellow-100 text-yellow-800 border-yellow-200"
-                            }
+                            className={`text-xs sm:text-sm font-[500] ${player.verificationStatus === "Approved"
+                              ? "bg-green-100 text-green-800 border-green-200"
+                              : player.verificationStatus === "Rejected"
+                                ? "bg-red-100 text-red-800 border-red-200"
+                                : "bg-yellow-100 text-yellow-800 border-yellow-200"
+                              }`}
                           >
                             {player.verificationStatus || "Pending"}
                           </Badge>
                         </TableCell>
-                        {/* <TableCell className="text-right">
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="sm">
-                                <MoreHorizontal className="w-4 h-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem>
-                                <Edit className="w-4 h-4 mr-2" />
-                                Edit Player
-                              </DropdownMenuItem>
-                              <DropdownMenuItem className="text-red-600">
-                                <Trash2 className="w-4 h-4 mr-2" />
-                                Remove Player
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell> */}
                       </TableRow>
                     ))
                   )}

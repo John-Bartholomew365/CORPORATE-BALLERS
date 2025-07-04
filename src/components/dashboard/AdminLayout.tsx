@@ -1,13 +1,15 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Users, Trophy, Settings, Menu, Home, UserPlus, ClipboardList, Medal, Dumbbell } from "lucide-react"
+import { Users, Trophy, Settings, Menu, Home, UserPlus, ClipboardList, Medal, Dumbbell, LogOut } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { removeToken } from "@/app/reuseables/authToken"
+import { useRouter } from "next/navigation"
+import { toast } from "react-toastify"
 
 interface AdminLayoutProps {
     children: React.ReactNode
@@ -15,6 +17,20 @@ interface AdminLayoutProps {
 
 export function AdminLayout({ children }: AdminLayoutProps) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
+    const router = useRouter()
+
+    const handleLogout = () => {
+        try {
+            removeToken()
+            toast.success("Logged out successfully!")
+            setTimeout(() => {
+                router.push("/auth/login")
+            }, 1500)
+        } catch (error) {
+            console.error("Logout error:", error)
+            toast.error("Failed to log out. Please try again.")
+        }
+    }
 
     const navigation = [
         { name: "Dashboard", href: "/admin/dashboard", icon: Home },
@@ -24,8 +40,8 @@ export function AdminLayout({ children }: AdminLayoutProps) {
         { name: "Training", href: "/admin/training", icon: Dumbbell },
         { name: "Attendance", href: "/admin/attendance", icon: ClipboardList },
         { name: "Tournaments", href: "/admin/tournaments", icon: Trophy },
-        // { name: "Reports", href: "/admin/reports", icon: BarChart3 },
         { name: "Settings", href: "/admin/settings", icon: Settings },
+        { name: "Logout", href: "#", icon: LogOut, onClick: handleLogout },
     ]
 
     const Sidebar = () => (
@@ -43,13 +59,23 @@ export function AdminLayout({ children }: AdminLayoutProps) {
                 <ul className="space-y-2">
                     {navigation.map((item) => (
                         <li key={item.name}>
-                            <Link
-                                href={item.href}
-                                className="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition-colors"
-                            >
-                                <item.icon className="w-5 h-5" />
-                                {item.name}
-                            </Link>
+                            {item.onClick ? (
+                                <button
+                                    onClick={item.onClick}
+                                    className="flex items-center cursor-pointer gap-3 px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition-colors w-full text-left"
+                                >
+                                    <item.icon className="w-5 h-5" />
+                                    {item.name}
+                                </button>
+                            ) : (
+                                <Link
+                                    href={item.href}
+                                    className="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition-colors"
+                                >
+                                    <item.icon className="w-5 h-5" />
+                                    {item.name}
+                                </Link>
+                            )}
                         </li>
                     ))}
                 </ul>
@@ -69,7 +95,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
             {/* Mobile Sidebar */}
             <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
                 <SheetTrigger asChild>
-                    <Button variant="outline" size="icon" className="lg:hidden fixed top-4 left-4 z-40">
+                    <Button variant="outline" size="icon" className="lg:hidden fixed top-4 right-4 z-40">
                         <Menu className="h-4 w-4" />
                     </Button>
                 </SheetTrigger>
@@ -80,7 +106,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
 
             {/* Main Content */}
             <div className="lg:pl-64">
-                <main className="p-6">{children}</main>
+                <main className="p-4 sm:p-6">{children}</main>
             </div>
         </div>
     )

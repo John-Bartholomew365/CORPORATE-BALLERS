@@ -17,6 +17,7 @@ type TrainingSession = {
   id: string;
   day: string;
   time: string;
+  formattedTime: string;
   duration: string;
   category: string;
   coach: string;
@@ -37,34 +38,19 @@ type UpcomingEvent = {
 
 export default function TrainingPage() {
   const [trainingSchedule, setTrainingSchedule] = useState<TrainingSession[]>([]);
+  const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedSession, setSelectedSession] = useState<TrainingSession | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const router = useRouter();
 
-  const upcomingEvents: UpcomingEvent[] = [
-    {
-      title: "Inter-Academy Tournament",
-      date: "January 25, 2024",
-      time: "10:00 AM",
-      location: "Kwara State Stadium",
-      category: "Senior",
-    },
-    {
-      title: "Skills Assessment",
-      date: "January 30, 2024",
-      time: "4:00 PM",
-      location: "CBFA Training Ground",
-      category: "All",
-    },
-    {
-      title: "Parent-Coach Meeting",
-      date: "February 5, 2024",
-      time: "6:00 PM",
-      location: "Academy Hall",
-      category: "All",
-    },
-  ];
+  const formatTime = (timeString: string) => {
+    const [hours, minutes] = timeString.split(':');
+    const hourNum = parseInt(hours, 10);
+    const period = hourNum >= 12 ? 'PM' : 'AM';
+    const displayHour = hourNum % 12 || 12;
+    return `${displayHour}:${minutes} ${period}`;
+  };
 
   const fetchTrainingSessions = async () => {
     try {
@@ -83,7 +69,8 @@ export default function TrainingPage() {
         const sessions = response.data.data.map((session: TrainingSession) => ({
           id: session.id,
           day: session.day,
-          time: formatTime(session.time),
+          time: session.time,
+          formattedTime: formatTime(session.time),
           duration: `${session.duration} hours`,
           category: session.category,
           coach: session.coach,
@@ -93,7 +80,18 @@ export default function TrainingPage() {
           description: session.description,
           createdAt: session.createdAt
         }));
+        
         setTrainingSchedule(sessions);
+        
+        const events: UpcomingEvent[] = sessions.map((session: TrainingSession): UpcomingEvent => ({
+          title: session.trainingType,
+          date: session.day,
+          time: session.formattedTime,
+          location: session.location,
+          category: session.category
+        }));
+        
+        setUpcomingEvents(events);
         toast.success("Training sessions loaded successfully!");
       } else {
         toast.error(response.data.message || "Failed to fetch training sessions");
@@ -123,7 +121,6 @@ export default function TrainingPage() {
   };
 
   const handleDelete = async (id: string) => {
-
     try {
       const token = getToken();
       if (!token) {
@@ -139,6 +136,7 @@ export default function TrainingPage() {
       if (response.data.statusCode === "00") {
         toast.success("Training session deleted successfully!");
         setTrainingSchedule(prev => prev.filter(session => session.id !== id));
+        setUpcomingEvents(prev => prev.filter(event => event.title !== trainingSchedule.find(s => s.id === id)?.trainingType));
       } else {
         toast.error(response.data.message || "Failed to delete training session");
       }
@@ -152,22 +150,25 @@ export default function TrainingPage() {
     setIsEditModalOpen(true);
   };
 
-  const formatTime = (timeString: string) => {
-    const [hours, minutes] = timeString.split(':');
-    const hourNum = parseInt(hours, 10);
-    const period = hourNum >= 12 ? 'PM' : 'AM';
-    const displayHour = hourNum % 12 || 12;
-    return `${displayHour}:${minutes} ${period}`;
-  };
-
   return (
     <AdminLayout>
-      <ToastContainer />
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Training Management</h1>
-            <p className="text-gray-600">Manage training schedules and sessions</p>
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 lg:mt-0 mt-2">Training Management</h1>
+            <p className="text-gray-600 lg:mt-0 mt-2">Manage training schedules and sessions</p>
           </div>
           <AddTrainingModal onSuccess={fetchTrainingSessions} />
         </div>
@@ -179,54 +180,56 @@ export default function TrainingPage() {
           </CardHeader>
           <CardContent>
             {loading ? (
-              <p className="text-center text-gray-600">Loading training sessions...</p>
+              <p className="text-center text-gray-600 py-4">Loading training sessions...</p>
             ) : trainingSchedule.length > 0 ? (
-              <div className="grid gap-4">
+              <div className="space-y-3 sm:space-y-4">
                 {trainingSchedule.map((session) => (
-                  <div key={session.id} className="p-4 border rounded-lg hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                          <Calendar className="w-6 h-6 text-blue-600" />
+                  <div key={session.id} className="p-3 sm:p-4 border rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div className="flex items-start sm:items-center gap-3">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Calendar className="w-4 sm:w-5 h-4 sm:h-5 text-blue-600" />
                         </div>
                         <div>
-                          <h3 className="font-semibold">
+                          <h3 className="font-semibold text-sm sm:text-base">
                             {session.day} - {session.trainingType}
                           </h3>
-                          <div className="flex items-center gap-4 text-sm text-gray-600 mt-1">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-xs sm:text-sm text-gray-600 mt-1">
                             <span className="flex items-center gap-1">
-                              <Clock className="w-4 h-4" />
-                              {session.time} ({session.duration})
+                              <Clock className="w-3 sm:w-4 h-3 sm:h-4" />
+                              {session.formattedTime} ({session.duration})
                             </span>
                             <span className="flex items-center gap-1">
-                              <Users className="w-4 h-4" />
+                              <Users className="w-3 sm:w-4 h-3 sm:h-4" />
                               {session.participants || 0} players
                             </span>
                           </div>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <Badge variant="secondary" className="mb-2 bg-[#F4F4F5]">
+                      <div className="sm:text-right">
+                        <Badge variant="secondary" className="mb-1 sm:mb-2 bg-[#F4F4F5] text-xs sm:text-sm">
                           {session.category}
                         </Badge>
-                        <p className="text-sm text-gray-600">Coach: {session.coach}</p>
-                        <p className="text-sm text-gray-600">Location: {session.location}</p>
-                        <div className="flex gap-2 mt-2">
+                        <p className="text-xs sm:text-sm text-gray-600">Coach: {session.coach}</p>
+                        <p className="text-xs sm:text-sm text-gray-600">Location: {session.location}</p>
+                        <div className="flex gap-2 mt-2 justify-end sm:justify-start">
                           <Button
                             size="sm"
                             variant="outline"
                             onClick={() => handleEdit(session)}
-                            className="cursor-pointer"
+                            className="cursor-pointer h-8 w-8 sm:h-9 sm:w-auto p-0 sm:px-3"
                           >
-                            <Edit className="w-4 h-4" />
+                            <Edit className="w-3 sm:w-4 h-3 sm:h-4" />
+                            <span className="hidden sm:inline ml-1">Edit</span>
                           </Button>
                           <Button
                             size="sm"
                             variant="outline"
                             onClick={() => handleDelete(session.id)}
-                            className="cursor-pointer"
+                            className="cursor-pointer h-8 w-8 sm:h-9 sm:w-auto p-0 sm:px-3"
                           >
-                            <Trash2 className="w-4 h-4 text-red-500" />
+                            <Trash2 className="w-3 sm:w-4 h-3 sm:h-4 text-red-500" />
+                            <span className="hidden sm:inline ml-1">Delete</span>
                           </Button>
                         </div>
                       </div>
@@ -235,12 +238,11 @@ export default function TrainingPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-center text-gray-600">No training sessions found.</p>
+              <p className="text-center text-gray-600 py-4">No training sessions found.</p>
             )}
           </CardContent>
         </Card>
 
-        {/* Edit Modal */}
         <AddTrainingModal
           session={selectedSession ?? undefined}
           isEdit={true}
@@ -253,27 +255,33 @@ export default function TrainingPage() {
           }}
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           <Card>
             <CardHeader>
               <CardTitle>Upcoming Events</CardTitle>
               <CardDescription>Special events and tournaments</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {upcomingEvents.map((event, index) => (
-                  <div key={index} className="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-                    <h4 className="font-medium">{event.title}</h4>
-                    <div className="text-sm text-gray-600 mt-1">
-                      <p>{event.date} at {event.time}</p>
-                      <p>{event.location}</p>
+              {loading ? (
+                <p className="text-center text-gray-600 py-4">Loading upcoming events...</p>
+              ) : upcomingEvents.length > 0 ? (
+                <div className="space-y-3">
+                  {upcomingEvents.map((event, index) => (
+                    <div key={index} className="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                      <h4 className="font-medium text-sm sm:text-base">{event.title}</h4>
+                      <div className="text-xs sm:text-sm text-gray-600 mt-1">
+                        <p>{event.date} at {event.time}</p>
+                        <p>{event.location}</p>
+                      </div>
+                      <Badge variant="outline" className="mt-2 text-[#B0B3B8] text-xs sm:text-sm">
+                        {event.category}
+                      </Badge>
                     </div>
-                    <Badge variant="outline" className="mt-2 text-[#B0B3B8]">
-                      {event.category}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-center text-gray-600 py-4">No upcoming events found.</p>
+              )}
             </CardContent>
           </Card>
 
@@ -283,28 +291,30 @@ export default function TrainingPage() {
               <CardDescription>This week&apos;s training overview</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
-                  <span className="font-medium">Total Sessions</span>
-                  <span className="text-2xl font-bold text-green-600">{trainingSchedule.length}</span>
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                <div className="p-3 bg-green-50 rounded-lg">
+                  <span className="font-medium text-xs sm:text-sm">Total Sessions</span>
+                  <span className="block text-xl sm:text-2xl font-bold text-green-600 mt-1">
+                    {trainingSchedule.length}
+                  </span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                  <span className="font-medium">Average Attendance</span>
-                  <span className="text-2xl font-bold text-blue-600">
+                <div className="p-3 bg-blue-50 rounded-lg">
+                  <span className="font-medium text-xs sm:text-sm">Avg Attendance</span>
+                  <span className="block text-xl sm:text-2xl font-bold text-blue-600 mt-1">
                     {trainingSchedule.length > 0 
                       ? Math.round(trainingSchedule.reduce((sum, session) => sum + (session.participants || 0), 0) / trainingSchedule.length)
                       : 0}
                   </span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
-                  <span className="font-medium">Training Hours</span>
-                  <span className="text-2xl font-bold text-purple-600">
+                <div className="p-3 bg-purple-50 rounded-lg">
+                  <span className="font-medium text-xs sm:text-sm">Training Hours</span>
+                  <span className="block text-xl sm:text-2xl font-bold text-purple-600 mt-1">
                     {trainingSchedule.reduce((sum, session) => sum + parseFloat(session.duration.split(' ')[0]), 0)}
                   </span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
-                  <span className="font-medium">Active Coaches</span>
-                  <span className="text-2xl font-bold text-orange-600">
+                <div className="p-3 bg-orange-50 rounded-lg">
+                  <span className="font-medium text-xs sm:text-sm">Active Coaches</span>
+                  <span className="block text-xl sm:text-2xl font-bold text-orange-600 mt-1">
                     {new Set(trainingSchedule.map(session => session.coach)).size}
                   </span>
                 </div>

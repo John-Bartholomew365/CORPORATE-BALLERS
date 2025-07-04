@@ -87,7 +87,7 @@ export default function RegistrationPage() {
                         name: player.fullName,
                         age: player.age,
                         category: player.category,
-                        date: new Date().toISOString().split("T")[0], // Default to today
+                        date: new Date().toISOString().split("T")[0],
                         status: player.verificationStatus === "Active" ? "Approved" : (player.verificationStatus as "Approved" | "Pending" | "Rejected"),
                         position: player.position,
                         parentName: "",
@@ -125,7 +125,6 @@ export default function RegistrationPage() {
         fetchRegistrations();
     }, [router]);
 
-    // Filter registrations based on search query
     const filteredRegistrations = allRegistrations.filter(
         (reg) =>
             reg.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -133,13 +132,11 @@ export default function RegistrationPage() {
             reg.parentName.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    // Pagination logic
     const indexOfLastRegistration = currentPage * registrationsPerPage;
     const indexOfFirstRegistration = indexOfLastRegistration - registrationsPerPage;
     const currentRegistrations = filteredRegistrations.slice(indexOfFirstRegistration, indexOfLastRegistration);
     const totalPages = Math.ceil(filteredRegistrations.length / registrationsPerPage);
 
-    // Registration stats
     const registrationStats = {
         total: allRegistrations.length,
         approved: allRegistrations.filter((r) => r.status === "Approved").length,
@@ -152,7 +149,6 @@ export default function RegistrationPage() {
         }).length,
     };
 
-    // Status change handler (Verify/Reject)
     const handleStatusChange = async (id: string, newStatus: "Approved" | "Pending" | "Rejected") => {
         try {
             const token = getToken();
@@ -166,7 +162,6 @@ export default function RegistrationPage() {
             }
 
             if (newStatus === "Pending") {
-                // No API call for Pending; just update locally
                 setAllRegistrations((prev) =>
                     prev.map((reg) => (reg.id === id ? { ...reg, status: newStatus } : reg))
                 );
@@ -189,7 +184,6 @@ export default function RegistrationPage() {
             const data = response.data;
 
             if (data.statusCode === "00") {
-                // Refresh registrations after status change
                 const refreshResponse = await axios.get("/api/all-players", {
                     headers: {
                         Authorization: token,
@@ -261,11 +255,11 @@ export default function RegistrationPage() {
                 pauseOnHover
                 theme="light"
             />
-            <div className="space-y-6">
-                <div className="flex items-center justify-between">
+            <div className="space-y-4 sm:space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-900">Player Registrations</h1>
-                        <p className="text-gray-600">Manage player registrations for the academy</p>
+                        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 lg:mt-0 mt-2">Player Registrations</h1>
+                        <p className="text-gray-600 lg:mt-0 mt-2">Manage player registrations for the academy</p>
                     </div>
                     <RegistrationModal
                         onNewRegistration={(newReg) => {
@@ -274,30 +268,30 @@ export default function RegistrationPage() {
                     />
                 </div>
 
-                {/* Registration Stats */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <Card>
-                        <CardContent className="p-6">
-                            <div className="text-2xl font-bold">{registrationStats.total}</div>
-                            <p className="text-sm text-muted-foreground">Total Players</p>
+                {/* Registration Stats - Stack on mobile, 4 columns on desktop */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
+                    <Card className="col-span-1">
+                        <CardContent className="p-4 sm:p-6">
+                            <div className="text-xl sm:text-2xl font-bold">{registrationStats.total}</div>
+                            <p className="text-xs sm:text-sm text-muted-foreground">Total Players</p>
                         </CardContent>
                     </Card>
-                    <Card>
-                        <CardContent className="p-6">
-                            <div className="text-2xl font-bold text-green-600">{registrationStats.approved}</div>
-                            <p className="text-sm text-muted-foreground">Approved</p>
+                    <Card className="col-span-1">
+                        <CardContent className="p-4 sm:p-6">
+                            <div className="text-xl sm:text-2xl font-bold text-green-600">{registrationStats.approved}</div>
+                            <p className="text-xs sm:text-sm text-muted-foreground">Approved</p>
                         </CardContent>
                     </Card>
-                    <Card>
-                        <CardContent className="p-6">
-                            <div className="text-2xl font-bold text-yellow-600">{registrationStats.pending}</div>
-                            <p className="text-sm text-muted-foreground">Pending</p>
+                    <Card className="col-span-1">
+                        <CardContent className="p-4 sm:p-6">
+                            <div className="text-xl sm:text-2xl font-bold text-yellow-600">{registrationStats.pending}</div>
+                            <p className="text-xs sm:text-sm text-muted-foreground">Pending</p>
                         </CardContent>
                     </Card>
-                    <Card>
-                        <CardContent className="p-6">
-                            <div className="text-2xl font-bold text-red-600">{registrationStats.rejected}</div>
-                            <p className="text-sm text-muted-foreground">Rejected</p>
+                    <Card className="col-span-1">
+                        <CardContent className="p-4 sm:p-6">
+                            <div className="text-xl sm:text-2xl font-bold text-red-600">{registrationStats.rejected}</div>
+                            <p className="text-xs sm:text-sm text-muted-foreground">Rejected</p>
                         </CardContent>
                     </Card>
                 </div>
@@ -305,15 +299,17 @@ export default function RegistrationPage() {
                 {/* Registrations Table */}
                 <Card>
                     <CardHeader>
-                        <div className="flex justify-between items-center">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div>
                                 <CardTitle>All Registrations</CardTitle>
-                                <CardDescription className="text-[#B0B3B8] mt-1">View and manage player registrations</CardDescription>
+                                <CardDescription className="text-[#B0B3B8] mt-1">
+                                    View and manage player registrations
+                                </CardDescription>
                             </div>
-                            <div className="relative w-64 outline-none">
+                            <div className="relative w-full sm:w-64">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                                 <Input
-                                    placeholder="Search registrations..."
+                                    placeholder="Search..."
                                     className="pl-10"
                                     value={searchQuery}
                                     onChange={(e) => {
@@ -325,19 +321,19 @@ export default function RegistrationPage() {
                         </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="border rounded-lg overflow-hidden">
-                            <Table>
+                        <div className="border rounded-lg overflow-x-auto">
+                            <Table className="min-w-[600px] sm:min-w-full">
                                 <TableHeader className="bg-gray-50">
                                     <TableRow>
-                                        <TableHead>Player</TableHead>
-                                        <TableHead>ID</TableHead>
-                                        <TableHead>Age</TableHead>
-                                        <TableHead>Category</TableHead>
-                                        <TableHead>Position</TableHead>
-                                        <TableHead>Parent</TableHead>
-                                        <TableHead>Date</TableHead>
-                                        <TableHead>Status</TableHead>
-                                        <TableHead>Actions</TableHead>
+                                        <TableHead className="whitespace-nowrap">Player</TableHead>
+                                        <TableHead className="whitespace-nowrap">ID</TableHead>
+                                        <TableHead className="whitespace-nowrap">Age</TableHead>
+                                        <TableHead className="whitespace-nowrap">Category</TableHead>
+                                        <TableHead className="whitespace-nowrap">Position</TableHead>
+                                        {/* <TableHead className="whitespace-nowrap hidden sm:table-cell">Parent</TableHead> */}
+                                        <TableHead className="whitespace-nowrap hidden sm:table-cell">Date</TableHead>
+                                        <TableHead className="whitespace-nowrap">Status</TableHead>
+                                        <TableHead className="whitespace-nowrap">Actions</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -350,18 +346,32 @@ export default function RegistrationPage() {
                                     ) : currentRegistrations.length > 0 ? (
                                         currentRegistrations.map((registration) => (
                                             <TableRow key={registration.id}>
-                                                <TableCell className="font-medium">{registration.name}</TableCell>
-                                                <TableCell>{registration.id}</TableCell>
-                                                <TableCell>{registration.age ?? "N/A"}</TableCell>
-                                                <TableCell>
+                                                <TableCell className="font-medium whitespace-nowrap">
+                                                    {registration.name}
+                                                </TableCell>
+                                                <TableCell className="whitespace-nowrap">
+                                                    <span className="truncate max-w-[80px] inline-block">
+                                                        {registration.id}
+                                                    </span>
+                                                </TableCell>
+                                                <TableCell className="whitespace-nowrap">
+                                                    {registration.age ?? "N/A"}
+                                                </TableCell>
+                                                <TableCell className="whitespace-nowrap">
                                                     <Badge variant={registration.category === "Senior" ? "default" : "secondary"}>
                                                         {registration.category}
                                                     </Badge>
                                                 </TableCell>
-                                                <TableCell>{registration.position}</TableCell>
-                                                <TableCell>{registration.parentName || "N/A"}</TableCell>
-                                                <TableCell>{new Date(registration.date).toLocaleDateString()}</TableCell>
-                                                <TableCell>
+                                                <TableCell className="whitespace-nowrap">
+                                                    {registration.position}
+                                                </TableCell>
+                                                {/* <TableCell className="whitespace-nowrap hidden sm:table-cell">
+                                                    {registration.parentName || "N/A"}
+                                                </TableCell> */}
+                                                <TableCell className="whitespace-nowrap hidden sm:table-cell">
+                                                    {new Date(registration.date).toLocaleDateString()}
+                                                </TableCell>
+                                                <TableCell className="whitespace-nowrap">
                                                     <Badge
                                                         className={
                                                             registration.status === "Approved"
@@ -374,10 +384,10 @@ export default function RegistrationPage() {
                                                         {registration.status}
                                                     </Badge>
                                                 </TableCell>
-                                                <TableCell>
+                                                <TableCell className="whitespace-nowrap">
                                                     <DropdownMenu>
                                                         <DropdownMenuTrigger asChild>
-                                                            <Button variant="ghost" size="sm">
+                                                            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                                                                 <MoreVertical className="h-4 w-4" />
                                                             </Button>
                                                         </DropdownMenuTrigger>
@@ -419,10 +429,10 @@ export default function RegistrationPage() {
                             </Table>
                         </div>
 
-                        {/* Pagination */}
+                        {/* Pagination - Stack on mobile, row on desktop */}
                         {filteredRegistrations.length > registrationsPerPage && (
-                            <div className="mt-4 flex justify-between items-center">
-                                <div className="text-sm text-gray-500">
+                            <div className="mt-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+                                <div className="text-sm text-gray-500 whitespace-nowrap">
                                     Showing {indexOfFirstRegistration + 1}-
                                     {Math.min(indexOfLastRegistration, filteredRegistrations.length)} of{" "}
                                     {filteredRegistrations.length} registrations
@@ -440,7 +450,7 @@ export default function RegistrationPage() {
                                             </Button>
                                         </PaginationItem>
                                         <PaginationItem>
-                                            <span className="text-sm">
+                                            <span className="text-sm whitespace-nowrap">
                                                 Page {currentPage} of {totalPages}
                                             </span>
                                         </PaginationItem>
@@ -520,7 +530,7 @@ function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Reg
 
             if (data.statusCode === "00") {
                 const newRegistration: Registration = {
-                    id: data.player.id, // Assuming backend returns player object with id
+                    id: data.player.id,
                     name: `${formData.firstName} ${formData.lastName}`,
                     age: parseInt(formData.age),
                     category: formData.category === "junior" ? "Junior" : "Senior",
@@ -572,13 +582,14 @@ function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Reg
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild className="bg-[#0F0F0F] text-white cursor-pointer">
-                <Button>
+            <DialogTrigger asChild>
+                <Button className="bg-[#0F0F0F] text-white cursor-pointer">
                     <UserPlus className="w-4 h-4 mr-2" />
-                    Register a Player
+                    <span className="hidden sm:inline">Register a Player</span>
+                    <span className="sm:hidden">Register a Player</span>
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[600px] bg-[#FAFAFA]">
+            <DialogContent className="max-w-[95vw] sm:max-w-[600px] bg-[#FAFAFA]">
                 <DialogHeader>
                     <DialogTitle className="flex flex-row items-center gap-2">
                         <UserPlus className="w-5 h-5" />
@@ -586,7 +597,7 @@ function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Reg
                     </DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="firstName">First Name</Label>
                             <Input
@@ -607,7 +618,7 @@ function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Reg
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="age">Age</Label>
                             <Input
@@ -625,6 +636,7 @@ function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Reg
                             <Select
                                 value={formData.category}
                                 onValueChange={(value) => setFormData({ ...formData, category: value })}
+                                required
                             >
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select category" />
@@ -636,10 +648,11 @@ function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Reg
                             </Select>
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="position">Preferred Position</Label>
+                            <Label htmlFor="position">Position</Label>
                             <Select
                                 value={formData.position}
                                 onValueChange={(value) => setFormData({ ...formData, position: value })}
+                                required
                             >
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select position" />
@@ -655,7 +668,7 @@ function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Reg
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="parentName">Parent/Guardian Name</Label>
                             <Input
@@ -688,9 +701,7 @@ function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Reg
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="medicalInfo" className="outline-none">
-                            Medical Information (Optional)
-                        </Label>
+                        <Label htmlFor="medicalInfo">Medical Information (Optional)</Label>
                         <Textarea
                             id="medicalInfo"
                             placeholder="Any medical conditions, allergies, or special requirements..."

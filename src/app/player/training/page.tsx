@@ -91,42 +91,43 @@ export default function PlayerTrainingPage() {
 
   return (
     <PlayerLayout>
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 md:space-y-6">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Training Schedule</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 lg:mt-0 mt-2">Training Schedule</h1>
             <p className="text-gray-600">Your upcoming training sessions and history</p>
           </div>
-          <Button variant="outline" className="bg-transparent">
+          <Button variant="outline" className="bg-transparent w-full md:w-auto">
             <Calendar className="w-4 h-4 mr-2" />
             Add to Calendar
           </Button>
         </div>
 
         {/* Training Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold">5</div>
-              <p className="text-sm text-muted-foreground">Sessions This Week</p>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
+          <Card className="min-w-0">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold">5</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Sessions This Week</p>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold">92%</div>
-              <p className="text-sm text-muted-foreground">Attendance Rate</p>
+          <Card className="min-w-0">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold">92%</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Attendance Rate</p>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold">4.3</div>
-              <p className="text-sm text-muted-foreground">Avg Performance</p>
+          <Card className="min-w-0">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold">4.3</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Avg Performance</p>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold">11</div>
-              <p className="text-sm text-muted-foreground">Hours This Week</p>
+          <Card className="min-w-0">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold">11</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Hours This Week</p>
             </CardContent>
           </Card>
         </div>
@@ -138,38 +139,40 @@ export default function PlayerTrainingPage() {
             <CardDescription>Your scheduled training sessions for this week</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {trainingSchedule.map((session, index) => (
-                <div key={index} className="p-4 border rounded-lg hover:bg-gray-50 transition-colors">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <Calendar className="w-6 h-6 text-blue-600" />
+                <div key={index} className="p-3 sm:p-4 border rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="flex items-start sm:items-center gap-3">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                       </div>
                       <div>
-                        <h3 className="font-semibold">
+                        <h3 className="font-semibold text-sm sm:text-base">
                           {session.day} - {session.type}
                         </h3>
-                        <div className="flex items-center gap-4 text-sm text-gray-600 mt-1">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-xs sm:text-sm text-gray-600 mt-1">
                           <span className="flex items-center gap-1">
-                            <Clock className="w-4 h-4" />
+                            <Clock className="w-3 sm:w-4 h-3 sm:h-4" />
                             {session.time} ({session.duration})
                           </span>
                           <span className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
+                            <MapPin className="w-3 sm:w-4 h-3 sm:h-4" />
                             {session.location}
                           </span>
                           <span className="flex items-center gap-1">
-                            <Users className="w-4 h-4" />
+                            <Users className="w-3 sm:w-4 h-3 sm:h-4" />
                             {session.coach}
                           </span>
                         </div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="font-medium">{session.date}</p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <Badge variant="secondary">{session.status}</Badge>
+                    <div className="sm:text-right mt-2 sm:mt-0">
+                      <p className="text-sm sm:text-base font-medium">{session.date}</p>
+                      <div className="flex flex-wrap gap-1 sm:gap-2 mt-1">
+                        <Badge variant="secondary" className="text-xs">
+                          {session.status}
+                        </Badge>
                         {session.attendance === "required" && (
                           <Badge variant="destructive" className="text-xs">
                             <AlertCircle className="w-3 h-3 mr-1" />
@@ -192,36 +195,34 @@ export default function PlayerTrainingPage() {
             <CardDescription>Your past training sessions and performance</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {pastSessions.map((session, index) => (
-                <div key={index} className="p-4 border rounded-lg">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div
-                        className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                          session.attendance === "present" ? "bg-green-100" : "bg-red-100"
-                        }`}
-                      >
+                <div key={index} className="p-3 sm:p-4 border rounded-lg">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="flex items-start sm:items-center gap-3">
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                        session.attendance === "present" ? "bg-green-100" : "bg-red-100"
+                      }`}>
                         {session.attendance === "present" ? (
-                          <CheckCircle className="w-6 h-6 text-green-600" />
+                          <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
                         ) : (
-                          <AlertCircle className="w-6 h-6 text-red-600" />
+                          <AlertCircle className="w-5 h-5 sm:w-6 sm:h-6 text-red-600" />
                         )}
                       </div>
                       <div>
-                        <h3 className="font-semibold">{session.type}</h3>
-                        <p className="text-sm text-gray-600">{session.date}</p>
-                        <p className="text-sm text-gray-600 mt-1">{session.notes}</p>
+                        <h3 className="font-semibold text-sm sm:text-base">{session.type}</h3>
+                        <p className="text-xs sm:text-sm text-gray-600">{session.date}</p>
+                        <p className="text-xs sm:text-sm text-gray-600 mt-1">{session.notes}</p>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <Badge variant={session.attendance === "present" ? "default" : "secondary"}>
+                    <div className="sm:text-right mt-2 sm:mt-0">
+                      <Badge variant={session.attendance === "present" ? "default" : "secondary"} className="text-xs sm:text-sm">
                         {session.attendance}
                       </Badge>
                       {session.rating && (
-                        <div className="flex items-center gap-1 mt-2">
+                        <div className="flex items-center justify-end gap-1 mt-2">
                           <span className="text-yellow-500">★</span>
-                          <span className="font-medium">{session.rating}</span>
+                          <span className="font-medium text-sm sm:text-base">{session.rating}</span>
                         </div>
                       )}
                     </div>
@@ -239,10 +240,10 @@ export default function PlayerTrainingPage() {
             <CardDescription>Important information for training sessions</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <div>
-                <h4 className="font-medium mb-2">What to Bring</h4>
-                <ul className="text-sm text-gray-600 space-y-1">
+                <h4 className="font-medium text-sm sm:text-base mb-2">What to Bring</h4>
+                <ul className="text-xs sm:text-sm text-gray-600 space-y-1">
                   <li>• Football boots and shin guards</li>
                   <li>• Water bottle and towel</li>
                   <li>• Training kit (provided by academy)</li>
@@ -250,8 +251,8 @@ export default function PlayerTrainingPage() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-medium mb-2">Training Rules</h4>
-                <ul className="text-sm text-gray-600 space-y-1">
+                <h4 className="font-medium text-sm sm:text-base mb-2">Training Rules</h4>
+                <ul className="text-xs sm:text-sm text-gray-600 space-y-1">
                   <li>• Arrive 15 minutes before session</li>
                   <li>• Respect coaches and teammates</li>
                   <li>• Give 100% effort in every drill</li>

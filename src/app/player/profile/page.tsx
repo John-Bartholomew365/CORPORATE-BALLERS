@@ -12,7 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { User, Edit, Save, Phone, Mail, MapPin, Calendar } from "lucide-react";
 import { PlayerLayout } from "@/components/dashboard/PlayerLayout";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getToken } from "@/app/reuseables/authToken";
 import { useRouter } from "next/navigation";
@@ -73,8 +73,6 @@ export default function PlayerProfilePage() {
     const fetchProfile = async () => {
       try {
         const token = getToken();
-        console.log("PlayerProfilePage: Token for API call:", token); // Debug: Log token
-
         if (!token) {
           toast.error("Please log in to view your profile.");
           setTimeout(() => {
@@ -90,8 +88,6 @@ export default function PlayerProfilePage() {
         });
 
         const data = response.data;
-        console.log("PlayerProfilePage: API response:", data); // Debug: Log response
-
         if (data.statusCode === "00") {
           const user = data.user;
           setProfileData({
@@ -102,7 +98,7 @@ export default function PlayerProfilePage() {
             address: user.address || "",
             emergencyContact: user.emergencyContact?.contactPhone || "",
             emergencyName: user.emergencyContact?.contactName || "",
-            bio: user.bio || "", // Default to empty if not provided
+            bio: user.bio || "",
           });
           setPlayerInfo({
             id: user.playerID || "",
@@ -116,10 +112,10 @@ export default function PlayerProfilePage() {
                 (new Date().getTime() - new Date(user.dateOfBirth).getTime()) / (1000 * 60 * 60 * 24 * 365.25)
               )
               : 0,
-            height: user.height || "", // Default to empty if not provided
-            weight: user.weight || "", // Default to empty if not provided
+            height: user.height || "",
+            weight: user.weight || "",
             preferredFoot: user.preferredFoot || "",
-            jerseyNumber: user.jerseyNumber || 0, // Default to 0 if not provided
+            jerseyNumber: user.jerseyNumber || 0,
           });
           setAvatar(user.profilePicture || "/placeholder.svg?height=96&width=96");
           toast.success("Profile loaded successfully!");
@@ -127,21 +123,15 @@ export default function PlayerProfilePage() {
           toast.error(data.message || "Failed to fetch profile");
         }
       } catch (error) {
-        console.error("PlayerProfilePage: Fetch profile error:", error);
+        console.error("Fetch profile error:", error);
         if (axios.isAxiosError(error)) {
-          if (error.response) {
-            if (error.response.status === 401) {
-              toast.error("Session expired. Please log in again.");
-              setTimeout(() => {
-                router.push("/auth/login");
-              }, 2000);
-            } else {
-              toast.error(error.response.data?.message || "Failed to fetch profile");
-            }
-          } else if (error.request) {
-            toast.error("No response from server. Please try again later.");
+          if (error.response?.status === 401) {
+            toast.error("Session expired. Please log in again.");
+            setTimeout(() => {
+              router.push("/auth/login");
+            }, 2000);
           } else {
-            toast.error(error.message || "An error occurred while fetching profile");
+            toast.error(error.response?.data?.message || "Failed to fetch profile");
           }
         } else {
           toast.error("An unexpected error occurred");
@@ -157,8 +147,6 @@ export default function PlayerProfilePage() {
   const handleSave = async () => {
     try {
       const token = getToken();
-      console.log("PlayerProfilePage: Token for update:", token); // Debug: Log token
-
       if (!token) {
         toast.error("Please log in to update your profile.");
         setTimeout(() => {
@@ -196,8 +184,6 @@ export default function PlayerProfilePage() {
       );
 
       const data = response.data;
-      console.log("PlayerProfilePage: Update response:", data); // Debug: Log response
-
       if (data.statusCode === "00") {
         setIsEditing(false);
         toast.success("Profile updated successfully!");
@@ -205,21 +191,15 @@ export default function PlayerProfilePage() {
         toast.error(data.message || "Failed to update profile");
       }
     } catch (error) {
-      console.error("PlayerProfilePage: Update profile error:", error);
+      console.error("Update profile error:", error);
       if (axios.isAxiosError(error)) {
-        if (error.response) {
-          if (error.response.status === 401) {
-            toast.error("Session expired. Please log in again.");
-            setTimeout(() => {
-              router.push("/auth/login");
-            }, 2000);
-          } else {
-            toast.error(error.response.data?.message || "Failed to update profile");
-          }
-        } else if (error.request) {
-          toast.error("No response from server. Please try again later.");
+        if (error.response?.status === 401) {
+          toast.error("Session expired. Please log in again.");
+          setTimeout(() => {
+            router.push("/auth/login");
+          }, 2000);
         } else {
-          toast.error(error.message || "An error occurred while updating profile");
+          toast.error(error.response?.data?.message || "Failed to update profile");
         }
       } else {
         toast.error("An unexpected error occurred");
@@ -234,10 +214,10 @@ export default function PlayerProfilePage() {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files && e.target.files[0];
+    const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (event: ProgressEvent<FileReader>) => {
+      reader.onload = (event) => {
         const result = event.target?.result;
         if (typeof result === "string") {
           setAvatar(result);
@@ -249,26 +229,15 @@ export default function PlayerProfilePage() {
 
   return (
     <PlayerLayout>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 md:space-y-6">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Player Profile</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Player Profile</h1>
             <p className="text-gray-600">Manage your personal information and preferences</p>
           </div>
           <Button
-            className="bg-[#0F0F0F] text-white cursor-pointer"
+            className="bg-[#0F0F0F] text-white w-full md:w-auto"
             onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
           >
             {isEditing ? (
@@ -285,28 +254,29 @@ export default function PlayerProfilePage() {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Profile Overview */}
-          <div className="lg:col-span-1">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+          {/* Left Column - Profile Overview and Physical Stats */}
+          <div className="space-y-4 md:space-y-6">
+            {/* Profile Overview */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <User className="w-5 h-5" />
+                <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+                  <User className="w-4 h-4 sm:w-5 sm:h-5" />
                   Profile Overview
                 </CardTitle>
               </CardHeader>
-              <CardContent className="text-center">
+              <CardContent>
                 {loading ? (
                   <p className="text-gray-600">Loading profile...</p>
                 ) : (
-                  <>
-                    <div className="relative inline-block">
+                  <div className="space-y-4">
+                    <div className="relative flex justify-center ">
                       <Avatar
-                        className="w-24 h-24 mx-auto mb-4 border border-[#B0B3B8] cursor-pointer"
+                        className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4 border border-[#B0B3B8] cursor-pointer"
                         onClick={handleAvatarClick}
                       >
                         <AvatarImage src={avatar} />
-                        <AvatarFallback className="text-2xl text-[#B0B3B8]">
+                        <AvatarFallback className="text-xl sm:text-2xl text-[#B0B3B8]">
                           {profileData.firstName[0] || "P"}
                           {profileData.lastName[0] || ""}
                         </AvatarFallback>
@@ -319,30 +289,32 @@ export default function PlayerProfilePage() {
                         className="hidden"
                       />
                     </div>
-                    <h3 className="text-xl font-semibold">
-                      {profileData.firstName} {profileData.lastName}
-                    </h3>
-                    <p className="text-gray-600 mb-2">Player ID: {playerInfo.id}</p>
-                    <div className="flex justify-center gap-2 mb-4">
-                      <Badge variant="default" className="bg-[#0F0F0F] text-white">
-                        {playerInfo.category}
-                      </Badge>
-                      <Badge variant="outline" className="text-[#B0B3B8]">
-                        {playerInfo.position}
-                      </Badge>
+                    <div className="text-center">
+                      <h3 className="text-lg sm:text-xl font-semibold">
+                        {profileData.firstName} {profileData.lastName}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-gray-600 mb-2">Player ID: {playerInfo.id}</p>
+                      <div className="flex justify-center gap-2 mb-3 sm:mb-4">
+                        <Badge variant="default" className="bg-[#0F0F0F] text-white text-xs sm:text-sm">
+                          {playerInfo.category}
+                        </Badge>
+                        <Badge variant="outline" className="text-[#B0B3B8] text-xs sm:text-sm">
+                          {playerInfo.position}
+                        </Badge>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="mb-3 sm:mb-4 bg-transparent text-xs sm:text-sm"
+                        onClick={handleAvatarClick}
+                        disabled={!isEditing}
+                      >
+                        Change Photo
+                      </Button>
                     </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="mb-4 bg-transparent"
-                      onClick={handleAvatarClick}
-                      disabled={!isEditing}
-                    >
-                      Change Photo
-                    </Button>
-                    <Separator className="my-4" />
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
+                    <Separator className="my-3 sm:my-4" />
+                    <div className="space-y-2 text-xs sm:text-sm">
+                      <div className="flex justify-between items-center">
                         <span>Jersey Number:</span>
                         {isEditing ? (
                           <Input
@@ -351,7 +323,7 @@ export default function PlayerProfilePage() {
                             onChange={(e) =>
                               setPlayerInfo({ ...playerInfo, jerseyNumber: parseInt(e.target.value) || 0 })
                             }
-                            className="w-16 h-6 text-right"
+                            className="w-16 h-6 sm:h-8 text-right text-xs sm:text-sm"
                           />
                         ) : (
                           <span className="font-medium">#{playerInfo.jerseyNumber || "N/A"}</span>
@@ -361,80 +333,82 @@ export default function PlayerProfilePage() {
                         <span>Join Date:</span>
                         <span className="font-medium">{playerInfo.joinDate || "N/A"}</span>
                       </div>
-                      <div className="flex justify-between">
+                      <div className="flex justify-between items-center">
                         <span>Age:</span>
                         {isEditing ? (
                           <Input
                             type="number"
                             value={playerInfo.age || ""}
                             onChange={(e) => setPlayerInfo({ ...playerInfo, age: parseInt(e.target.value) || 0 })}
-                            className="w-16 h-6 text-right"
+                            className="w-16 h-6 sm:h-8 text-right text-xs sm:text-sm"
                           />
                         ) : (
                           <span className="font-medium">{playerInfo.age ? `${playerInfo.age} years` : "N/A"}</span>
                         )}
                       </div>
                     </div>
-                  </>
+                  </div>
                 )}
               </CardContent>
             </Card>
 
             {/* Physical Stats */}
-            <Card className="mt-6">
+            <Card>
               <CardHeader>
-                <CardTitle>Physical Stats</CardTitle>
+                <CardTitle className="text-sm sm:text-base">Physical Stats</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="height">Height</Label>
+              <CardContent className="space-y-3 sm:space-y-4">
+                <div className="space-y-1 sm:space-y-2">
+                  <Label htmlFor="height" className="text-xs sm:text-sm">Height</Label>
                   {isEditing ? (
                     <Input
                       id="height"
                       value={playerInfo.height}
                       onChange={(e) => setPlayerInfo({ ...playerInfo, height: e.target.value })}
+                      className="text-xs sm:text-sm h-8 sm:h-9"
                     />
                   ) : (
-                    <div className="font-medium">{playerInfo.height || "N/A"}</div>
+                    <div className="font-medium text-sm sm:text-base">{playerInfo.height || "N/A"}</div>
                   )}
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="weight">Weight</Label>
+                <div className="space-y-1 sm:space-y-2">
+                  <Label htmlFor="weight" className="text-xs sm:text-sm">Weight</Label>
                   {isEditing ? (
                     <Input
                       id="weight"
                       value={playerInfo.weight}
                       onChange={(e) => setPlayerInfo({ ...playerInfo, weight: e.target.value })}
+                      className="text-xs sm:text-sm h-8 sm:h-9"
                     />
                   ) : (
-                    <div className="font-medium">{playerInfo.weight || "N/A"}</div>
+                    <div className="font-medium text-sm sm:text-base">{playerInfo.weight || "N/A"}</div>
                   )}
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="preferredFoot">Preferred Foot</Label>
+                <div className="space-y-1 sm:space-y-2">
+                  <Label htmlFor="preferredFoot" className="text-xs sm:text-sm">Preferred Foot</Label>
                   {isEditing ? (
                     <select
                       id="preferredFoot"
                       value={playerInfo.preferredFoot}
                       onChange={(e) => setPlayerInfo({ ...playerInfo, preferredFoot: e.target.value })}
-                      className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex h-8 sm:h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-xs sm:text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       <option value="Right">Right</option>
                       <option value="Left">Left</option>
                       <option value="Both">Both</option>
                     </select>
                   ) : (
-                    <div className="font-medium">{playerInfo.preferredFoot || "N/A"}</div>
+                    <div className="font-medium text-sm sm:text-base">{playerInfo.preferredFoot || "N/A"}</div>
                   )}
                 </div>
                 {isEditing && (
-                  <div className="space-y-2">
-                    <Label htmlFor="position">Position</Label>
+                  <div className="space-y-1 sm:space-y-2">
+                    <Label htmlFor="position" className="text-xs sm:text-sm">Position</Label>
                     <select
                       id="position"
                       value={playerInfo.position}
                       onChange={(e) => setPlayerInfo({ ...playerInfo, position: e.target.value })}
-                      className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex h-8 sm:h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-xs sm:text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       <option value="Goalkeeper">Goalkeeper</option>
                       <option value="Defender">Defender</option>
@@ -448,38 +422,41 @@ export default function PlayerProfilePage() {
             </Card>
           </div>
 
-          {/* Personal Information */}
-          <div className="lg:col-span-2">
+          {/* Right Column - Personal Information and Academy Info */}
+          <div className="lg:col-span-2 space-y-4 md:space-y-6">
+            {/* Personal Information */}
             <Card>
               <CardHeader>
-                <CardTitle>Personal Information</CardTitle>
-                <CardDescription>Your personal details and contact information</CardDescription>
+                <CardTitle className="text-sm sm:text-base">Personal Information</CardTitle>
+                <CardDescription className="text-xs sm:text-sm">Your personal details and contact information</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="firstName">First Name</Label>
+              <CardContent className="space-y-4 sm:space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="space-y-1 sm:space-y-2">
+                    <Label htmlFor="firstName" className="text-xs sm:text-sm">First Name</Label>
                     <Input
                       id="firstName"
                       value={profileData.firstName}
                       onChange={(e) => setProfileData({ ...profileData, firstName: e.target.value })}
                       disabled={!isEditing}
+                      className="text-xs sm:text-sm h-8 sm:h-9"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="lastName">Last Name</Label>
+                  <div className="space-y-1 sm:space-y-2">
+                    <Label htmlFor="lastName" className="text-xs sm:text-sm">Last Name</Label>
                     <Input
                       id="lastName"
                       value={profileData.lastName}
                       onChange={(e) => setProfileData({ ...profileData, lastName: e.target.value })}
                       disabled={!isEditing}
+                      className="text-xs sm:text-sm h-8 sm:h-9"
                     />
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="flex items-center gap-2">
-                      <Mail className="w-4 h-4" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="space-y-1 sm:space-y-2">
+                    <Label htmlFor="email" className="flex items-center gap-2 text-xs sm:text-sm">
+                      <Mail className="w-3 h-3 sm:w-4 sm:h-4" />
                       Email
                     </Label>
                     <Input
@@ -488,11 +465,12 @@ export default function PlayerProfilePage() {
                       value={profileData.email}
                       onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
                       disabled={!isEditing}
+                      className="text-xs sm:text-sm h-8 sm:h-9"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="phone" className="flex items-center gap-2">
-                      <Phone className="w-4 h-4" />
+                  <div className="space-y-1 sm:space-y-2">
+                    <Label htmlFor="phone" className="flex items-center gap-2 text-xs sm:text-sm">
+                      <Phone className="w-3 h-3 sm:w-4 sm:h-4" />
                       Phone Number
                     </Label>
                     <Input
@@ -500,12 +478,13 @@ export default function PlayerProfilePage() {
                       value={profileData.phone}
                       onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
                       disabled={!isEditing}
+                      className="text-xs sm:text-sm h-8 sm:h-9"
                     />
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="address" className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4" />
+                <div className="space-y-1 sm:space-y-2">
+                  <Label htmlFor="address" className="flex items-center gap-2 text-xs sm:text-sm">
+                    <MapPin className="w-3 h-3 sm:w-4 sm:h-4" />
                     Address
                   </Label>
                   <Textarea
@@ -513,92 +492,97 @@ export default function PlayerProfilePage() {
                     value={profileData.address}
                     onChange={(e) => setProfileData({ ...profileData, address: e.target.value })}
                     disabled={!isEditing}
+                    className="text-xs sm:text-sm min-h-[80px] sm:min-h-[100px]"
                   />
                 </div>
-                <Separator />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="emergencyName">Emergency Contact Name</Label>
+                <Separator className="my-3 sm:my-4" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="space-y-1 sm:space-y-2">
+                    <Label htmlFor="emergencyName" className="text-xs sm:text-sm">Emergency Contact Name</Label>
                     <Input
                       id="emergencyName"
                       value={profileData.emergencyName}
                       onChange={(e) => setProfileData({ ...profileData, emergencyName: e.target.value })}
                       disabled={!isEditing}
+                      className="text-xs sm:text-sm h-8 sm:h-9"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="emergencyContact">Emergency Contact Phone</Label>
+                  <div className="space-y-1 sm:space-y-2">
+                    <Label htmlFor="emergencyContact" className="text-xs sm:text-sm">Emergency Contact Phone</Label>
                     <Input
                       id="emergencyContact"
                       value={profileData.emergencyContact}
                       onChange={(e) => setProfileData({ ...profileData, emergencyContact: e.target.value })}
                       disabled={!isEditing}
+                      className="text-xs sm:text-sm h-8 sm:h-9"
                     />
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="bio">Bio</Label>
+                <div className="space-y-1 sm:space-y-2">
+                  <Label htmlFor="bio" className="text-xs sm:text-sm">Bio</Label>
                   <Textarea
                     id="bio"
                     placeholder="Tell us about yourself, your goals, and aspirations..."
                     value={profileData.bio}
                     onChange={(e) => setProfileData({ ...profileData, bio: e.target.value })}
                     disabled={!isEditing}
+                    className="text-xs sm:text-sm min-h-[100px] sm:min-h-[120px]"
                   />
                 </div>
               </CardContent>
             </Card>
+
+            {/* Academy Information */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm sm:text-base">Academy Information</CardTitle>
+                <CardDescription className="text-xs sm:text-sm">Important academy details and contacts</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                  <div>
+                    <h4 className="font-medium mb-1 sm:mb-2 flex items-center gap-2 text-xs sm:text-sm">
+                      <MapPin className="w-3 h-3 sm:w-4 sm:h-4" />
+                      Academy Address
+                    </h4>
+                    <p className="text-xs sm:text-sm text-gray-600">
+                      Stadium Complex, Ibrahim Taiwo Road
+                      <br />
+                      Ilorin, Kwara State, Nigeria
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-medium mb-1 sm:mb-2 flex items-center gap-2 text-xs sm:text-sm">
+                      <Phone className="w-3 h-3 sm:w-4 sm:h-4" />
+                      Contact Numbers
+                    </h4>
+                    <div className="text-xs sm:text-sm text-gray-600 space-y-1">
+                      <p>+234 8133178008</p>
+                      <p>+234 8065943751</p>
+                      <p>+234 8033907248</p>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-medium mb-1 sm:mb-2 flex items-center gap-2 text-xs sm:text-sm">
+                      <Mail className="w-3 h-3 sm:w-4 sm:h-4" />
+                      Email
+                    </h4>
+                    <p className="text-xs sm:text-sm text-gray-600">corporateballersfa418@gmail.com</p>
+                  </div>
+                  <div>
+                    <h4 className="font-medium mb-1 sm:mb-2 flex items-center gap-2 text-xs sm:text-sm">
+                      <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                      Training Schedule
+                    </h4>
+                    <div className="text-xs sm:text-sm text-gray-600 space-y-1">
+                      <p>Tue/Wed/Thu: 4:00 PM</p>
+                      <p>Sat/Sun: 4:30 PM</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-          {/* Academy Information */}
-          <Card className="mt-6">
-            <CardHeader>
-              <CardTitle>Academy Information</CardTitle>
-              <CardDescription>Important academy details and contacts</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-medium mb-2 flex items-center gap-2">
-                    <MapPin className="w-4 h-4" />
-                    Academy Address
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    Stadium Complex, Ibrahim Taiwo Road
-                    <br />
-                    Ilorin, Kwara State, Nigeria
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-medium mb-2 flex items-center gap-2">
-                    <Phone className="w-4 h-4" />
-                    Contact Numbers
-                  </h4>
-                  <div className="text-sm text-gray-600 space-y-1">
-                    <p>+234 8133178008</p>
-                    <p>+234 8065943751</p>
-                    <p>+234 8033907248</p>
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-medium mb-2 flex items-center gap-2">
-                    <Mail className="w-4 h-4" />
-                    Email
-                  </h4>
-                  <p className="text-sm text-gray-600">corporateballersfa418@gmail.com</p>
-                </div>
-                <div>
-                  <h4 className="font-medium mb-2 flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    Training Schedule
-                  </h4>
-                  <div className="text-sm text-gray-600 space-y-1">
-                    <p>Tue/Wed/Thu: 4:00 PM</p>
-                    <p>Sat/Sun: 4:30 PM</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </PlayerLayout>

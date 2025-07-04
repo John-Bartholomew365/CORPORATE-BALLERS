@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
 import { Trophy, Calendar, MapPin, Clock } from "lucide-react"
 import { PlayerLayout } from "@/components/dashboard/PlayerLayout"
 
@@ -88,137 +88,145 @@ export default function PlayerTournamentsPage() {
 
   return (
     <PlayerLayout>
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 md:space-y-6">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Tournaments & Matches</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 lg:mt-0 mt-2">Tournaments & Matches</h1>
             <p className="text-gray-600">Your tournament participation and match history</p>
           </div>
-          <Button variant="outline" className="bg-transparent">
+          {/* <Button variant="outline" className="bg-transparent w-full md:w-auto">
             <Trophy className="w-4 h-4 mr-2" />
             View All Tournaments
-          </Button>
+          </Button> */}
         </div>
 
         {/* Tournament Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold">{playerStats.tournamentsPlayed}</div>
-              <p className="text-sm text-muted-foreground">Tournaments</p>
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-4">
+          <Card className="min-w-0">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold">{playerStats.tournamentsPlayed}</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Tournaments</p>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold">{playerStats.matchesWon}</div>
-              <p className="text-sm text-muted-foreground">Matches Won</p>
+          <Card className="min-w-0">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold">{playerStats.matchesWon}</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Matches Won</p>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold">{playerStats.totalGoals}</div>
-              <p className="text-sm text-muted-foreground">Goals Scored</p>
+          <Card className="min-w-0">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold">{playerStats.totalGoals}</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Goals</p>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold">{playerStats.totalAssists}</div>
-              <p className="text-sm text-muted-foreground">Assists</p>
+          <Card className="min-w-0">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold">{playerStats.totalAssists}</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Assists</p>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold">{playerStats.averageRating}</div>
-              <p className="text-sm text-muted-foreground">Avg Rating</p>
+          <Card className="min-w-0">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold">{playerStats.averageRating}</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Avg Rating</p>
             </CardContent>
           </Card>
         </div>
 
-        {/* Upcoming Tournaments */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Upcoming Tournaments</CardTitle>
-            <CardDescription>Tournaments you&apos;re registered for</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {upcomingTournaments.map((tournament, index) => (
-                <div key={index} className="p-4 border rounded-lg">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                        <Trophy className="w-6 h-6 text-yellow-600" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+          {/* Upcoming Tournaments */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Upcoming Tournaments</CardTitle>
+              <CardDescription>Tournaments you&apos;re registered for</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3 sm:space-y-4">
+                {upcomingTournaments.map((tournament, index) => (
+                  <div key={index} className="p-3 sm:p-4 border rounded-lg">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-sm sm:text-base">{tournament.name}</h3>
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-xs sm:text-sm text-gray-600 mt-1">
+                            <span className="flex items-center gap-1">
+                              <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                              {tournament.date}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                              {tournament.time}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <MapPin className="w-3 h-3 sm:w-4 sm:h-4" />
+                              {tournament.location}
+                            </span>
+                          </div>
+                        </div>
                       </div>
+                      <div className="text-right">
+                        <Badge 
+                          variant={tournament.status === "Registered" ? "default" : "destructive"} 
+                          className="bg-[#0F0F0F] text-white text-xs sm:text-sm"
+                        >
+                          {tournament.status}
+                        </Badge>
+                        <p className="text-xs sm:text-sm text-gray-600 mt-1">Prize: {tournament.prize}</p>
+                        <p className="text-xs sm:text-sm text-gray-600">{tournament.teams} teams</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Upcoming Matches */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Upcoming Matches</CardTitle>
+              <CardDescription>Your next scheduled matches</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3 sm:space-y-4">
+                {upcomingMatches.map((match, index) => (
+                  <div key={index} className="p-3 sm:p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div>
-                        <h3 className="font-semibold">{tournament.name}</h3>
-                        <div className="flex items-center gap-4 text-sm text-gray-600 mt-1">
+                        <h3 className="font-semibold text-sm sm:text-base">CBFA vs {match.opponent}</h3>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-xs sm:text-sm text-gray-600 mt-1">
                           <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            {tournament.date}
+                            <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                            {match.date}
                           </span>
                           <span className="flex items-center gap-1">
-                            <Clock className="w-4 h-4" />
-                            {tournament.time}
+                            <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                            {match.time}
                           </span>
                           <span className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
-                            {tournament.location}
+                            <MapPin className="w-3 h-3 sm:w-4 sm:h-4" />
+                            {match.venue}
                           </span>
                         </div>
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <Badge variant={tournament.status === "Registered" ? "default" : "destructive"} className="bg-[#0F0F0F] text-white">
-                        {tournament.status}
-                      </Badge>
-                      <p className="text-sm text-gray-600 mt-1">Prize: {tournament.prize}</p>
-                      <p className="text-sm text-gray-600">{tournament.teams} teams</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Upcoming Matches */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Upcoming Matches</CardTitle>
-            <CardDescription>Your next scheduled matches</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {upcomingMatches.map((match, index) => (
-                <div key={index} className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-semibold">CBFA vs {match.opponent}</h3>
-                      <div className="flex items-center gap-4 text-sm text-gray-600 mt-1">
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
-                          {match.date}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-4 h-4" />
-                          {match.time}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <MapPin className="w-4 h-4" />
-                          {match.venue}
-                        </span>
+                      <div className="text-right">
+                        <Badge variant="secondary" className="bg-[#0F0F0F] text-white text-xs sm:text-sm">
+                          {match.round}
+                        </Badge>
+                        <p className="text-xs sm:text-sm text-gray-600 mt-1">{match.tournament}</p>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <Badge variant="secondary" className="bg-[#0F0F0F] text-white">{match.round}</Badge>
-                      <p className="text-sm text-gray-600 mt-1">{match.tournament}</p>
-                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Match History */}
         <Card>
@@ -227,13 +235,13 @@ export default function PlayerTournamentsPage() {
             <CardDescription>Your recent match results and performance</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {matchHistory.map((match, index) => (
-                <div key={index} className="p-4 border rounded-lg">
-                  <div className="flex items-center justify-between">
+                <div key={index} className="p-3 sm:p-4 border rounded-lg">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
-                      <h3 className="font-semibold">CBFA vs {match.opponent}</h3>
-                      <div className="flex items-center gap-4 text-sm text-gray-600 mt-1">
+                      <h3 className="font-semibold text-sm sm:text-base">CBFA vs {match.opponent}</h3>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-xs sm:text-sm text-gray-600 mt-1">
                         <span>{match.date}</span>
                         <span>{match.tournament}</span>
                         <span>{match.round}</span>
@@ -248,10 +256,11 @@ export default function PlayerTournamentsPage() {
                               ? "secondary"
                               : "destructive"
                         }
-                      className="bg-[#0F0F0F] text-white">
+                        className="bg-[#0F0F0F] text-white text-xs sm:text-sm"
+                      >
                         {match.result}
                       </Badge>
-                      <div className="text-sm text-gray-600 mt-1">
+                      <div className="text-xs sm:text-sm text-gray-600 mt-1">
                         <p>
                           Goals: {match.playerStats.goals} | Assists: {match.playerStats.assists}
                         </p>

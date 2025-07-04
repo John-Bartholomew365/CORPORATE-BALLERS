@@ -1,13 +1,15 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Home, Calendar, Trophy, Target, User, Menu } from "lucide-react"
+import { Home, Calendar, Trophy, Target, User, Menu, LogOut } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { toast } from "react-toastify"
+// import { getToken } from "@/app/reuseables/authToken"
 
 interface PlayerLayoutProps {
     children: React.ReactNode
@@ -15,6 +17,7 @@ interface PlayerLayoutProps {
 
 export function PlayerLayout({ children }: PlayerLayoutProps) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
+    const router = useRouter()
 
     const navigation = [
         { name: "Dashboard", href: "/player/dashboard", icon: Home },
@@ -22,9 +25,21 @@ export function PlayerLayout({ children }: PlayerLayoutProps) {
         { name: "Performance", href: "/player/performance", icon: Target },
         { name: "Tournaments", href: "/player/tournaments", icon: Trophy },
         { name: "Profile", href: "/player/profile", icon: User },
-        // { name: "Messages", href: "/player/messages", icon: MessageSquare },
-        // { name: "Documents", href: "/player/documents", icon: FileText },
     ]
+
+    const handleLogout = () => {
+        try {
+            if (typeof window !== "undefined") {
+                sessionStorage.removeItem("token")
+            }
+            toast.success("Logged out successfully!")
+            setTimeout(() => {
+                router.push("/auth/login")
+            }, 1500)
+        } catch {
+            toast.error("Failed to log out. Please try again.")
+        }
+    }
 
     const Sidebar = () => (
         <div className="flex flex-col h-full">
@@ -44,6 +59,7 @@ export function PlayerLayout({ children }: PlayerLayoutProps) {
                             <Link
                                 href={item.href}
                                 className="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-gray-100 transition-colors"
+                                onClick={() => setSidebarOpen(false)}
                             >
                                 <item.icon className="w-5 h-5" />
                                 {item.name}
@@ -52,6 +68,16 @@ export function PlayerLayout({ children }: PlayerLayoutProps) {
                     ))}
                 </ul>
             </nav>
+            <div className="p-4 border-t border-[#E4E4E7]">
+                <Button
+                    variant="ghost"
+                    className="w-full justify-start"
+                    onClick={handleLogout}
+                >
+                    <LogOut className="w-5 h-5 mr-2" />
+                    Logout
+                </Button>
+            </div>
         </div>
     )
 
@@ -67,7 +93,7 @@ export function PlayerLayout({ children }: PlayerLayoutProps) {
             {/* Mobile Sidebar */}
             <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
                 <SheetTrigger asChild>
-                    <Button variant="outline" size="icon" className="lg:hidden fixed top-4 left-4 z-40">
+                    <Button variant="outline" size="icon" className="lg:hidden fixed top-4 right-4 z-40">
                         <Menu className="h-4 w-4" />
                     </Button>
                 </SheetTrigger>
@@ -78,7 +104,7 @@ export function PlayerLayout({ children }: PlayerLayoutProps) {
 
             {/* Main Content */}
             <div className="lg:pl-64">
-                <main className="p-6">{children}</main>
+                <main className="p-4 sm:p-6">{children}</main>
             </div>
         </div>
     )

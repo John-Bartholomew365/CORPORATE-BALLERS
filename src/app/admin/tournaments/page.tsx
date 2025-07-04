@@ -254,52 +254,55 @@ export default function TournamentsPage() {
         draggable
         pauseOnHover
       />
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 md:space-y-6">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Tournaments</h1>
-            <p className="text-gray-600">Manage football tournaments and competitions</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 lg:mt-0 mt-2">Tournaments</h1>
+            <p className="text-gray-600 lg:mt-0 mt-2">Manage football tournaments and competitions</p>
           </div>
           <TournamentRegistrationModal onNewTournament={handleNewTournament} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold">{tournamentStats.total}</div>
-              <p className="text-sm text-muted-foreground">Total Tournaments</p>
+        {/* Stats Cards */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
+          <Card className="min-w-0">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold">{tournamentStats.total}</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Total Tournaments</p>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold text-blue-600">{tournamentStats.upcoming}</div>
-              <p className="text-sm text-muted-foreground">Upcoming</p>
+          <Card className="min-w-0">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold text-blue-600">{tournamentStats.upcoming}</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Upcoming</p>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold text-green-600">{tournamentStats.ongoing}</div>
-              <p className="text-sm text-muted-foreground">Ongoing</p>
+          <Card className="min-w-0">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold text-green-600">{tournamentStats.ongoing}</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Ongoing</p>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-2xl font-bold text-gray-600">{tournamentStats.completed}</div>
-              <p className="text-sm text-muted-foreground">Completed</p>
+          <Card className="min-w-0">
+            <CardContent className="p-4 sm:p-6">
+              <div className="text-xl sm:text-2xl font-bold text-gray-600">{tournamentStats.completed}</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Completed</p>
             </CardContent>
           </Card>
         </div>
 
+        {/* Main Table Card */}
         <Card>
           <CardHeader>
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col gap-4">
               <div>
                 <CardTitle>All Tournaments</CardTitle>
-                <CardDescription className="text-[#B0B3B8] mt-1">
+                <CardDescription className="text-[#B0B3B8]">
                   View and manage all tournaments
                 </CardDescription>
               </div>
-              <div className="relative w-64 outline-none">
+              <div className="relative w-full sm:w-64">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
                   placeholder="Search tournaments..."
@@ -314,16 +317,16 @@ export default function TournamentsPage() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="border rounded-lg overflow-hidden">
+            <div className="overflow-x-auto">
               <Table>
                 <TableHeader className="bg-gray-50">
                   <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>ID</TableHead>
-                    <TableHead>Location</TableHead>
-                    <TableHead>Dates</TableHead>
+                    <TableHead className="min-w-[150px]">Name</TableHead>
+                    <TableHead className="hidden md:table-cell">ID</TableHead>
+                    <TableHead className="hidden sm:table-cell">Location</TableHead>
+                    <TableHead className="min-w-[180px]">Dates</TableHead>
                     <TableHead>Category</TableHead>
-                    <TableHead>Teams</TableHead>
+                    <TableHead className="hidden xs:table-cell">Teams</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Actions</TableHead>
                   </TableRow>
@@ -338,9 +341,14 @@ export default function TournamentsPage() {
                   ) : currentTournaments.length > 0 ? (
                     currentTournaments.map((tournament) => (
                       <TableRow key={tournament.id}>
-                        <TableCell className="font-medium">{tournament.name}</TableCell>
-                        <TableCell>{tournament.id}</TableCell>
-                        <TableCell>{tournament.location}</TableCell>
+                        <TableCell className="font-medium">
+                          <div className="flex flex-col">
+                            <span>{tournament.name}</span>
+                            <span className="text-xs text-gray-500 md:hidden">{tournament.id}</span>
+                          </div>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">{tournament.id}</TableCell>
+                        <TableCell className="hidden sm:table-cell">{tournament.location}</TableCell>
                         <TableCell>
                           {format(new Date(tournament.startDate), "dd MMM, yyyy")} -{" "}
                           {format(new Date(tournament.endDate), "dd MMM, yyyy")}
@@ -352,13 +360,13 @@ export default function TournamentsPage() {
                                 ? "bg-[#FFFFCC] text-[#0F0F0F]"
                                 : tournament.category === "Senior"
                                 ? "bg-green-100 text-[#047146]"
-                                : "bg-gray-100 text-[text-gray-600]"
+                                : "bg-gray-100 text-gray-600"
                             }
                           >
                             {tournament.category}
                           </Badge>
                         </TableCell>
-                        <TableCell>{tournament.teamsCount}</TableCell>
+                        <TableCell className="hidden xs:table-cell">{tournament.teamsCount}</TableCell>
                         <TableCell>
                           <Badge
                             className={
@@ -376,7 +384,7 @@ export default function TournamentsPage() {
                         </TableCell>
                         <TableCell>
                           <DropdownMenu>
-                            <DropdownMenuTrigger className="focus-outline-none" asChild>
+                            <DropdownMenuTrigger className="focus:outline-none" asChild>
                               <Button variant="ghost" size="sm">
                                 <MoreVertical className="h-4 w-4" />
                               </Button>
@@ -426,7 +434,7 @@ export default function TournamentsPage() {
             </div>
 
             {filteredTournaments.length > tournamentsPerPage && (
-              <div className="mt-4 flex justify-between items-center">
+              <div className="mt-4 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div className="text-sm text-gray-500">
                   Showing {indexOfFirstTournament + 1}-
                   {Math.min(indexOfLastTournament, filteredTournaments.length)} of{" "}
@@ -693,7 +701,7 @@ function TournamentRegistrationModal({ onNewTournament }: { onNewTournament: (to
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="space-y-2">
               <Label htmlFor="startDate">Start Date *</Label>
               <Input

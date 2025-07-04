@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Users, Calendar, TrendingUp, Plus, Settings, LogOut } from "lucide-react";
+import { Users, Calendar, TrendingUp, Plus, Settings } from "lucide-react";
 import { AdminLayout } from "@/components/dashboard/AdminLayout";
 import Link from "next/link";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getToken, removeToken } from "@/app/reuseables/authToken";
+import { getToken } from "@/app/reuseables/authToken";
 import { useRouter } from "next/navigation";
 
 interface Stat {
@@ -52,7 +52,7 @@ export default function AdminDashboard() {
             {
               title: "Total Players",
               value: data.data.totalPlayers,
-              change: `+${data.data.totalPlayers} this month`, // Adjust as needed
+              change: `+${data.data.totalPlayers} this month`,
               icon: Users,
               color: "text-blue-600",
             },
@@ -72,7 +72,7 @@ export default function AdminDashboard() {
             },
             {
               title: "Training Sessions",
-              value: 5, // Manual value since not in API
+              value: 5,
               change: "per week",
               icon: Calendar,
               color: "text-purple-600",
@@ -110,19 +110,6 @@ export default function AdminDashboard() {
     fetchDashboardStats();
   }, [router]);
 
-  const handleLogout = () => {
-    try {
-      removeToken();
-      toast.success("Logged out successfully!");
-      setTimeout(() => {
-        router.push("/auth/login");
-      }, 1500);
-    } catch (error) {
-      console.error("AdminDashboard: Logout error:", error); // Debug: Log error
-      toast.error("Failed to log out. Please try again.");
-    }
-  };
-
   const recentActivities = [
     { action: "New player registered", player: "John Bartholomew", time: "2 hours ago", category: "Senior" },
     { action: "Training session completed", session: "Tuesday 4PM", time: "1 day ago", category: "All" },
@@ -152,33 +139,24 @@ export default function AdminDashboard() {
         pauseOnHover
         theme="light"
       />
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-6 lg:mt-0 mt-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 ">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-            <p className="text-gray-600">Welcome back! Here&apos;s what&apos;s happening at CBFA.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+            <p className="text-gray-600 lg:mt-0 mt-2">Welcome back! Here&apos;s what&apos;s happening at CBFA.</p>
           </div>
-          <div className="flex gap-2">
+          <div className="lg:flex hidden gap-2">
             <Link href="/admin/settings">
               <Button variant="outline" size="sm" className="cursor-pointer">
                 <Settings className="w-4 h-4 mr-2" />
                 Settings
               </Button>
             </Link>
-            <Button
-              variant="outline"
-              size="sm"
-              className="cursor-pointer"
-              onClick={handleLogout}
-            >
-              <LogOut className="w-4 h-4 mr-2" />
-              Logout
-            </Button>
           </div>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {loading ? (
             <Card className="col-span-full">
               <CardContent className="p-6 text-center">
@@ -207,7 +185,7 @@ export default function AdminDashboard() {
           )}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Recent Activities */}
           <Card>
             <CardHeader>
@@ -215,14 +193,14 @@ export default function AdminDashboard() {
               <CardDescription>Latest updates from the academy</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {recentActivities.map((activity, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-[#FFFFFF] rounded-lg">
+                  <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-[#FFFFFF] rounded-lg gap-2 sm:gap-0">
                     <div>
                       <p className="font-medium text-sm">{activity.action}</p>
                       <p className="text-sm text-gray-600">{activity.player || activity.session || activity.match}</p>
                     </div>
-                    <div className="text-right">
+                    <div className="sm:text-right">
                       <Badge variant="secondary" className="mb-1">
                         {activity.category}
                       </Badge>
@@ -236,27 +214,27 @@ export default function AdminDashboard() {
 
           {/* Training Schedule */}
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
+            <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <CardTitle>Training Schedule</CardTitle>
                 <CardDescription>Upcoming training sessions</CardDescription>
               </div>
               <Link href="/admin/training">
                 <Button size="sm" className="cursor-pointer items-center flex justify-center">
-                  <Plus className="w-4 h-4 mb-1" />
+                  <Plus className="w-4 h-4 mr-1" />
                   Add Session
                 </Button>
               </Link>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {upcomingTraining.map((session, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                  <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 border rounded-lg gap-2 sm:gap-0">
                     <div>
                       <p className="font-medium">{session.day}</p>
                       <p className="text-sm text-gray-600">{session.time}</p>
                     </div>
-                    <div className="text-right">
+                    <div className="sm:text-right">
                       <p className="text-sm font-medium">{session.participants} players</p>
                       <p className="text-xs text-gray-500">{session.category}</p>
                     </div>
