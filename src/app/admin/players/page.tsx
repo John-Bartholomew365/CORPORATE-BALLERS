@@ -148,74 +148,112 @@ export default function PlayersPage() {
       />
       <div className="space-y-4 sm:space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 lg:mt-0 mt-2">Player Management</h1>
-            <p className="text-gray-600 lg:mt-0 mt-2">Manage all academy players and their information</p>
-          </div>
-          <Link href={"/admin/registration"}>
-            <Button className="bg-[#0F0F0F] text-white cursor-pointer w-full sm:w-auto">
-              <Plus className="w-4 h-4 mr-0 sm:mr-2" />
-              <span className="hidden sm:inline">Add New Player</span>
-              <span className="sm:hidden">Add Player</span>
-            </Button>
-          </Link>
+          {loading ? (
+            <div className="space-y-3">
+              <div className="h-8 w-[250px] bg-gray-200 rounded animate-pulse"></div>
+              <div className="h-4 w-[200px] bg-gray-200 rounded animate-pulse"></div>
+            </div>
+          ) : (
+            <>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 lg:mt-0 mt-2">Player Management</h1>
+                <p className="text-gray-600 lg:mt-0 mt-2">Manage all academy players and their information</p>
+              </div>
+              <Link href={"/admin/registration"}>
+                <Button className="bg-[#0F0F0F] text-white cursor-pointer w-full sm:w-auto">
+                  <Plus className="w-4 h-4 mr-0 sm:mr-2" />
+                  <span className="hidden sm:inline">Add New Player</span>
+                  <span className="sm:hidden">Add Player</span>
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Stats Cards - 2 columns on mobile, 4 on desktop */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
-          <Card className="col-span-1">
-            <CardContent className="p-4 sm:p-6">
-              <div className="text-xl sm:text-2xl font-bold">{stats.total}</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Total Players</p>
-            </CardContent>
-          </Card>
-          <Card className="col-span-1">
-            <CardContent className="p-4 sm:p-6">
-              <div className="text-xl sm:text-2xl font-bold">{stats.senior}</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Senior</p>
-            </CardContent>
-          </Card>
-          <Card className="col-span-1">
-            <CardContent className="p-4 sm:p-6">
-              <div className="text-xl sm:text-2xl font-bold">{stats.junior}</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Junior</p>
-            </CardContent>
-          </Card>
-          <Card className="col-span-1">
-            <CardContent className="p-4 sm:p-6">
-              <div className="text-xl sm:text-2xl font-bold">{stats.active}</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Active</p>
-            </CardContent>
-          </Card>
+          {loading ? (
+            Array.from({ length: 4 }).map((_, index) => (
+              <Card key={index} className="col-span-1">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="h-8 w-[60px] bg-gray-200 rounded animate-pulse mb-2"></div>
+                  <div className="h-4 w-[100px] bg-gray-200 rounded animate-pulse"></div>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            <>
+              <Card className="col-span-1">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="text-xl sm:text-2xl font-bold">{stats.total}</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Total Players</p>
+                </CardContent>
+              </Card>
+              <Card className="col-span-1">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="text-xl sm:text-2xl font-bold">{stats.senior}</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Senior</p>
+                </CardContent>
+              </Card>
+              <Card className="col-span-1">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="text-xl sm:text-2xl font-bold">{stats.junior}</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Junior</p>
+                </CardContent>
+              </Card>
+              <Card className="col-span-1">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="text-xl sm:text-2xl font-bold">{stats.active}</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Active</p>
+                </CardContent>
+              </Card>
+            </>
+          )}
         </div>
 
         <Card>
           <CardHeader>
-            <CardTitle>Players List</CardTitle>
-            <CardDescription>View and manage all registered players</CardDescription>
+            {loading ? (
+              <div className="space-y-3">
+                <div className="h-6 w-[150px] bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-4 w-[200px] bg-gray-200 rounded animate-pulse"></div>
+              </div>
+            ) : (
+              <>
+                <CardTitle>Players List</CardTitle>
+                <CardDescription>View and manage all registered players</CardDescription>
+              </>
+            )}
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col sm:flex-row gap-3 mb-4 sm:mb-6">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <Input
-                  placeholder="Search players..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 outline-none"
-                />
+            {loading ? (
+              <div className="flex flex-col sm:flex-row gap-3 mb-4 sm:mb-6">
+                <div className="relative flex-1 h-10 bg-gray-200 rounded animate-pulse"></div>
+                <div className="w-full sm:w-48 h-10 bg-gray-200 rounded animate-pulse"></div>
               </div>
-              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                <SelectTrigger className="w-full sm:w-48">
-                  <SelectValue placeholder="Filter category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Categories</SelectItem>
-                  <SelectItem value="senior">Senior</SelectItem>
-                  <SelectItem value="junior">Junior</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+            ) : (
+              <div className="flex flex-col sm:flex-row gap-3 mb-4 sm:mb-6">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Input
+                    placeholder="Search players..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10 outline-none"
+                  />
+                </div>
+                <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                  <SelectTrigger className="w-full sm:w-48">
+                    <SelectValue placeholder="Filter category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Categories</SelectItem>
+                    <SelectItem value="senior">Senior</SelectItem>
+                    <SelectItem value="junior">Junior</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
 
             <div className="rounded-md border overflow-x-auto">
               <Table className="min-w-[600px] sm:min-w-full">
@@ -231,11 +269,37 @@ export default function PlayersPage() {
                 </TableHeader>
                 <TableBody>
                   {loading ? (
-                    <TableRow>
-                      <TableCell colSpan={6} className="text-center py-8">
-                        Loading players...
-                      </TableCell>
-                    </TableRow>
+                    Array.from({ length: 5 }).map((_, index) => (
+                      <TableRow key={index}>
+                        <TableCell>
+                          <div className="flex items-center gap-3">
+                            <div className="h-8 w-8 sm:h-10 sm:w-10 bg-gray-200 rounded-full animate-pulse"></div>
+                            <div className="space-y-2">
+                              <div className="h-4 w-[120px] bg-gray-200 rounded animate-pulse"></div>
+                              <div className="h-3 w-[60px] bg-gray-200 rounded animate-pulse"></div>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          <div className="h-4 w-[80px] bg-gray-200 rounded animate-pulse"></div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="h-6 w-[60px] bg-gray-200 rounded-full animate-pulse"></div>
+                        </TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          <div className="h-4 w-[80px] bg-gray-200 rounded animate-pulse"></div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <div className="w-12 sm:w-16 bg-gray-200 rounded-full h-2 animate-pulse"></div>
+                            <div className="h-4 w-[30px] bg-gray-200 rounded animate-pulse"></div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="h-6 w-[70px] bg-gray-200 rounded-full animate-pulse"></div>
+                        </TableCell>
+                      </TableRow>
+                    ))
                   ) : filteredPlayers.length === 0 ? (
                     <TableRow>
                       <TableCell colSpan={6} className="text-center py-8">
@@ -318,6 +382,24 @@ export default function PlayersPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Add shimmer animation CSS */}
+      <style jsx global>{`
+        @keyframes shimmer {
+          0% {
+            background-position: -468px 0;
+          }
+          100% {
+            background-position: 468px 0;
+          }
+        }
+        .animate-pulse {
+          animation: shimmer 1.5s infinite linear;
+          background: linear-gradient(to right, #f0f0f0 8%, #e0e0e0 18%, #f0f0f0 33%);
+          background-size: 800px 104px;
+          position: relative;
+        }
+      `}</style>
     </AdminLayout>
   );
 }

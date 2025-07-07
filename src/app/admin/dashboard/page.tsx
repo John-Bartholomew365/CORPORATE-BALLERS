@@ -140,29 +140,46 @@ export default function AdminDashboard() {
         theme="light"
       />
       <div className="space-y-6 lg:mt-0 mt-3">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 ">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-            <p className="text-gray-600 lg:mt-0 mt-2">Welcome back! Here&apos;s what&apos;s happening at CBFA.</p>
-          </div>
-          <div className="lg:flex hidden gap-2">
-            <Link href="/admin/settings">
-              <Button variant="outline" size="sm" className="cursor-pointer">
-                <Settings className="w-4 h-4 mr-2" />
-                Settings
-              </Button>
-            </Link>
-          </div>
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          {loading ? (
+            <div className="space-y-3">
+              <div className="h-8 w-[250px] bg-gray-200 rounded animate-pulse"></div>
+              <div className="h-4 w-[200px] bg-gray-200 rounded animate-pulse"></div>
+            </div>
+          ) : (
+            <>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+                <p className="text-gray-600 lg:mt-0 mt-2">Welcome back! Here&apos;s what&apos;s happening at CBFA.</p>
+              </div>
+              <div className="lg:flex hidden gap-2">
+                <Link href="/admin/settings">
+                  <Button variant="outline" size="sm" className="cursor-pointer">
+                    <Settings className="w-4 h-4 mr-2" />
+                    Settings
+                  </Button>
+                </Link>
+              </div>
+            </>
+          )}
         </div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {loading ? (
-            <Card className="col-span-full">
-              <CardContent className="p-6 text-center">
-                <p>Loading dashboard stats...</p>
-              </CardContent>
-            </Card>
+            Array.from({ length: 4 }).map((_, index) => (
+              <Card key={index}>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <div className="h-4 w-[100px] bg-gray-200 rounded animate-pulse"></div>
+                  <div className="h-4 w-4 bg-gray-200 rounded-full animate-pulse"></div>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-7 w-[80px] bg-gray-200 rounded animate-pulse mb-1"></div>
+                  <div className="h-3 w-[120px] bg-gray-200 rounded animate-pulse"></div>
+                </CardContent>
+              </Card>
+            ))
           ) : stats.length === 0 ? (
             <Card className="col-span-full">
               <CardContent className="p-6 text-center">
@@ -189,25 +206,49 @@ export default function AdminDashboard() {
           {/* Recent Activities */}
           <Card>
             <CardHeader>
-              <CardTitle>Recent Activities</CardTitle>
-              <CardDescription>Latest updates from the academy</CardDescription>
+              {loading ? (
+                <>
+                  <div className="h-6 w-[150px] bg-gray-200 rounded animate-pulse mb-2"></div>
+                  <div className="h-4 w-[200px] bg-gray-200 rounded animate-pulse"></div>
+                </>
+              ) : (
+                <>
+                  <CardTitle>Recent Activities</CardTitle>
+                  <CardDescription>Latest updates from the academy</CardDescription>
+                </>
+              )}
             </CardHeader>
             <CardContent>
               <div className="space-y-3 sm:space-y-4">
-                {recentActivities.map((activity, index) => (
-                  <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-[#FFFFFF] rounded-lg gap-2 sm:gap-0">
-                    <div>
-                      <p className="font-medium text-sm">{activity.action}</p>
-                      <p className="text-sm text-gray-600">{activity.player || activity.session || activity.match}</p>
+                {loading ? (
+                  Array.from({ length: 4 }).map((_, index) => (
+                    <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-[#FFFFFF] rounded-lg gap-2 sm:gap-0">
+                      <div className="space-y-2">
+                        <div className="h-4 w-[150px] bg-gray-200 rounded animate-pulse"></div>
+                        <div className="h-3 w-[120px] bg-gray-200 rounded animate-pulse"></div>
+                      </div>
+                      <div className="space-y-2 sm:text-right">
+                        <div className="h-5 w-[80px] bg-gray-200 rounded animate-pulse ml-auto"></div>
+                        <div className="h-3 w-[80px] bg-gray-200 rounded animate-pulse ml-auto"></div>
+                      </div>
                     </div>
-                    <div className="sm:text-right">
-                      <Badge variant="secondary" className="mb-1">
-                        {activity.category}
-                      </Badge>
-                      <p className="text-xs text-gray-500">{activity.time}</p>
+                  ))
+                ) : (
+                  recentActivities.map((activity, index) => (
+                    <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-[#FFFFFF] rounded-lg gap-2 sm:gap-0">
+                      <div>
+                        <p className="font-medium text-sm">{activity.action}</p>
+                        <p className="text-sm text-gray-600">{activity.player || activity.session || activity.match}</p>
+                      </div>
+                      <div className="sm:text-right">
+                        <Badge variant="secondary" className="mb-1">
+                          {activity.category}
+                        </Badge>
+                        <p className="text-xs text-gray-500">{activity.time}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </CardContent>
           </Card>
@@ -215,36 +256,81 @@ export default function AdminDashboard() {
           {/* Training Schedule */}
           <Card>
             <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <CardTitle>Training Schedule</CardTitle>
-                <CardDescription>Upcoming training sessions</CardDescription>
-              </div>
-              <Link href="/admin/training">
-                <Button size="sm" className="cursor-pointer items-center flex justify-center">
-                  <Plus className="w-4 h-4 mr-1" />
-                  Add Session
-                </Button>
-              </Link>
+              {loading ? (
+                <>
+                  <div className="space-y-2">
+                    <div className="h-6 w-[150px] bg-gray-200 rounded animate-pulse"></div>
+                    <div className="h-4 w-[200px] bg-gray-200 rounded animate-pulse"></div>
+                  </div>
+                  <div className="h-9 w-[120px] bg-gray-200 rounded animate-pulse"></div>
+                </>
+              ) : (
+                <>
+                  <div>
+                    <CardTitle>Training Schedule</CardTitle>
+                    <CardDescription>Upcoming training sessions</CardDescription>
+                  </div>
+                  <Link href="/admin/training">
+                    <Button size="sm" className="cursor-pointer items-center flex justify-center">
+                      <Plus className="w-4 h-4 mr-1" />
+                      Add Session
+                    </Button>
+                  </Link>
+                </>
+              )}
             </CardHeader>
             <CardContent>
               <div className="space-y-2 sm:space-y-3">
-                {upcomingTraining.map((session, index) => (
-                  <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 border rounded-lg gap-2 sm:gap-0">
-                    <div>
-                      <p className="font-medium">{session.day}</p>
-                      <p className="text-sm text-gray-600">{session.time}</p>
+                {loading ? (
+                  Array.from({ length: 5 }).map((_, index) => (
+                    <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 border rounded-lg gap-2 sm:gap-0">
+                      <div className="space-y-2">
+                        <div className="h-4 w-[80px] bg-gray-200 rounded animate-pulse"></div>
+                        <div className="h-3 w-[60px] bg-gray-200 rounded animate-pulse"></div>
+                      </div>
+                      <div className="space-y-2 sm:text-right">
+                        <div className="h-4 w-[100px] bg-gray-200 rounded animate-pulse ml-auto"></div>
+                        <div className="h-3 w-[120px] bg-gray-200 rounded animate-pulse ml-auto"></div>
+                      </div>
                     </div>
-                    <div className="sm:text-right">
-                      <p className="text-sm font-medium">{session.participants} players</p>
-                      <p className="text-xs text-gray-500">{session.category}</p>
+                  ))
+                ) : (
+                  upcomingTraining.map((session, index) => (
+                    <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 border rounded-lg gap-2 sm:gap-0">
+                      <div>
+                        <p className="font-medium">{session.day}</p>
+                        <p className="text-sm text-gray-600">{session.time}</p>
+                      </div>
+                      <div className="sm:text-right">
+                        <p className="text-sm font-medium">{session.participants} players</p>
+                        <p className="text-xs text-gray-500">{session.category}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </CardContent>
           </Card>
         </div>
       </div>
+
+      {/* Add shimmer animation CSS */}
+      <style jsx global>{`
+        @keyframes shimmer {
+          0% {
+            background-position: -468px 0;
+          }
+          100% {
+            background-position: 468px 0;
+          }
+        }
+        .animate-pulse {
+          animation: shimmer 1.5s infinite linear;
+          background: linear-gradient(to right, #f0f0f0 8%, #e0e0e0 18%, #f0f0f0 33%);
+          background-size: 800px 104px;
+          position: relative;
+        }
+      `}</style>
     </AdminLayout>
   );
 }

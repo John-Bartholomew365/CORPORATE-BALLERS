@@ -166,21 +166,63 @@ export default function TrainingPage() {
       />
       <div className="space-y-4 sm:space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 lg:mt-0 mt-2">Training Management</h1>
-            <p className="text-gray-600 lg:mt-0 mt-2">Manage training schedules and sessions</p>
-          </div>
-          <AddTrainingModal onSuccess={fetchTrainingSessions} />
+          {loading ? (
+            <div className="space-y-3">
+              <div className="h-8 w-[250px] bg-gray-200 rounded animate-pulse"></div>
+              <div className="h-4 w-[200px] bg-gray-200 rounded animate-pulse"></div>
+            </div>
+          ) : (
+            <>
+              <div>
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 lg:mt-0 mt-2">Training Management</h1>
+                <p className="text-gray-600 lg:mt-0 mt-2">Manage training schedules and sessions</p>
+              </div>
+              <AddTrainingModal onSuccess={fetchTrainingSessions} />
+            </>
+          )}
         </div>
 
         <Card>
           <CardHeader>
-            <CardTitle>Weekly Training Schedule</CardTitle>
-            <CardDescription>Regular training sessions for all categories</CardDescription>
+            {loading ? (
+              <div className="space-y-3">
+                <div className="h-6 w-[200px] bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-4 w-[250px] bg-gray-200 rounded animate-pulse"></div>
+              </div>
+            ) : (
+              <>
+                <CardTitle>Weekly Training Schedule</CardTitle>
+                <CardDescription>Regular training sessions for all categories</CardDescription>
+              </>
+            )}
           </CardHeader>
           <CardContent>
             {loading ? (
-              <p className="text-center text-gray-600 py-4">Loading training sessions...</p>
+              <div className="space-y-3 sm:space-y-4">
+                {Array.from({ length: 3 }).map((_, index) => (
+                  <div key={index} className="p-3 sm:p-4 border rounded-lg">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div className="flex items-start sm:items-center gap-3">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-lg animate-pulse"></div>
+                        <div className="space-y-2">
+                          <div className="h-4 w-[150px] bg-gray-200 rounded animate-pulse"></div>
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+                            <div className="h-3 w-[100px] bg-gray-200 rounded animate-pulse"></div>
+                            <div className="h-3 w-[80px] bg-gray-200 rounded animate-pulse"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="h-6 w-[80px] bg-gray-200 rounded animate-pulse ml-auto"></div>
+                        <div className="flex gap-2 justify-end">
+                          <div className="h-8 w-8 sm:h-9 sm:w-[80px] bg-gray-200 rounded animate-pulse"></div>
+                          <div className="h-8 w-8 sm:h-9 sm:w-[80px] bg-gray-200 rounded animate-pulse"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             ) : trainingSchedule.length > 0 ? (
               <div className="space-y-3 sm:space-y-4">
                 {trainingSchedule.map((session) => (
@@ -258,12 +300,25 @@ export default function TrainingPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           <Card>
             <CardHeader>
-              <CardTitle>Upcoming Events</CardTitle>
-              <CardDescription>Special events and tournaments</CardDescription>
+              {loading ? (
+                <div className="space-y-3">
+                  <div className="h-6 w-[150px] bg-gray-200 rounded animate-pulse"></div>
+                  <div className="h-4 w-[200px] bg-gray-200 rounded animate-pulse"></div>
+                </div>
+              ) : (
+                <>
+                  <CardTitle>Upcoming Events</CardTitle>
+                  <CardDescription>Special events and tournaments</CardDescription>
+                </>
+              )}
             </CardHeader>
             <CardContent>
               {loading ? (
-                <p className="text-center text-gray-600 py-4">Loading upcoming events...</p>
+                <div className="space-y-3">
+                  {Array.from({ length: 2 }).map((_, index) => (
+                    <div key={index} className="p-3 bg-gray-200 rounded-lg animate-pulse h-[100px]"></div>
+                  ))}
+                </div>
               ) : upcomingEvents.length > 0 ? (
                 <div className="space-y-3">
                   {upcomingEvents.map((event, index) => (
@@ -287,42 +342,77 @@ export default function TrainingPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Training Statistics</CardTitle>
-              <CardDescription>This week&apos;s training overview</CardDescription>
+              {loading ? (
+                <div className="space-y-3">
+                  <div className="h-6 w-[150px] bg-gray-200 rounded animate-pulse"></div>
+                  <div className="h-4 w-[200px] bg-gray-200 rounded animate-pulse"></div>
+                </div>
+              ) : (
+                <>
+                  <CardTitle>Training Statistics</CardTitle>
+                  <CardDescription>This week&apos;s training overview</CardDescription>
+                </>
+              )}
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                <div className="p-3 bg-green-50 rounded-lg">
-                  <span className="font-medium text-xs sm:text-sm">Total Sessions</span>
-                  <span className="block text-xl sm:text-2xl font-bold text-green-600 mt-1">
-                    {trainingSchedule.length}
-                  </span>
-                </div>
-                <div className="p-3 bg-blue-50 rounded-lg">
-                  <span className="font-medium text-xs sm:text-sm">Avg Attendance</span>
-                  <span className="block text-xl sm:text-2xl font-bold text-blue-600 mt-1">
-                    {trainingSchedule.length > 0 
-                      ? Math.round(trainingSchedule.reduce((sum, session) => sum + (session.participants || 0), 0) / trainingSchedule.length)
-                      : 0}
-                  </span>
-                </div>
-                <div className="p-3 bg-purple-50 rounded-lg">
-                  <span className="font-medium text-xs sm:text-sm">Training Hours</span>
-                  <span className="block text-xl sm:text-2xl font-bold text-purple-600 mt-1">
-                    {trainingSchedule.reduce((sum, session) => sum + parseFloat(session.duration.split(' ')[0]), 0)}
-                  </span>
-                </div>
-                <div className="p-3 bg-orange-50 rounded-lg">
-                  <span className="font-medium text-xs sm:text-sm">Active Coaches</span>
-                  <span className="block text-xl sm:text-2xl font-bold text-orange-600 mt-1">
-                    {new Set(trainingSchedule.map(session => session.coach)).size}
-                  </span>
-                </div>
+                {loading ? (
+                  Array.from({ length: 4 }).map((_, index) => (
+                    <div key={index} className="p-3 bg-gray-200 rounded-lg animate-pulse h-[80px]"></div>
+                  ))
+                ) : (
+                  <>
+                    <div className="p-3 bg-green-50 rounded-lg">
+                      <span className="font-medium text-xs sm:text-sm">Total Sessions</span>
+                      <span className="block text-xl sm:text-2xl font-bold text-green-600 mt-1">
+                        {trainingSchedule.length}
+                      </span>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg">
+                      <span className="font-medium text-xs sm:text-sm">Avg Attendance</span>
+                      <span className="block text-xl sm:text-2xl font-bold text-blue-600 mt-1">
+                        {trainingSchedule.length > 0 
+                          ? Math.round(trainingSchedule.reduce((sum, session) => sum + (session.participants || 0), 0) / trainingSchedule.length)
+                          : 0}
+                      </span>
+                    </div>
+                    <div className="p-3 bg-purple-50 rounded-lg">
+                      <span className="font-medium text-xs sm:text-sm">Training Hours</span>
+                      <span className="block text-xl sm:text-2xl font-bold text-purple-600 mt-1">
+                        {trainingSchedule.reduce((sum, session) => sum + parseFloat(session.duration.split(' ')[0]), 0)}
+                      </span>
+                    </div>
+                    <div className="p-3 bg-orange-50 rounded-lg">
+                      <span className="font-medium text-xs sm:text-sm">Active Coaches</span>
+                      <span className="block text-xl sm:text-2xl font-bold text-orange-600 mt-1">
+                        {new Set(trainingSchedule.map(session => session.coach)).size}
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
             </CardContent>
           </Card>
         </div>
       </div>
+
+      {/* Add shimmer animation CSS */}
+      <style jsx global>{`
+        @keyframes shimmer {
+          0% {
+            background-position: -468px 0;
+          }
+          100% {
+            background-position: 468px 0;
+          }
+        }
+        .animate-pulse {
+          animation: shimmer 1.5s infinite linear;
+          background: linear-gradient(to right, #f0f0f0 8%, #e0e0e0 18%, #f0f0f0 33%);
+          background-size: 800px 104px;
+          position: relative;
+        }
+      `}</style>
     </AdminLayout>
   )
 }

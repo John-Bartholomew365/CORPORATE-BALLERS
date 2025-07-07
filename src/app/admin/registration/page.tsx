@@ -257,68 +257,100 @@ export default function RegistrationPage() {
             />
             <div className="space-y-4 sm:space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 lg:mt-0 mt-2">Player Registrations</h1>
-                        <p className="text-gray-600 lg:mt-0 mt-2">Manage player registrations for the academy</p>
-                    </div>
-                    <RegistrationModal
-                        onNewRegistration={(newReg) => {
-                            setAllRegistrations([newReg, ...allRegistrations]);
-                        }}
-                    />
+                    {loading ? (
+                        <div className="space-y-3">
+                            <div className="h-8 w-[250px] bg-gray-200 rounded animate-pulse"></div>
+                            <div className="h-4 w-[200px] bg-gray-200 rounded animate-pulse"></div>
+                        </div>
+                    ) : (
+                        <>
+                            <div>
+                                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 lg:mt-0 mt-2">Player Registrations</h1>
+                                <p className="text-gray-600 lg:mt-0 mt-2">Manage player registrations for the academy</p>
+                            </div>
+                            <RegistrationModal
+                                onNewRegistration={(newReg) => {
+                                    setAllRegistrations([newReg, ...allRegistrations]);
+                                }}
+                            />
+                        </>
+                    )}
                 </div>
 
                 {/* Registration Stats - Stack on mobile, 4 columns on desktop */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
-                    <Card className="col-span-1">
-                        <CardContent className="p-4 sm:p-6">
-                            <div className="text-xl sm:text-2xl font-bold">{registrationStats.total}</div>
-                            <p className="text-xs sm:text-sm text-muted-foreground">Total Players</p>
-                        </CardContent>
-                    </Card>
-                    <Card className="col-span-1">
-                        <CardContent className="p-4 sm:p-6">
-                            <div className="text-xl sm:text-2xl font-bold text-green-600">{registrationStats.approved}</div>
-                            <p className="text-xs sm:text-sm text-muted-foreground">Approved</p>
-                        </CardContent>
-                    </Card>
-                    <Card className="col-span-1">
-                        <CardContent className="p-4 sm:p-6">
-                            <div className="text-xl sm:text-2xl font-bold text-yellow-600">{registrationStats.pending}</div>
-                            <p className="text-xs sm:text-sm text-muted-foreground">Pending</p>
-                        </CardContent>
-                    </Card>
-                    <Card className="col-span-1">
-                        <CardContent className="p-4 sm:p-6">
-                            <div className="text-xl sm:text-2xl font-bold text-red-600">{registrationStats.rejected}</div>
-                            <p className="text-xs sm:text-sm text-muted-foreground">Rejected</p>
-                        </CardContent>
-                    </Card>
+                    {loading ? (
+                        Array.from({ length: 4 }).map((_, index) => (
+                            <Card key={index} className="col-span-1">
+                                <CardContent className="p-4 sm:p-6">
+                                    <div className="h-8 w-[60px] bg-gray-200 rounded animate-pulse mb-2"></div>
+                                    <div className="h-4 w-[100px] bg-gray-200 rounded animate-pulse"></div>
+                                </CardContent>
+                            </Card>
+                        ))
+                    ) : (
+                        <>
+                            <Card className="col-span-1">
+                                <CardContent className="p-4 sm:p-6">
+                                    <div className="text-xl sm:text-2xl font-bold">{registrationStats.total}</div>
+                                    <p className="text-xs sm:text-sm text-muted-foreground">Total Players</p>
+                                </CardContent>
+                            </Card>
+                            <Card className="col-span-1">
+                                <CardContent className="p-4 sm:p-6">
+                                    <div className="text-xl sm:text-2xl font-bold text-green-600">{registrationStats.approved}</div>
+                                    <p className="text-xs sm:text-sm text-muted-foreground">Approved</p>
+                                </CardContent>
+                            </Card>
+                            <Card className="col-span-1">
+                                <CardContent className="p-4 sm:p-6">
+                                    <div className="text-xl sm:text-2xl font-bold text-yellow-600">{registrationStats.pending}</div>
+                                    <p className="text-xs sm:text-sm text-muted-foreground">Pending</p>
+                                </CardContent>
+                            </Card>
+                            <Card className="col-span-1">
+                                <CardContent className="p-4 sm:p-6">
+                                    <div className="text-xl sm:text-2xl font-bold text-red-600">{registrationStats.rejected}</div>
+                                    <p className="text-xs sm:text-sm text-muted-foreground">Rejected</p>
+                                </CardContent>
+                            </Card>
+                        </>
+                    )}
                 </div>
 
                 {/* Registrations Table */}
                 <Card>
                     <CardHeader>
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                            <div>
-                                <CardTitle>All Registrations</CardTitle>
-                                <CardDescription className="text-[#B0B3B8] mt-1">
-                                    View and manage player registrations
-                                </CardDescription>
+                        {loading ? (
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div className="space-y-3">
+                                    <div className="h-6 w-[150px] bg-gray-200 rounded animate-pulse"></div>
+                                    <div className="h-4 w-[200px] bg-gray-200 rounded animate-pulse"></div>
+                                </div>
+                                <div className="h-10 w-[200px] bg-gray-200 rounded animate-pulse"></div>
                             </div>
-                            <div className="relative w-full sm:w-64">
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                                <Input
-                                    placeholder="Search..."
-                                    className="pl-10"
-                                    value={searchQuery}
-                                    onChange={(e) => {
-                                        setSearchQuery(e.target.value);
-                                        setCurrentPage(1);
-                                    }}
-                                />
+                        ) : (
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div>
+                                    <CardTitle>All Registrations</CardTitle>
+                                    <CardDescription className="text-[#B0B3B8] mt-1">
+                                        View and manage player registrations
+                                    </CardDescription>
+                                </div>
+                                <div className="relative w-full sm:w-64">
+                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                                    <Input
+                                        placeholder="Search..."
+                                        className="pl-10"
+                                        value={searchQuery}
+                                        onChange={(e) => {
+                                            setSearchQuery(e.target.value);
+                                            setCurrentPage(1);
+                                        }}
+                                    />
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </CardHeader>
                     <CardContent>
                         <div className="border rounded-lg overflow-x-auto">
@@ -330,7 +362,6 @@ export default function RegistrationPage() {
                                         <TableHead className="whitespace-nowrap">Age</TableHead>
                                         <TableHead className="whitespace-nowrap">Category</TableHead>
                                         <TableHead className="whitespace-nowrap">Position</TableHead>
-                                        {/* <TableHead className="whitespace-nowrap hidden sm:table-cell">Parent</TableHead> */}
                                         <TableHead className="whitespace-nowrap hidden sm:table-cell">Date</TableHead>
                                         <TableHead className="whitespace-nowrap">Status</TableHead>
                                         <TableHead className="whitespace-nowrap">Actions</TableHead>
@@ -338,11 +369,15 @@ export default function RegistrationPage() {
                                 </TableHeader>
                                 <TableBody>
                                     {loading ? (
-                                        <TableRow>
-                                            <TableCell colSpan={9} className="text-center py-8">
-                                                Loading registrations...
-                                            </TableCell>
-                                        </TableRow>
+                                        Array.from({ length: 5 }).map((_, index) => (
+                                            <TableRow key={index}>
+                                                {Array.from({ length: 8 }).map((_, cellIndex) => (
+                                                    <TableCell key={cellIndex}>
+                                                        <div className="h-4 w-[80%] bg-gray-200 rounded animate-pulse"></div>
+                                                    </TableCell>
+                                                ))}
+                                            </TableRow>
+                                        ))
                                     ) : currentRegistrations.length > 0 ? (
                                         currentRegistrations.map((registration) => (
                                             <TableRow key={registration.id}>
@@ -365,9 +400,6 @@ export default function RegistrationPage() {
                                                 <TableCell className="whitespace-nowrap">
                                                     {registration.position}
                                                 </TableCell>
-                                                {/* <TableCell className="whitespace-nowrap hidden sm:table-cell">
-                                                    {registration.parentName || "N/A"}
-                                                </TableCell> */}
                                                 <TableCell className="whitespace-nowrap hidden sm:table-cell">
                                                     {new Date(registration.date).toLocaleDateString()}
                                                 </TableCell>
@@ -430,7 +462,7 @@ export default function RegistrationPage() {
                         </div>
 
                         {/* Pagination - Stack on mobile, row on desktop */}
-                        {filteredRegistrations.length > registrationsPerPage && (
+                        {!loading && filteredRegistrations.length > registrationsPerPage && (
                             <div className="mt-4 flex flex-col sm:flex-row justify-between items-center gap-4">
                                 <div className="text-sm text-gray-500 whitespace-nowrap">
                                     Showing {indexOfFirstRegistration + 1}-
@@ -471,6 +503,24 @@ export default function RegistrationPage() {
                     </CardContent>
                 </Card>
             </div>
+
+            {/* Add shimmer animation CSS */}
+            <style jsx global>{`
+                @keyframes shimmer {
+                    0% {
+                        background-position: -468px 0;
+                    }
+                    100% {
+                        background-position: 468px 0;
+                    }
+                }
+                .animate-pulse {
+                    animation: shimmer 1.5s infinite linear;
+                    background: linear-gradient(to right, #f0f0f0 8%, #e0e0e0 18%, #f0f0f0 33%);
+                    background-size: 800px 104px;
+                    position: relative;
+                }
+            `}</style>
         </AdminLayout>
     );
 }
@@ -721,4 +771,4 @@ function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Reg
             </DialogContent>
         </Dialog>
     );
-}
+}   

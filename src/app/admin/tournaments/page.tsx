@@ -257,64 +257,96 @@ export default function TournamentsPage() {
       <div className="space-y-4 md:space-y-6">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 lg:mt-0 mt-2">Tournaments</h1>
-            <p className="text-gray-600 lg:mt-0 mt-2">Manage football tournaments and competitions</p>
-          </div>
-          <TournamentRegistrationModal onNewTournament={handleNewTournament} />
+          {loading ? (
+            <div className="space-y-3">
+              <div className="h-8 w-[250px] bg-gray-200 rounded animate-pulse"></div>
+              <div className="h-4 w-[200px] bg-gray-200 rounded animate-pulse"></div>
+            </div>
+          ) : (
+            <>
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 lg:mt-0 mt-2">Tournaments</h1>
+                <p className="text-gray-600 lg:mt-0 mt-2">Manage football tournaments and competitions</p>
+              </div>
+              <TournamentRegistrationModal onNewTournament={handleNewTournament} />
+            </>
+          )}
         </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
-          <Card className="min-w-0">
-            <CardContent className="p-4 sm:p-6">
-              <div className="text-xl sm:text-2xl font-bold">{tournamentStats.total}</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Total Tournaments</p>
-            </CardContent>
-          </Card>
-          <Card className="min-w-0">
-            <CardContent className="p-4 sm:p-6">
-              <div className="text-xl sm:text-2xl font-bold text-blue-600">{tournamentStats.upcoming}</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Upcoming</p>
-            </CardContent>
-          </Card>
-          <Card className="min-w-0">
-            <CardContent className="p-4 sm:p-6">
-              <div className="text-xl sm:text-2xl font-bold text-green-600">{tournamentStats.ongoing}</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Ongoing</p>
-            </CardContent>
-          </Card>
-          <Card className="min-w-0">
-            <CardContent className="p-4 sm:p-6">
-              <div className="text-xl sm:text-2xl font-bold text-gray-600">{tournamentStats.completed}</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Completed</p>
-            </CardContent>
-          </Card>
+          {loading ? (
+            Array.from({ length: 4 }).map((_, index) => (
+              <Card key={index} className="min-w-0">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="h-8 w-[60px] bg-gray-200 rounded animate-pulse mb-2"></div>
+                  <div className="h-4 w-[100px] bg-gray-200 rounded animate-pulse"></div>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            <>
+              <Card className="min-w-0">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="text-xl sm:text-2xl font-bold">{tournamentStats.total}</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Total Tournaments</p>
+                </CardContent>
+              </Card>
+              <Card className="min-w-0">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="text-xl sm:text-2xl font-bold text-blue-600">{tournamentStats.upcoming}</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Upcoming</p>
+                </CardContent>
+              </Card>
+              <Card className="min-w-0">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="text-xl sm:text-2xl font-bold text-green-600">{tournamentStats.ongoing}</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Ongoing</p>
+                </CardContent>
+              </Card>
+              <Card className="min-w-0">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="text-xl sm:text-2xl font-bold text-gray-600">{tournamentStats.completed}</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Completed</p>
+                </CardContent>
+              </Card>
+            </>
+          )}
         </div>
 
         {/* Main Table Card */}
         <Card>
           <CardHeader>
-            <div className="flex flex-col gap-4">
-              <div>
-                <CardTitle>All Tournaments</CardTitle>
-                <CardDescription className="text-[#B0B3B8]">
-                  View and manage all tournaments
-                </CardDescription>
+            {loading ? (
+              <div className="flex flex-col gap-4">
+                <div className="space-y-3">
+                  <div className="h-6 w-[150px] bg-gray-200 rounded animate-pulse"></div>
+                  <div className="h-4 w-[200px] bg-gray-200 rounded animate-pulse"></div>
+                </div>
+                <div className="h-10 w-full sm:w-64 bg-gray-200 rounded animate-pulse"></div>
               </div>
-              <div className="relative w-full sm:w-64">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <Input
-                  placeholder="Search tournaments..."
-                  className="pl-10"
-                  value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    setCurrentPage(1);
-                  }}
-                />
+            ) : (
+              <div className="flex flex-col gap-4">
+                <div>
+                  <CardTitle>All Tournaments</CardTitle>
+                  <CardDescription className="text-[#B0B3B8]">
+                    View and manage all tournaments
+                  </CardDescription>
+                </div>
+                <div className="relative w-full sm:w-64">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Input
+                    placeholder="Search tournaments..."
+                    className="pl-10"
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                  />
+                </div>
               </div>
-            </div>
+            )}
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
@@ -333,11 +365,34 @@ export default function TournamentsPage() {
                 </TableHeader>
                 <TableBody>
                   {loading ? (
-                    <TableRow>
-                      <TableCell colSpan={8} className="text-center py-8">
-                        Loading tournaments...
-                      </TableCell>
-                    </TableRow>
+                    Array.from({ length: 5 }).map((_, index) => (
+                      <TableRow key={index}>
+                        <TableCell>
+                          <div className="h-4 w-[120px] bg-gray-200 rounded animate-pulse"></div>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <div className="h-4 w-[80px] bg-gray-200 rounded animate-pulse"></div>
+                        </TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          <div className="h-4 w-[100px] bg-gray-200 rounded animate-pulse"></div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="h-4 w-[150px] bg-gray-200 rounded animate-pulse"></div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="h-6 w-[60px] bg-gray-200 rounded-full animate-pulse"></div>
+                        </TableCell>
+                        <TableCell className="hidden xs:table-cell">
+                          <div className="h-4 w-[40px] bg-gray-200 rounded animate-pulse"></div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="h-6 w-[80px] bg-gray-200 rounded-full animate-pulse"></div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="h-8 w-8 bg-gray-200 rounded animate-pulse"></div>
+                        </TableCell>
+                      </TableRow>
+                    ))
                   ) : currentTournaments.length > 0 ? (
                     currentTournaments.map((tournament) => (
                       <TableRow key={tournament.id}>
@@ -433,7 +488,7 @@ export default function TournamentsPage() {
               </Table>
             </div>
 
-            {filteredTournaments.length > tournamentsPerPage && (
+            {!loading && filteredTournaments.length > tournamentsPerPage && (
               <div className="mt-4 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div className="text-sm text-gray-500">
                   Showing {indexOfFirstTournament + 1}-
@@ -474,6 +529,24 @@ export default function TournamentsPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Add shimmer animation CSS */}
+      <style jsx global>{`
+        @keyframes shimmer {
+          0% {
+            background-position: -468px 0;
+          }
+          100% {
+            background-position: 468px 0;
+          }
+        }
+        .animate-pulse {
+          animation: shimmer 1.5s infinite linear;
+          background: linear-gradient(to right, #f0f0f0 8%, #e0e0e0 18%, #f0f0f0 33%);
+          background-size: 800px 104px;
+          position: relative;
+        }
+      `}</style>
     </AdminLayout>
   );
 }
