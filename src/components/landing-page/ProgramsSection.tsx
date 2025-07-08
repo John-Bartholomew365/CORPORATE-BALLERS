@@ -76,7 +76,9 @@ export function ProgramsSection() {
                   </span>
                 </div>
                 <CardTitle className="text-xl">{program.title}</CardTitle>
-                <CardDescription className="text-gray-600">{program.description}</CardDescription>
+                <CardDescription className="text-gray-600">
+                  <p>{program.description}</p>
+                </CardDescription>
               </CardHeader>
               <CardContent className="flex-grow">
                 <ul className="space-y-2 mb-6">
@@ -90,13 +92,12 @@ export function ProgramsSection() {
               </CardContent>
               <div className="px-6 pb-6">
                 <Link href={program.link} passHref>
-                  <Button 
-                    variant={program.buttonVariant} 
-                    className={`w-full ${
-                      program.buttonVariant === 'default' ? 'bg-[#047146] hover:bg-green-900 cursor-pointer text-white' : 
-                      program.buttonVariant === 'secondary' ? 'bg-[#047146] hover:bg-green-900 cursor-pointer text-white' : 
-                      'bg-[#047146] hover:bg-green-900 cursor-pointer text-white'
-                    }`}
+                  <Button
+                    variant={program.buttonVariant}
+                    className={`w-full ${program.buttonVariant === 'default' ? 'bg-[#047146] hover:bg-green-900 cursor-pointer text-white' :
+                      program.buttonVariant === 'secondary' ? 'bg-[#047146] hover:bg-green-900 cursor-pointer text-white' :
+                        'bg-[#047146] hover:bg-green-900 cursor-pointer text-white'
+                      }`}
                   >
                     {program.buttonText}
                   </Button>

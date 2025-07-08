@@ -18,11 +18,39 @@
     --foreground: #ededed;
   }
 }
+@font-face {
+  font-family: "Montserrat";
+  src: url("/static/Montserrat-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
 
+@font-face {
+  font-family: "Montserrat";
+  src: url("/static/Montserrat-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Apply SemiBold Montserrat to everything by default */
+* {
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: 600;
+}
+
+/* Override <p> to use Montserrat Regular */
+p {
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: 400 !important;
+}
+li {
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: 400 !important;
+}
+
+/* Optionally set Inter only for the body tag if needed */
 body {
-  /* color: var(--foreground);
-  background: var(--background); */
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   font-family: "Inter", sans-serif;
 }
 

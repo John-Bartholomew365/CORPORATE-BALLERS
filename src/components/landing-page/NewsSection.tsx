@@ -62,7 +62,9 @@ export function NewsSection() {
                   </div>
                 </div>
                 <CardTitle className="text-lg hover:text-green-600 transition-colors">{article.title}</CardTitle>
-                <CardDescription>{article.description}</CardDescription>
+                <CardDescription>
+                  <p>{article.description}</p>
+                </CardDescription>
               </CardHeader>
               {/* <CardContent>
                 <Button variant="ghost" className="p-0 h-auto text-green-600 hover:text-green-700">

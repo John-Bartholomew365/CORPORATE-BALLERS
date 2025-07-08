@@ -41,7 +41,7 @@ export function StatsSection() {
                 </div>
                 <div className="text-4xl font-bold text-gray-900 mb-2">{stat.number}</div>
                 <div className="text-xl font-semibold text-gray-800 mb-2">{stat.label}</div>
-                <div className="text-gray-600">{stat.description}</div>
+                <p className="text-gray-600">{stat.description}</p>
               </div>
             </div>
           ))}
