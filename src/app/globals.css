@@ -59,3 +59,54 @@ body {
   margin: 0 auto;
   padding: 1rem;
 }
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes loadingBar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes runHorizontal {
+  0% { transform: translateX(-50px); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateX(50px); opacity: 0; }
+}
+
+@keyframes moveBall {
+  0% { left: 0%; transform: translateX(-100%); }
+  100% { left: 100%; transform: translateX(0%); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+}
+
+.animation-delay-600 {
+  animation-delay: 0.6s;
+}
+
+.animate-loading-bar {
+  animation: loadingBar 2s ease-in-out;
+}
+
+.animate-run-horizontal {
+  animation: runHorizontal 1.5s ease-in-out infinite;
+}
+
+.animate-move-ball {
+  animation: moveBall 2s linear infinite;
+}

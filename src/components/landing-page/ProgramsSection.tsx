@@ -59,7 +59,7 @@ export function ProgramsSection() {
     <section className="py-14 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="lg:text-4xl text-[30px] font-bold text-gray-900 mb-4">Our Training Programs</h2>
+          <h2 className="lg:text-4xl text-[30px] font-bold text-gray-900 mb-4 leading-">Our Training Programs</h2>
           <p className="text-[16px] text-gray-600 lg:w-[400px] w-auto mx-auto leading-tight">
             Comprehensive programs designed to develop players at every level, from beginners to elite athletes
           </p>

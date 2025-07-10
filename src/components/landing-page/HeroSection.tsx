@@ -10,14 +10,14 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-black/40" />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center">
+      <div className="relative z-10 container mx-auto lg:px-4 px-3 text-center">
         <div className="max-w-4xl mx-auto space-y-8 lg:mt-0 mt-7">
           <div className="space-y-4">
             <h1 className="lg:text-[54px] text-[35px] font-bold leading-tight">
               CORPORATE BALLERS
               <span className="block text-[#EBC228]">FOOTBALL ACADEMY</span>
             </h1>
-            <p className="lg:text-[20px] text-[16.5px] text-gray-200 max-w-3xl mx-auto leading-tight">
+            <p className="lg:text-[20px] text-[16px] text-gray-200 max-w-4xl mx-auto leading-tight">
               Nurturing raw talent into professional excellence. <br /> Building champions on and off the field.
             </p>
           </div>

@@ -32,7 +32,7 @@ export function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 w-full">
-      <div className="mx-auto px-4 lg:px-20 py-2">
+      <div className="mx-auto px-4 lg:px-20 py-[14px]">
         <div className="flex items-center justify-between lg:h-10 h-[20px] py-4 lg:py-0">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
@@ -94,8 +94,16 @@ export function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <Button variant="ghost" size="sm" className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          {/* <Button variant="ghost" size="sm" className="lg:hidden w-[40px] h-[40px]" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X className="h-10 w-10" /> : <Menu className="h-10 w-10" />}
+          </Button> */}
+
+          <Button
+            variant="ghost"
+            className="lg:hidden border border-gray-500 rounded-md w-[32px] h-[32px] flex items-center justify-center"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X className="" /> : <Menu className="text-gray-500" />}
           </Button>
         </div>
 
