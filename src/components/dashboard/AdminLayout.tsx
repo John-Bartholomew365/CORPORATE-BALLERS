@@ -4,7 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Users, Trophy, Settings, Menu, Home, UserPlus, ClipboardList, Medal, Dumbbell, LogOut } from "lucide-react"
+import { Users, Trophy, Settings, Menu, Home, UserPlus, ClipboardList, Dumbbell, LogOut } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { removeToken } from "@/app/reuseables/authToken"
@@ -36,7 +36,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
         { name: "Dashboard", href: "/admin/dashboard", icon: Home },
         { name: "Registration", href: "/admin/registration", icon: UserPlus },
         { name: "Players", href: "/admin/players", icon: Users },
-        { name: "Achievements", href: "/admin/achievements", icon: Medal },
+        // { name: "Achievements", href: "/admin/achievements", icon: Medal },
         { name: "Training", href: "/admin/training", icon: Dumbbell },
         { name: "Attendance", href: "/admin/attendance", icon: ClipboardList },
         { name: "Tournaments", href: "/admin/tournaments", icon: Trophy },

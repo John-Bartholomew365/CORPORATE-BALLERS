@@ -170,7 +170,6 @@ export default function PlayersPage() {
           )}
         </div>
 
-        {/* Stats Cards - 2 columns on mobile, 4 on desktop */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
           {loading ? (
             Array.from({ length: 4 }).map((_, index) => (
@@ -265,6 +264,7 @@ export default function PlayersPage() {
                     <TableHead className="whitespace-nowrap hidden sm:table-cell">Position</TableHead>
                     <TableHead className="whitespace-nowrap">Attendance</TableHead>
                     <TableHead className="whitespace-nowrap">Status</TableHead>
+                    <TableHead className="whitespace-nowrap">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -298,11 +298,14 @@ export default function PlayersPage() {
                         <TableCell>
                           <div className="h-6 w-[70px] bg-gray-200 rounded-full animate-pulse"></div>
                         </TableCell>
+                        <TableCell>
+                          <div className="h-6 w-[70px] bg-gray-200 rounded-full animate-pulse"></div>
+                        </TableCell>
                       </TableRow>
                     ))
                   ) : filteredPlayers.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={6} className="text-center py-8">
+                      <TableCell colSpan={7} className="text-center py-8">
                         <div className="flex flex-col items-center justify-center space-y-2">
                           <Search className="w-8 h-8 text-gray-400" />
                           <p className="text-gray-500">No players found</p>
@@ -373,6 +376,13 @@ export default function PlayersPage() {
                             {player.verificationStatus || "Pending"}
                           </Badge>
                         </TableCell>
+                        <TableCell>
+                          <Link href={`/admin/players/${player.id}/achievements`}>
+                            <Button variant="ghost" size="sm" className="cursor-pointer">
+                              View Achievements
+                            </Button>
+                          </Link>
+                        </TableCell>
                       </TableRow>
                     ))
                   )}
@@ -383,7 +393,6 @@ export default function PlayersPage() {
         </Card>
       </div>
 
-      {/* Add shimmer animation CSS */}
       <style jsx global>{`
         @keyframes shimmer {
           0% {
