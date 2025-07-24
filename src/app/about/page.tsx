@@ -10,7 +10,7 @@ import { Footer } from "@/components/landing-page/Footer"
 export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar/>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="py-20 lg:py-[150px] bg-gradient-to-br from-green-50 to-green-100">
@@ -18,12 +18,11 @@ export default function AboutPage() {
           <div className="text-center max-w-4xl mx-auto">
             <Badge className="bg-green-100 text-green-800 hover:bg-green-200 mb-4">About CBFA</Badge>
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl mb-6">
-              Building Champions,
+              Building Champions, <br />
               <span className="text-[#047146]"> Shaping Lives</span>
             </h1>
-            <p className="lg:text-xl text-[16px] text-muted-foreground lg:w-[610px] mx-auto">
-              Corporate Ballers Football Academy is more than just a football club. We&apos;re a community dedicated to
-              nurturing talent, building character, and creating pathways to success.
+            <p className="lg:text-[16px] text-[14px] text-muted-foreground lg:w-[590px] mx-auto">
+              At Corporate Ballers Football Academy, we’re more than just a football club; we are a community. We train talent, build character, and create real pathways for success.
             </p>
           </div>
         </div>
@@ -37,19 +36,13 @@ export default function AboutPage() {
               <h2 className="text-3xl font-bold tracking-tighter mb-6">Our Story</h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Corporate Ballers Football Academy (CBFA) is a rapidly growing football club situated in Ilorin, Kwara
-                  State, Nigeria. Founded with a vision to transform raw talent into professional excellence, we have
-                  established ourselves as a premier destination for aspiring footballers.
+                  Corporate Ballers Football Academy (CBFA) is a fast-growing football club based in Ilorin, Kwara State, Nigeria. Founded with a clear vision to turn raw talent into professional excellence, we’ve become a go-to academy for young, ambitious footballers.
                 </p>
                 <p>
-                  CBFA comprises both junior and senior categories, catering to individuals aged 12 years and above. We
-                  create a clear pathway for players to progress through the ranks, realizing and fulfilling their
-                  God-given talents in the realm of football.
+                  We train players aged 12 and above across both junior and senior levels, helping them rise through the ranks and unlock their God-given potential.
                 </p>
                 <p>
-                  True to our name, Corporate Ballers is a well-organized entity characterized by high discipline and
-                  meticulousness in all our activities. We believe that success on the field begins with excellence in
-                  character and commitment to continuous improvement.
+                  True to our name, CBFA is built on structure, discipline, and passion. Greatness on the field starts with strong character, hard work, and a commitment to continually improving one training session at a time.
                 </p>
               </div>
             </div>
@@ -79,17 +72,13 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-4">
-                  To harness raw talent and nurture them to full maturity, developing and molding individuals into
-                  professionals in their football careers.
+                  At CBFA, our mission is to discover raw talent and guide them to football excellence. We train and mentor individuals into professionals, both in skill and in character.
                 </p>
                 <p className="text-muted-foreground mb-4">
-                  Additionally, our goal is to contribute to building a morally upright society through football by
-                  redirecting youth away from the streets, engaging their minds positively, and discouraging involvement
-                  in social vices and criminal activities.
+                  Beyond the game, we’re building a better society by using football to keep young minds off the streets and away from harmful distractions. Through structured training and positive engagement, we promote discipline, teamwork, and good value
                 </p>
                 <p className="text-muted-foreground">
-                  We plan to achieve this through our robust strategy and quality educational training programs,
-                  instilling good sportsmanship, discipline, and understanding of solidarity and cooperation.
+                  With strong coaching, solid strategies, and a focus on education, we’re not just shaping great players; we are raising responsible role models.
                 </p>
               </CardContent>
             </Card>
@@ -103,13 +92,10 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-4">
-                  Our vision is to identify and nurture talent from a young age, providing all the necessary logistics
-                  and support for individuals to reach the pinnacle of their careers.
+                  We aim to spot talent early, nurture it with care, and provide everything players need to reach the top of their football careers.
                 </p>
                 <p className="text-muted-foreground">
-                  Our entire coaching staff is well-equipped with the technical expertise to recognize, groom and
-                  develop talent whenever they encounter it. We envision becoming a leading football academy that
-                  produces world-class players and contributes to the global football community.
+                  Our coaching team brings strong technical knowledge and a keen eye for potential. Wherever talent shows up, we are ready to shape it. We envision CBFA as one of Africa’s leading football academies, producing world-class players who leave a mark on the global football stage.
                 </p>
               </CardContent>
             </Card>
@@ -122,8 +108,8 @@ export default function AboutPage() {
         <div className="container px-4 md:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">Our Core Values</h2>
-            <p className="text-muted-foreground md:text-lg max-w-2xl mx-auto">
-              The principles that guide everything we do at Corporate Ballers Football Academy
+            <p className="text-muted-foreground lg:text-[16px] text-[14px] lg:w-[490px] leading-tight w-auto mx-auto">
+              The values that shape every goal we score and the principles that guide us at Corporate Ballers Football Academy.
             </p>
           </div>
 
@@ -135,7 +121,7 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  We strive for the highest standards in training, character development, and professional growth.
+                  We train to win, not just on match day, but in character, discipline, and personal growth.
                 </p>
               </CardContent>
             </Card>
@@ -147,7 +133,7 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Honesty, fairness, and moral uprightness form the foundation of all our interactions and decisions.
+                  We play fair, stay honest, and uphold strong values in everything we do.
                 </p>
               </CardContent>
             </Card>
@@ -159,7 +145,7 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  We foster positive relationships across diverse backgrounds, promoting solidarity and cooperation.
+                  Football is a team sport; we build bonds across backgrounds and stand together as one.
                 </p>
               </CardContent>
             </Card>
@@ -171,7 +157,7 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Continuous improvement and development of skills, knowledge, and character for lifelong success.
+                  We believe in progress, developing skills, knowledge, and mindset for success beyond the pitch.
                 </p>
               </CardContent>
             </Card>
@@ -183,9 +169,9 @@ export default function AboutPage() {
       <section className="py-16 lg:py-24 bg-muted/50">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">What Sets Us Apart</h2>
-            <p className="text-muted-foreground md:text-lg max-w-2xl mx-auto">
-              Discover the unique advantages of training with Corporate Ballers Football Academy
+            <h2 className="lg:text-[35px] text-[28px] font-bold tracking-tighter mb-4">What Sets Us Apart</h2>
+            <p className="text-muted-foreground lg:text-[16px] text-[14px] lg:w-[350px] w-auto mx-auto">
+              Why train with us? Here’s what makes CBFA different from the rest
             </p>
           </div>
 
@@ -196,8 +182,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-semibold mb-2">Qualified Coaching Staff</h3>
               <p className="text-muted-foreground">
-                Our coaching team comprises qualified individuals with extensive knowledge and experience in football
-                development and character building.
+                Our coaches aren&apos;t just skilled; they&apos;re certified professionals with extensive experience in football training, player development, and character building.
               </p>
             </div>
 
@@ -207,8 +192,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-semibold mb-2">Standardized Training</h3>
               <p className="text-muted-foreground">
-                We offer high-quality and standardized training programs across all categories, ensuring consistent
-                development and progress.
+                Every player gets top-quality, structured training. No matter your level, we ensure steady progress, proper technique, and consistent growth.
               </p>
             </div>
 
@@ -218,8 +202,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-semibold mb-2">Holistic Development</h3>
               <p className="text-muted-foreground">
-                Beyond football skills, we focus on character development, education, and preparing players for life
-                beyond the game.
+                We train more than just athletes. We build character, encourage education, and prepare our players for success in football and in life.
               </p>
             </div>
           </div>
@@ -230,7 +213,7 @@ export default function AboutPage() {
       <section className="py-16 lg:py-24 rounded-lg bg-[#047146] text-white lg:mx-20 mx-4 mb-16">
         <div className="container px-4 md:px-6 text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">Ready to Join CBFA?</h2>
-          <p className="text-[15px] mb-8 lg:w-[400px] w-auto mx-auto opacity-90">
+          <p className="text-[15px] mb-8 lg:w-[400px] w-auto mx-auto opacity-90 leading-tight">
             Take the first step towards your professional football career. Register today and become part of our growing
             family.
           </p>
@@ -250,7 +233,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Footer/>
+      <Footer />
     </div>
   )
 }

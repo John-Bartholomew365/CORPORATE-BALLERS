@@ -151,15 +151,14 @@ export default function TeamPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar/>
+      <Navbar />
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-green-900 to-emerald-800 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="lg:text-6xl text-4xl font-bold mb-6">Our Team</h1>
-            <p className="lg:text-[17px] text-green-100 leading-tight lg:w-[490px] w-auto mx-auto">
-              Meet the dedicated coaches and talented players who make CBFA a center of excellence in football
-              development
+            <p className="lg:text-[16px] text-[14px] text-green-100 leading-tight lg:w-[440px] w-auto mx-auto">
+              From experienced coaches to rising stars, our team is the heartbeat of CBFA, committed to excellence, growth, and the beautiful game.
             </p>
           </div>
         </div>
@@ -198,17 +197,17 @@ export default function TeamPage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <Tabs defaultValue="coaches" className="space-y-8">
-            <TabsList className="grid w-full grid-cols-3 ">
-              <TabsTrigger className="" value="coaches">Coaching Staff</TabsTrigger>
-              <TabsTrigger className="" value="senior">Senior Players</TabsTrigger>
-              <TabsTrigger className="" value="junior">Junior Players</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-3 cursor-pointer">
+              <TabsTrigger className="cursor-pointer" value="coaches">Coaching Staff</TabsTrigger>
+              <TabsTrigger className="cursor-pointer" value="senior">Senior Players</TabsTrigger>
+              <TabsTrigger className="cursor-pointer" value="junior">Junior Players</TabsTrigger>
             </TabsList>
 
             {/* Coaches Tab */}
             <TabsContent value="coaches" className="space-y-8">
               <div className="text-center mb-12">
-                <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Our Coaching Staff</h2>
-                <p className="lg:text-xl text-[16px] lg:w-[470px] w-auto text-gray-600 max-w-3xl mx-auto">
+                <h2 className="lg:text-4xl text-[28px] font-bold text-gray-900 mb-4">Our Coaching Staff</h2>
+                <p className="lg:text-[16px] text-[14px] lg:w-[430px] leading-tight w-auto text-gray-600 max-w-3xl mx-auto">
                   Meet our experienced and qualified coaching team dedicated to developing the next generation of
                   football stars
                 </p>
@@ -253,8 +252,8 @@ export default function TeamPage() {
             {/* Senior Players Tab */}
             <TabsContent value="senior" className="space-y-8">
               <div className="text-center mb-12">
-                <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Senior Category Players</h2>
-                <p className="lg:text-xl text-[16px] lg:w-[470px] w-auto text-gray-600 max-w-3xl mx-auto">
+                <h2 className="lg:text-4xl text-[28px] font-bold text-gray-900 mb-4">Senior Category Players</h2>
+                <p className="lg:text-[16px] text-[14px] lg:w-[430px] leading-tight w-auto text-gray-600 max-w-3xl mx-auto">
                   Our senior players represent the pinnacle of talent and dedication at CBFA
                 </p>
               </div>
@@ -319,8 +318,8 @@ export default function TeamPage() {
             {/* Junior Players Tab */}
             <TabsContent value="junior" className="space-y-8">
               <div className="text-center mb-12">
-                <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Junior Category Players</h2>
-                <p className="lg:text-xl text-[16px] lg:w-[470px] w-auto text-gray-600 max-w-3xl mx-auto">
+                <h2 className="lg:text-4xl text-[28px] font-bold text-gray-900 mb-4">Junior Category Players</h2>
+                <p className="lg:text-[16px] text-[14px] lg:w-[430px] leading-tight w-auto text-gray-600 max-w-3xl mx-auto">
                   Our promising young talents who represent the future of CBFA and Nigerian football
                 </p>
               </div>
@@ -370,7 +369,7 @@ export default function TeamPage() {
                         <h4 className="font-medium text-gray-700 mb-2">Achievements</h4>
                         <div className="space-y-1">
                           {player.achievements.map((achievement, achIndex) => (
-                            <Badge key={achIndex} variant="outline" className="text-xs">
+                            <Badge key={achIndex} variant="outline" className="text-xs text-[#B0B3B8]">
                               {achievement}
                             </Badge>
                           ))}
@@ -390,9 +389,8 @@ export default function TeamPage() {
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
             <h2 className="lg:text-4xl text-3xl font-bold mb-6">Join Our Team</h2>
-            <p className="lg:text-[16px] text-[14px] lg:w-[450px] w-auto text-green-100 mb-8 mx-auto leading-tight">
-              Ready to be part of the CBFA family? Whether you&apos;re a player looking to develop your skills or a coach
-              wanting to make a difference, we&apos;d love to hear from you.
+            <p className="lg:text-[16px] text-[14px] lg:w-[530px] w-auto text-green-100 mb-8 mx-auto leading-tight">
+              Whether you&apos;re a player ready to level up your game or a coach looking to inspire the next generation, there&apos;s a place for you in the CBFA family. Let’s build greatness together.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" variant="secondary" className="bg-white text-green-600 hover:bg-gray-100">
@@ -410,7 +408,7 @@ export default function TeamPage() {
           </div>
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
   )
 }

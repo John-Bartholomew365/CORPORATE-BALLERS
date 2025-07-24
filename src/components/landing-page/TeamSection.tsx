@@ -40,7 +40,7 @@ export function TeamShowcaseSection() {
                 <div className="text-center mb-16">
                     <Badge className="mb-4 bg-green-100 text-green-800 hover:bg-green-200">Our Team</Badge>
                     <h2 className="lg:text-4xl text-[26px] font-bold text-gray-900 mb-6">Meet Our Rising Stars</h2>
-                    <p className="text-[16px] text-gray-600 max-w-3xl mx-auto leading-tight">
+                    <p className="text-[16px] text-gray-600 lg:w-[420px] w-auto mx-auto leading-tight">
                         Join a winning team! Our players are making waves in local and national competitions. Your journey to
                         football excellence starts here.
                     </p>

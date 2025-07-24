@@ -232,7 +232,7 @@ export default function FAQPage() {
                             open={openItems.includes(faq.id)}
                             onOpenChange={() => toggleItem(faq.id)}
                           >
-                            <CollapsibleTrigger className="flex w-full items-center justify-between rounded-lg border border-gray-200 p-4 text-left hover:bg-gray-50 transition-colors">
+                            <CollapsibleTrigger className="flex w-full cursor-pointer items-center justify-between rounded-lg border border-gray-200 p-4 text-left hover:bg-gray-50 transition-colors">
                               <span className="font-medium text-gray-900">{faq.question}</span>
                               <ChevronDown 
                                 className={`h-5 w-5 text-gray-500 transition-transform ${
@@ -261,7 +261,7 @@ export default function FAQPage() {
           <div className="">
             <MessageCircle className="h-16 w-16 mx-auto mb-6 text-green-200" />
             <h2 className="text-3xl font-bold mb-4">Still Have Questions?</h2>
-            <p className="text-xl text-green-100 mb-8 lg:w-[385px] w-auto mx-auto ">
+            <p className="text-[14px] leading-tight lg:text-[16px] text-green-100 mb-8 lg:w-[385px] w-auto mx-auto ">
               Can&apos;t find the answer you&apos;re looking for? Our team is here to help you with any questions about CBFA.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

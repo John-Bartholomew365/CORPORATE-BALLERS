@@ -133,14 +133,14 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar/>
+      <Navbar />
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-green-900 to-emerald-800 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="lg:text-6xl text-[40px] font-bold mb-6">Contact Us</h1>
-            <p className="lg:text-xl text-[16px] lg:w-[440px] w-auto text-green-100 leading-tight mx-auto">
-              Get in touch with us for any questions about our programs, admissions, or to schedule a visit
+            <p className="lg:text-[16px] text-[14px] lg:w-[440px] w-auto text-green-100 leading-tight mx-auto">
+              Have questions about our programs or admissions? Want to schedule a visit?  We’re here to help, let’s connect and get you started on your CBFA journey.
             </p>
           </div>
         </div>
@@ -151,8 +151,8 @@ export default function ContactPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Get In Touch</h2>
-            <p className="lg:text-xl  text-gray-600 max-w-3xl mx-auto">
-              Multiple ways to reach us - choose what works best for you
+            <p className="lg:text-[16px] text-[14px] leading-tight text-gray-600 lg:w-[350px] w-auto mx-auto">
+              Reach out through any of our channels, and we’ll be glad to assist you.
             </p>
           </div>
 
@@ -342,7 +342,7 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
   )
 }

@@ -354,11 +354,11 @@ export default function GalleryPage() {
           <Tabs defaultValue="all" className="space-y-8">
             <div className="text-center mb-8">
               <TabsList className="grid w-full max-w-md mx-auto grid-cols-5">
-                <TabsTrigger value="all">All</TabsTrigger>
-                <TabsTrigger value="training">Training</TabsTrigger>
-                <TabsTrigger value="matches">Matches</TabsTrigger>
-                <TabsTrigger value="events">Events</TabsTrigger>
-                <TabsTrigger value="facilities">Facilities</TabsTrigger>
+                <TabsTrigger className="cursor-pointer" value="all">All</TabsTrigger>
+                <TabsTrigger className="cursor-pointer" value="training">Training</TabsTrigger>
+                <TabsTrigger className="cursor-pointer" value="matches">Matches</TabsTrigger>
+                <TabsTrigger className="cursor-pointer" value="events">Events</TabsTrigger>
+                <TabsTrigger className="cursor-pointer" value="facilities">Facilities</TabsTrigger>
               </TabsList>
             </div>
 

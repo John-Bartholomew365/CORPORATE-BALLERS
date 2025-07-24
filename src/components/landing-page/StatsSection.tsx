@@ -27,8 +27,8 @@ export function StatsSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="lg:text-4xl text-[28px] font-bold text-gray-900 mb-4">Our Achievements</h2>
-          <p className="lg:text-xl text-[16px] text-gray-600 lg:w-[400px] w-auto mx-auto leading-tight">
-            Numbers that speak to our commitment to excellence and player development
+          <p className="lg:text-[16px] text-[14px] text-gray-600 lg:w-[400px] w-auto mx-auto leading-tight">
+            The stats that show how far we&apos;ve come and how hard we play.
           </p>
         </div>
 

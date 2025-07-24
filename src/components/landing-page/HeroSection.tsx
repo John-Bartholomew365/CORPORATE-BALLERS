@@ -17,8 +17,8 @@ export function HeroSection() {
               CORPORATE BALLERS
               <span className="block text-[#EBC228]">FOOTBALL ACADEMY</span>
             </h1>
-            <p className="lg:text-[20px] text-[16px] text-gray-200 max-w-4xl mx-auto leading-tight">
-              Nurturing raw talent into professional excellence. <br /> Building champions on and off the field.
+            <p className="lg:text-[18px] text-[16px] text-gray-200 max-w-4xl mx-auto leading-tight">
+              Turning raw talent into top-class players. <br /> We don&apos;t just build ballers; we shape champions on and off the pitch.
             </p>
           </div>
 

@@ -56,15 +56,15 @@ export default function SeniorCategoryPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar/>
+      <Navbar />
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-green-900 to-green-700 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <Badge className="mb-4 bg-green-100 text-green-800">Ages 18+</Badge>
             <h1 className="lg:text-5xl text-3xl font-bold mb-6">Senior Category</h1>
-            <p className="lg:text-[18px] text-[15px] lg:w-[520px] w-auto text-green-100 leading-tight mb-8 mx-auto">
-              Advanced training for serious players aiming for professional football careers and competitive excellence
+            <p className="lg:text-[16px] text-[14px] lg:w-[450px] w-auto text-green-100 leading-tight mb-8 mx-auto">
+              Advanced training tailored for those serious about taking their football career to the next level.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black">
@@ -90,14 +90,13 @@ export default function SeniorCategoryPage() {
             <div className="space-y-6">
               <h2 className="lg:text-4xl text-3xl font-bold text-gray-900">Program Overview</h2>
               <p className="lg:text-[16px] text-[14px] text-gray-600 leading-tight">
-                Our Senior Category program is designed for players aged 18 and above who are serious about pursuing
-                football at a competitive or professional level. This intensive program combines advanced technical
-                training, tactical sophistication, and professional preparation.
+                Our senior category is built for players aged <b>18 and above</b> who are committed to playing football at a <b>competitive or professional level.</b> This intensive program focuses on advanced technical skills, tactical awareness, physical conditioning, and mental strength.
               </p>
               <p className="lg:text-[16px] text-[14px] text-gray-600 leading-tight">
-                Players in this category receive individualized attention, participate in competitive matches, and have
-                opportunities for professional trials and career advancement. Our experienced coaching staff provides
-                mentorship both on and off the field.
+                Players receive personalised coaching, compete in high-level matches, and are exposed to opportunities for professional trials, club signings, and football career development.
+              </p>
+              <p className="lg:text-[16px] text-[14px] text-gray-600 leading-tight">
+                With guidance from experienced coaches and mentors, we prepare our senior players for the demands of professional football matches.
               </p>
 
               <div className="grid grid-cols-2 gap-4">
@@ -130,10 +129,10 @@ export default function SeniorCategoryPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Recent Achievements</h2>
-            <p className="lg:text-[16px] text-[14px] text-gray-600 lg:w-[400px] w-auto mx-auto">
-              Our senior category continues to excel in competitions and player development
+            <p className="lg:text-[16px] text-[14px] text-gray-600 lg:w-[480px] leading-tight w-auto mx-auto">
+              Our senior squad continues to shine in tournaments and leagues, with standout players progressing to trials, academies, and professional clubs.
             </p>
-          </div>  
+          </div>
 
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -335,7 +334,7 @@ export default function SeniorCategoryPage() {
           </div>
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
   )
 }

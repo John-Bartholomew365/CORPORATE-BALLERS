@@ -65,10 +65,9 @@ export default function EliteDevelopmentPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <Badge className="mb-4 bg-yellow-100 text-yellow-800">By Invitation Only</Badge>
-            <h1 className="lg:text-6xl text-[36px] font-bold mb-6">Elite Development</h1>
-            <p className="lg:text-xl text-[16px] lg:w-[550px] w-auto text-yellow-100 leading-tight mb-8 mx-auto">
-              Specialized program for exceptional talents with professional potential and international exposure
-              opportunities
+            <h1 className="lg:text-5xl text-[36px] font-bold mb-6">Elite Development</h1>
+            <p className="lg:text-[16px] text-[14px] lg:w-[550px] w-auto text-yellow-100 leading-tight mb-8 mx-auto">
+              A specialised program built for exceptional talents with real professional and international potential.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-white text-yellow-800 hover:bg-gray-100">
@@ -91,17 +90,16 @@ export default function EliteDevelopmentPage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
+            <div className="space-y-4">
               <h2 className="lg:text-4xl text-3xl font-bold text-gray-900">Program Overview</h2>
-              <p className="lg:text-lg text-[16px] text-gray-600 leading-relaxed">
-                Our Elite Development program is an exclusive, invitation-only program designed for players who
-                demonstrate exceptional talent and potential for professional football careers. This program provides
-                the highest level of training, mentorship, and opportunities available at CBFA.
+              <p className="lg:text-[16px] text-[14px] text-gray-600 leading-tight">
+                Our <b>Elite Development Program</b> is a <b>by-invitation-only</b> track for standout players who show top-tier talent and serious potential for a career in professional football.
               </p>
-              <p className="lg:text-lg text-[16px] text-gray-600 leading-relaxed">
-                Elite players receive personalized attention, access to international opportunities, and direct pathways
-                to professional clubs and university scholarships. Our elite coaching staff includes former professional
-                players and internationally certified coaches.
+              <p className="lg:text-[16px] text-[14px] text-gray-600 leading-tight">
+                This exclusive program offers the <b>highest level of training,</b> intensive mentorship, and <b>direct exposure to global opportunities,</b> from professional club trials to university scholarships.
+              </p>
+              <p className="lg:text-[16px] text-[14px] text-gray-600 leading-tight">
+                Elite players benefit from personalised development plans, international-standard coaching, and access to a network of scouts, agents, and clubs. Our <b>coaching team features former professionals and internationally licensed coaches</b> with real-world experience.
               </p>
 
               <div className="grid grid-cols-2 gap-4">
@@ -134,8 +132,8 @@ export default function EliteDevelopmentPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Success Stories</h2>
-            <p className="lg:text-xl text-[15px] text-gray-600 lg:w-[550px] w-auto mx-auto leading-tight">
-              Our elite program graduates continue to achieve remarkable success in professional football and academics
+            <p className="lg:text-[16px] text-[14px] text-gray-600 lg:w-[420px] w-auto mx-auto leading-tight">
+              Graduates of our elite program have gone on to play professionally, earn scholarships abroad, and become role models.
             </p>
           </div>
 
@@ -163,7 +161,7 @@ export default function EliteDevelopmentPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Elite Training Schedule</h2>
-            <p className="lg:text-xl text-[16px] text-gray-600 lg:w-[420px] w-auto mx-auto lg:px-0 px-4 leading-tight">
+            <p className="lg:text-[16px] text-[14px] text-gray-600 lg:w-[400px] w-auto mx-auto lg:px-0 px-4 leading-tight">
               Intensive, personalized training schedule designed for elite-level development
             </p>
           </div>
@@ -204,7 +202,7 @@ export default function EliteDevelopmentPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Development Phases</h2>
-            <p className="lg:text-xl text-[16px] text-gray-600 lg:w-[485px] w-auto mx-auto leading-tight">
+            <p className="lg:text-[16px] text-[14px] text-gray-600 lg:w-[395px] w-auto mx-auto leading-tight">
               A comprehensive development journey tailored to each elite player&apos;s goals and potential
             </p>
           </div>
@@ -241,7 +239,7 @@ export default function EliteDevelopmentPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="lg:text-4xl text-3xl font-bold text-gray-900 mb-4">Elite Program Benefits</h2>
-            <p className="lg:text-xl text-[16px] text-gray-600 max-w-3xl mx-auto leading-tight">
+            <p className="lg:text-[16px] text-[14px] text-gray-600 lg:w-[420px] w-auto mx-auto leading-tight">
               Exclusive opportunities and resources available only to our elite development players
             </p>
           </div>
@@ -346,7 +344,7 @@ export default function EliteDevelopmentPage() {
           </div>
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
   )
 }

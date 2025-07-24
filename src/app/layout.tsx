@@ -4,7 +4,7 @@ import './globals.css'
 // import { Footer } from '@/components/landing-page/Footer'
 
 export const metadata: Metadata = {
-  title: 'Corporate Ballers',
+  title: 'Corporate Ballers FA | Turning raw talent into top-class players.',
   description: 'Join the Legacy of Champions at Corporate Ballers Football Academy',
 }
 

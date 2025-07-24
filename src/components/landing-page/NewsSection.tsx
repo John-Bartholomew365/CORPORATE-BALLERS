@@ -36,8 +36,8 @@ export function NewsSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="lg:text-4xl text-[30px] font-bold text-gray-900 mb-4">Latest News & Updates</h2>
-          <p className="lg:text-xl text-[16px] lg:w-[400px] w-auto text-gray-600 mx-auto">
-            Stay updated with the latest happenings at Corporate Ballers Football Academy
+          <p className="lg:text-[16px] leading-tight text-[14px] lg:w-[440px] w-auto text-gray-600 mx-auto">
+            From matchday highlights to academy milestones, don&apos;t miss a moment at Corporate Ballers Football Academy.
           </p>
         </div>
 
