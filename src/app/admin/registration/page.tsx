@@ -14,7 +14,7 @@ import {
     DialogContent,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
+    // DialogTrigger,
 } from "@/components/ui/dialog";
 import { Pagination, PaginationContent, PaginationItem } from "@/components/ui/pagination";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -632,13 +632,13 @@ function RegistrationModal({ onNewRegistration }: { onNewRegistration: (reg: Reg
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
+            {/* <DialogTrigger asChild>
                 <Button className="bg-[#0F0F0F] text-white cursor-pointer">
                     <UserPlus className="w-4 h-4 mr-2" />
                     <span className="hidden sm:inline">Register a Player</span>
                     <span className="sm:hidden">Register a Player</span>
                 </Button>
-            </DialogTrigger>
+            </DialogTrigger> */}
             <DialogContent className="max-w-[95vw] sm:max-w-[600px] bg-[#FAFAFA]">
                 <DialogHeader>
                     <DialogTitle className="flex flex-row items-center gap-2">

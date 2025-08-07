@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, Clock, Users, Edit, Trash2 } from "lucide-react"
+import { Calendar, Clock, Edit, Trash2 } from "lucide-react"
 import { AdminLayout } from "@/components/dashboard/AdminLayout"
 import { AddTrainingModal } from "./AddTrainingModal"
 import axios from "axios";
@@ -241,10 +241,10 @@ export default function TrainingPage() {
                               <Clock className="w-3 sm:w-4 h-3 sm:h-4" />
                               {session.formattedTime} ({session.duration})
                             </span>
-                            <span className="flex items-center gap-1">
+                            {/* <span className="flex items-center gap-1">
                               <Users className="w-3 sm:w-4 h-3 sm:h-4" />
                               {session.participants || 0} players
-                            </span>
+                            </span> */}
                           </div>
                         </div>
                       </div>
