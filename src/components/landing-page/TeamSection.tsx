@@ -3,32 +3,33 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 export function TeamShowcaseSection() {
 
     const featuredPlayers = [
         {
-            name: "Abdullahi Musa",
-            position: "Striker",
+            name: "Jubril",
+            position: "Winger",
             age: 17,
             achievement: "Top Scorer - 23 Goals",
-            image: "/winner.jpg",
+            image: "/jubril.jpg",
             status: "Scouted by Professional Club",
         },
         {
-            name: "Ibrahim Yakubu",
-            position: "Midfielder",
+            name: "Titta",
+            position: "Attacking Striker",
             age: 16,
             achievement: "Best Player Award 2023",
-            image: "/match.jpg",
+            image: "/titta.jpg",
             status: "National Youth Team Call-up",
         },
         {
-            name: "Fatima Aliyu",
-            position: "Goalkeeper",
+            name: "AY-Zee",
+            position: "Left Winger",
             age: 15,
             achievement: "Clean Sheet Record Holder",
-            image: "/before-match.jpg",
+            image: "/ayzee.jpg",
             status: "State Team Captain",
         },
     ]
@@ -53,21 +54,19 @@ export function TeamShowcaseSection() {
                         {featuredPlayers.map((player, index) => (
                             <Card key={index} className="overflow-hidden hover:shadow-xl transition-shadow h-full flex flex-col">
                                 <div className="relative overflow-hidden">
-                                    <img
+                                    <Image
                                         src={player.image || "/placeholder.svg"}
                                         alt={player.name}
-                                        className="w-full h-64 object-cover"
+                                        width={300}
+                                        height={300}
+                                        className="w-full h-68 object-cover object-top"
                                     />
                                 </div>
                                 <CardContent className="p-6 flex-1 flex flex-col">
                                     <div className="flex-1">
                                         <h4 className="text-xl font-bold text-gray-900 mb-2">{player.name}</h4>
-                                        <p className="text-green-600 font-medium mb-2">{player.position}</p>
-                                        <p className="text-gray-600 mb-3">{player.achievement}</p>
+                                        <p className="text-[#047146] font-medium mb-2">{player.position}</p>
                                     </div>
-                                    <Badge variant="outline" className="text-xs text-gray-400 mt-4 w-fit">
-                                        {player.status}
-                                    </Badge>
                                 </CardContent>
                             </Card>
                         ))}
@@ -86,7 +85,7 @@ export function TeamShowcaseSection() {
 
                         <div className="text-center mt-4">
                             <div className="font-semibold">Mrs. Aisha Mohammed</div>
-                            <div className="text-green-200">Parent of Ibrahim Yakubu</div>
+                            {/* <div className="text-green-200">Parent of Ibrahim Yakubu</div> */}
                         </div>
 
                     </div>
@@ -100,7 +99,7 @@ export function TeamShowcaseSection() {
                         to unlock your potential.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button asChild size="lg" className="bg-[#047146] text-white hover:bg-green-700 px-8 py-4 text-lg">
+                        <Button asChild size="lg" className="bg-[#047146] text-white px-8 py-4 text-lg">
                             <Link href="/auth/register">
                                 Register Now <ArrowRight className="ml-2 h-5 w-5" />
                             </Link>
@@ -116,15 +115,15 @@ export function TeamShowcaseSection() {
                     </div>
                     <div className="lg:mt-6 mt-10 lg:flex lg:flex-row flex-col lg:space-y-0 space-y-5 items-center justify-center space-x-6 text-sm text-gray-500">
                         <div className="flex items-center">
-                            <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                            <div className="w-2 h-2 bg-[#047146] rounded-full mr-2"></div>
                             Free Trial Session
                         </div>
                         <div className="flex items-center">
-                            <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                            <div className="w-2 h-2 bg-[#047146] rounded-full mr-2"></div>
                             Professional Coaching
                         </div>
                         <div className="flex items-center">
-                            <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                            <div className="w-2 h-2 bg-[#047146] rounded-full mr-2"></div>
                             Scholarship Opportunities
                         </div>
                     </div>
