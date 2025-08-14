@@ -1,5 +1,4 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Users, Award, Target } from "lucide-react"
@@ -8,241 +7,305 @@ import { Navbar } from "@/components/landing-page/Navbar"
 import { Footer } from "@/components/landing-page/Footer"
 import Image from "next/image"
 
+// Function to generate initials from name
+function getInitials(name: string) {
+  const names = name.split(' ')
+  let initials = names[0].substring(0, 1).toUpperCase()
+  
+  if (names.length > 1) {
+    initials += names[names.length - 1].substring(0, 1).toUpperCase()
+  }
+  
+  return initials
+}
+
 export default function TeamPage() {
   const coaches = [
     {
       name: "Coach Shola Lawal",
-      position: "Head Coach & Technical Director",
-      experience: "15 years",
-      qualifications: "UEFA B License, CAF License",
       image: "/coach.jpg",
-      specialization: "Tactical Development",
       bio: "A skilled and passionate coach dedicated to developing talent and building disciplined, professional footballers.",
     },
-    // {
-    //   name: "Coach Sarah Okonkwo",
-    //   position: "Assistant Coach",
-    //   experience: "8 years",
-    //   qualifications: "CAF C License, Sports Science Degree",
-    //   image: "/placeholder.svg?height=300&width=300",
-    //   specialization: "Physical Conditioning",
-    //   bio: "Specialized in fitness training and injury prevention with a background in sports science.",
-    // },
-    // {
-    //   name: "Coach David Musa",
-    //   position: "Goalkeeping Coach",
-    //   experience: "12 years",
-    //   qualifications: "FIFA Goalkeeping Certificate",
-    //   image: "/placeholder.svg?height=300&width=300",
-    //   specialization: "Goalkeeping",
-    //   bio: "Former professional goalkeeper with expertise in modern goalkeeping techniques and training methods.",
-    // },
-    // {
-    //   name: "Coach Fatima Ibrahim",
-    //   position: "Youth Development Coach",
-    //   experience: "6 years",
-    //   qualifications: "CAF D License, Child Psychology",
-    //   image: "/placeholder.svg?height=300&width=300",
-    //   specialization: "Youth Development",
-    //   bio: "Specialized in working with young players, focusing on skill development and character building.",
-    // },
   ]
 
   const seniorPlayers = [
     {
       name: "Samonroka",
       position: "Goalkeeper",
-      age: 24,
       image: "/goalkeeper.jpg",
-      achievements: ["Team Captain", "Best Player 2024"],
-      stats: { goals: 12, assists: 8, appearances: 28 },
     },
     {
       name: "Tunde",
       position: "Centre Back",
-      age: 22,
       image: "/tunde.jpg",
-      achievements: ["Top Scorer 2024"],
-      stats: { goals: 18, assists: 4, appearances: 26 },
     },
     {
       name: "Ajeye",
       position: "Centre Back",
-      age: 21,
       image: "/ajeye.jpg",
-      achievements: ["Best Goalkeeper 2023"],
-      stats: { cleanSheets: 15, saves: 89, appearances: 24 },
     },
     {
       name: "Beckhamp",
       position: "Midfielder",
-      age: 23,
       image: "/beckham.jpg",
-      achievements: ["Most Consistent Player"],
-      stats: { goals: 3, assists: 6, appearances: 30 },
     },
     {
       name: "Bobo",
       position: "Defensive Midfielder",
-      age: 20,
       image: "/bobo.jpg",
-      achievements: ["Rising Star 2024"],
-      stats: { goals: 8, assists: 12, appearances: 25 },
     },
     {
       name: "Ajani",
       position: "Defender",
-      age: 25,
       image: "/ajani.jpg",
-      achievements: ["Most Assists 2024"],
-      stats: { goals: 6, assists: 15, appearances: 29 },
+    },
+    {
+      name: "Pelumi",
+      position: "Midfielder",
+      image: "/see.jpg",
+    },
+    {
+      name: "Furqon",
+      position: "Attacking Midfielder",
+      image: "/furs.jpg",
+    },
+    {
+      name: "Adebayo",
+      position: "Attacker",
+      image: "/adebayo.jpg",
     },
     {
       name: "Araromi N.",
       position: "Right Back",
-      age: 25,
       image: "/araromi.jpg",
-      achievements: ["Most Assists 2024"],
-      stats: { goals: 6, assists: 15, appearances: 29 },
     },
     {
       name: "Seedorf",
       position: "Midfielder",
-      age: 25,
       image: "/seedorf.jpg",
-      achievements: ["Most Assists 2024"],
-      stats: { goals: 6, assists: 15, appearances: 29 },
     },
     {
       name: "Nana",
       position: "Defensive Midfielder",
-      age: 25,
       image: "/nana.jpg",
-      achievements: ["Most Assists 2024"],
-      stats: { goals: 6, assists: 15, appearances: 29 },
     },
     {
       name: "Murr",
       position: "Attacker",
-      age: 25,
       image: "/murr.jpg",
-      achievements: ["Most Assists 2024"],
-      stats: { goals: 6, assists: 15, appearances: 29 },
     },
     {
       name: "Titta",
       position: "Attacking Striker",
-      age: 25,
       image: "/titta.jpg",
-      achievements: ["Most Assists 2024"],
-      stats: { goals: 6, assists: 15, appearances: 29 },
     },
     {
       name: "Jubril",
       position: "Attacker",
-      age: 25,
       image: "/jubril.jpg",
-      achievements: ["Most Assists 2024"],
-      stats: { goals: 6, assists: 15, appearances: 29 },
     },
     {
       name: "Alabi",
       position: "Midfielder",
-      age: 25,
       image: "/alabi-m.jpg",
-      achievements: ["Most Assists 2024"],
-      stats: { goals: 6, assists: 15, appearances: 29 },
     },
     {
       name: "Muftau",
       position: "Left Back",
-      age: 25,
       image: "/muftau.jpg",
-      achievements: ["Most Assists 2024"],
-      stats: { goals: 6, assists: 15, appearances: 29 },
     },
     {
       name: "Ay-Zee",
       position: "Left Winger",
-      age: 25,
       image: "/ayzee.jpg",
-      achievements: ["Most Assists 2024"],
-      stats: { goals: 6, assists: 15, appearances: 29 },
     },
     {
       name: "Araromi L.",
       position: "Attacker",
-      age: 25,
       image: "/araromi-l.jpg",
-      achievements: ["Most Assists 2024"],
-      stats: { goals: 6, assists: 15, appearances: 29 },
     },
     {
       name: "Waheed",
       position: "Attacker",
-      age: 25,
       image: "/waheed.jpg",
-      achievements: ["Most Assists 2024"],
-      stats: { goals: 6, assists: 15, appearances: 29 },
     },
     {
       name: "A. Johnson",
       position: "Striker",
-      age: 25,
       image: "/a-johnson.jpg",
-      achievements: ["Most Assists 2024"],
-      stats: { goals: 6, assists: 15, appearances: 29 },
     },
   ]
 
   const juniorPlayers = [
     {
-      name: "Daniel Okafor",
-      position: "Forward",
-      age: 16,
-      image: "/placeholder.svg?height=200&width=200",
-      achievements: ["Junior Top Scorer"],
-      stats: { goals: 15, assists: 7, appearances: 20 },
+      name: "Abduganiyu Azeez",
+      position: "Centre Back",
+      image: "/ganiyu.jpg",
     },
     {
-      name: "Blessing Uche",
-      position: "Midfielder",
-      age: 15,
-      image: "/placeholder.svg?height=200&width=200",
-      achievements: ["Most Improved Player"],
-      stats: { goals: 5, assists: 10, appearances: 22 },
+      name: "Abdullahi Muhammed Furqon ",
+      position: "Attacker",
+      image: "/furqon.jpg",
     },
     {
-      name: "Emmanuel Sani",
-      position: "Defender",
-      age: 17,
-      image: "/placeholder.svg?height=200&width=200",
-      achievements: ["Best Defender"],
-      stats: { goals: 2, assists: 4, appearances: 24 },
+      name: "Abdulqudus Tunde Atoyebi",
+      position: "Centre Back",
+      image: "/qudus.jpg",
     },
     {
-      name: "Aisha Mohammed",
-      position: "Goalkeeper",
-      age: 14,
-      image: "/placeholder.svg?height=200&width=200",
-      achievements: ["Youngest Player"],
-      stats: { cleanSheets: 12, saves: 67, appearances: 18 },
+      name: "Abdulrasaq Mubaraq",
+      position: "Centre Back",
+      image: "/muba.jpg",
     },
     {
-      name: "Victor Eze",
+      name: "Adelodun Muftau",
+      position: "Right Back",
+      image: "/adelodun.jpg",
+    },
+    {
+      name: "Adeyanju Ridwan Bobo",
+      position: "Defensive Midfielder",
+      image: "/adeyanju.jpg",
+    },
+    {
+      name: "Adura Samuel",
+      position: "Left Back",
+      image: "/adura.jpg",
+    },
+    {
+      name: "Agbaje Boluwatife I.",
       position: "Winger",
-      age: 16,
-      image: "/placeholder.svg?height=200&width=200",
-      achievements: ["Fastest Player"],
-      stats: { goals: 9, assists: 8, appearances: 21 },
+      image: "/agbaje.jpg",
     },
     {
-      name: "Khadija Bello",
+      name: "Agbaje Nasim",
+      position: "Attacking Midfielder",
+      image: "/nasim.jpg",
+    },
+    {
+      name: "Araromi Lawal",
+      position: "Attacker",
+      image: "/lawal.jpg",
+    },
+    {
+      name: "Atolagbe Treasure Onaolapo",
+      position: "Left Winger",
+      image: "/treasure.jpg",
+    },
+    {
+      name: "David Oni Oluwatobi",
+      position: "Goalkeeper",
+      image: "/oni.jpg",
+    },
+    {
+      name: "Haruna Onoroiza Ibrahim",
+      position: "Left Back",
+      image: "/haruna.jpg",
+    },
+    {
+      name: "Ibrahim Moshood ",
+      position: "Centre Back",
+      image: "/moshood.jpg",
+    },
+    {
+      name: "Idris Umar-Faruq",
+      position: "Defensive Midfielder",
+      image: "/idris.jpg",
+    },
+    {
+      name: "Isaiah Sebastin",
+      position: "Striker",
+      image: "/isaiah.jpg",
+    },
+    {
+      name: "Iskil Otolorin Ayinla",
+      position: "Left Winger",
+      image: "/ayinla.jpg",
+    },
+    {
+      name: "Johnson Olaoluwa Akintola",
+      position: "Striker",
+      image: "/johnson.jpg",
+    },
+    {
+      name: "Owolafe Mustapha",
+      position: "Right Winger",
+      image: "/mustapha.jpg",
+    },
+    {
+      name: "Pelumi Olayinka A.",
+      position: "Attacking Midfielder",
+      image: "/pelumi.jpg",
+    },
+    {
+      name: "Qudus Ajani",
+      position: "Defender",
+      image: "/q-ajani.jpg",
+    },
+    {
+      name: "Ridwan Ishola Hamed",
+      position: "Left Back",
+      image: "/ridwan.jpg",
+    },
+    {
+      name: "Sekoni Kazeem",
       position: "Midfielder",
-      age: 15,
-      image: "/placeholder.svg?height=200&width=200",
-      achievements: ["Team Spirit Award"],
-      stats: { goals: 4, assists: 9, appearances: 23 },
+      image: "/sekoni.jpg",
+    },
+    {
+      name: "Usman Abdulwaheed Ozomata",
+      position: "Attacker",
+      image: "/usman.jpg",
+    },
+    {
+      name: "Victor Adebayo",
+      position: "Attacker",
+      image: "/victor.jpg",
+    },
+    {
+      name: "Oni Oluwatobi D",
+      position: "Goalkeeper",
+      image: "/tobi.jpg",
+    },
+    {
+      name: "Yusuph Mukhtar",
+      position: "Striker",
+      image: "/yusuph.jpg",
+    },
+    {
+      name: "Abubakar Abdulrasheed Olayinka",
+      position: "Goalkeeper",
+      image: "/avatar",
+    },
+    {
+      name: "Olayanju Ridwan Oluwaseun",
+      position: "Winger",
+      image: "/avatar",
+    },
+    {
+      name: "Abdulrasaq Mubaraq Omokayode",
+      position: "Goalkeeper",
+      image: "/avatar",
+    },
+    {
+      name: "Akingboye David Temitope",
+      position: "Midfielder",
+      image: "/avatar",
+    },
+    {
+      name: "Ismail Abdulwasiu Adebayo",
+      position: "Attacker",
+      image: "/avatar",
+    },
+    {
+      name: "Okeowo Moses Shola",
+      position: "Defensive Midfielder",
+      image: "/avatar",
+    },
+    {
+      name: "Jubril Adedayo Bello",
+      position: "Right Winger",
+      image: "/avatar",
     },
   ]
 
@@ -294,13 +357,13 @@ export default function TeamPage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <Tabs defaultValue="coaches" className="space-y-8">
-            <TabsList className="grid lg:w-[50%] mx-auto grid-cols-2 cursor-pointer">
-              <TabsTrigger className="cursor-pointer" value="coaches">Coaching Staff</TabsTrigger>
-              <TabsTrigger className="cursor-pointer" value="senior">Players</TabsTrigger>
-              {/* <TabsTrigger className="cursor-pointer" value="junior">Junior Players</TabsTrigger> */}
+            <TabsList className="grid lg:w-[50%] w-full mx-auto grid-cols-3 cursor-pointer">
+              <TabsTrigger className="cursor-pointer" value="coaches">Coach</TabsTrigger>
+              <TabsTrigger className="cursor-pointer" value="senior">Senior</TabsTrigger>
+              <TabsTrigger className="cursor-pointer" value="junior">Junior</TabsTrigger>
             </TabsList>
 
-            {/* Coaches Tab */}
+            {/* Coaches Tab - Centered */}
             <TabsContent value="coaches" className="space-y-8">
               <div className="text-center mb-12">
                 <h2 className="lg:text-4xl text-[28px] font-bold text-gray-900 mb-4">Our Coaching Staff</h2>
@@ -310,41 +373,28 @@ export default function TeamPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {coaches.map((coach, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
-                    <CardHeader className="text-center">
-                      <div className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
-                        <Image
-                          src={coach.image || "/placeholder.svg"}
-                          alt={coach.name}
-                          className="w-full h-full object-cover object-top"
-                          width={228}
-                          height={228}
-                        />
-                      </div>
-                      <CardTitle className="text-xl">{coach.name}</CardTitle>
-                      <CardDescription className="text-green-600 font-medium">{coach.position}</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      {/* <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <span className="font-medium text-gray-700">Experience:</span>
-                          <p className="text-gray-600">{coach.experience}</p>
+              <div className="flex justify-center">
+                <div className="grid grid-cols-1 md:grid-cols-1 gap-8 w-full md:w-1/2">
+                  {coaches.map((coach, index) => (
+                    <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
+                      <CardHeader className="text-center">
+                        <div className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
+                          <Image
+                            src={coach.image || "/placeholder.svg"}
+                            alt={coach.name}
+                            className="w-full h-full object-cover object-top"
+                            width={228}
+                            height={228}
+                          />
                         </div>
-                        <div>
-                          <span className="font-medium text-gray-700">Specialization:</span>
-                          <p className="text-gray-600">{coach.specialization}</p>
-                        </div>
-                      </div> */}
-                      {/* <div>
-                        <span className="font-medium text-gray-700">Qualifications:</span>
-                        <p className="text-gray-600">{coach.qualifications}</p>
-                      </div> */}
-                      <p className="text-gray-600 text-sm leading-relaxed">{coach.bio}</p>
-                    </CardContent>
-                  </Card>
-                ))}
+                        <CardTitle className="text-xl">{coach.name}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <p className="text-gray-600 text-sm leading-relaxed">{coach.bio}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
               </div>
             </TabsContent>
 
@@ -362,55 +412,23 @@ export default function TeamPage() {
                   <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
                     <CardHeader className="text-center">
                       <div className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
-                        <Image
-                          src={player.image || "/placeholder.svg"}
-                          alt={player.name}
-                          className="w-full h-full object-cover object-top"
-                          width={228}
-                          height={228}
-                        />
+                        {player.image !== "/avatar" ? (
+                          <Image
+                            src={player.image || "/placeholder.svg"}
+                            alt={player.name}
+                            className="w-full h-full object-cover object-top"
+                            width={228}
+                            height={228}
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center bg-green-600 text-white text-4xl font-bold">
+                            {getInitials(player.name)}
+                          </div>
+                        )}
                       </div>
                       <CardTitle className="text-lg">{player.name}</CardTitle>
                       <CardDescription className="text-green-600 font-medium">{player.position}</CardDescription>
-                      {/* <Badge variant="secondary">Age {player.age}</Badge> */}
                     </CardHeader>
-                    {/* <CardContent className="space-y-4">
-                      <div>
-                        <h4 className="font-medium text-gray-700 mb-2">Season Stats</h4>
-                        <div className="grid grid-cols-3 gap-2 text-sm">
-                          <div className="text-center">
-                            <div className="font-bold text-green-600">
-                              {player.stats.goals || player.stats.cleanSheets || 0}
-                            </div>
-                            <div className="text-gray-600">
-                              {player.stats.goals !== undefined ? "Goals" : "Clean Sheets"}
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-bold text-blue-600">
-                              {player.stats.assists || player.stats.saves || 0}
-                            </div>
-                            <div className="text-gray-600">
-                              {player.stats.assists !== undefined ? "Assists" : "Saves"}
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-bold text-gray-600">{player.stats.appearances}</div>
-                            <div className="text-gray-600">Apps</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-700 mb-2">Achievements</h4>
-                        <div className="space-y-1">
-                          {player.achievements.map((achievement, achIndex) => (
-                            <Badge key={achIndex} variant="outline" className="text-xs text-[#B0B3B8]">
-                              {achievement}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </CardContent> */}
                   </Card>
                 ))}
               </div>
@@ -429,56 +447,24 @@ export default function TeamPage() {
                 {juniorPlayers.map((player, index) => (
                   <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
                     <CardHeader className="text-center">
-                      <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
-                        <Image
-                          src={player.image || "/placeholder.svg"}
-                          alt={player.name}
-                          className="w-full h-full object-cover"
-                          width={128}
-                          height={128}
-                        />
+                      <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden ">
+                        {player.image !== "/avatar" ? (
+                          <Image
+                            src={player.image || "/placeholder.svg"}
+                            alt={player.name}
+                            className="w-full h-full object-cover"
+                            width={128}
+                            height={128}
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center bg-[#F5F5F5]  text-black text-2xl font-bold">
+                            {getInitials(player.name)}
+                          </div>
+                        )}
                       </div>
                       <CardTitle className="text-lg">{player.name}</CardTitle>
-                      <CardDescription className="text-blue-600 font-medium">{player.position}</CardDescription>
-                      <Badge variant="secondary">Age {player.age}</Badge>
+                      <CardDescription className="text-[#047146] font-medium">{player.position}</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div>
-                        <h4 className="font-medium text-gray-700 mb-2">Season Stats</h4>
-                        <div className="grid grid-cols-3 gap-2 text-sm">
-                          <div className="text-center">
-                            <div className="font-bold text-green-600">
-                              {player.stats.goals || player.stats.cleanSheets || 0}
-                            </div>
-                            <div className="text-gray-600">
-                              {player.stats.goals !== undefined ? "Goals" : "Clean Sheets"}
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-bold text-blue-600">
-                              {player.stats.assists || player.stats.saves || 0}
-                            </div>
-                            <div className="text-gray-600">
-                              {player.stats.assists !== undefined ? "Assists" : "Saves"}
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-bold text-gray-600">{player.stats.appearances}</div>
-                            <div className="text-gray-600">Apps</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-700 mb-2">Achievements</h4>
-                        <div className="space-y-1">
-                          {player.achievements.map((achievement, achIndex) => (
-                            <Badge key={achIndex} variant="outline" className="text-xs text-[#B0B3B8]">
-                              {achievement}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </CardContent>
                   </Card>
                 ))}
               </div>

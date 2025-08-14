@@ -9,28 +9,22 @@ export function TeamShowcaseSection() {
 
     const featuredPlayers = [
         {
-            name: "Jubril",
-            position: "Winger",
-            age: 17,
-            achievement: "Top Scorer - 23 Goals",
-            image: "/jubril.jpg",
-            status: "Scouted by Professional Club",
+            name: "Coach Shola Lawal ",
+            position: "Head Coach",
+            image: "/coach.jpg",
+            category: "Coach",
         },
         {
             name: "Titta",
             position: "Attacking Striker",
-            age: 16,
-            achievement: "Best Player Award 2023",
             image: "/titta.jpg",
-            status: "National Youth Team Call-up",
+            category: "Senior Player",
         },
         {
-            name: "AY-Zee",
-            position: "Left Winger",
-            age: 15,
-            achievement: "Clean Sheet Record Holder",
-            image: "/ayzee.jpg",
-            status: "State Team Captain",
+            name: "Idris Umar-Faruq",
+            position: "Defensive Midfielder",
+            image: "/idris.jpg",
+            category: "Junior Player",
         },
     ]
 
@@ -66,6 +60,7 @@ export function TeamShowcaseSection() {
                                     <div className="flex-1">
                                         <h4 className="text-xl font-bold text-gray-900 mb-2">{player.name}</h4>
                                         <p className="text-[#047146] font-medium mb-2">{player.position}</p>
+                                        <Badge className="bg-green-100 text-green-800 hover:bg-green-200 mt-2">{player.category}</Badge>
                                     </div>
                                 </CardContent>
                             </Card>
